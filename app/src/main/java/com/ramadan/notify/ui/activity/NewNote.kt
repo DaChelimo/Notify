@@ -101,7 +101,7 @@ class NewNote : AppCompatActivity(), NoteListener, KodeinAware {
         }
         return super.onOptionsItemSelected(item)
     }
- 
+
     private fun initMenuFragment() {
         val menuParams = MenuParams(
             actionBarSize = resources.getDimension(R.dimen.tool_bar_height).toInt(),

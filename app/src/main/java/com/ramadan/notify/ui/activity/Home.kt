@@ -114,7 +114,7 @@ class Home : AppCompatActivity(), KodeinAware {
             MenuObject("New note").apply { setResourceValue(R.drawable.new_note) }
         newNote.setBgColorValue((Color.rgb(32, 32, 32)))
         val whiteBoard =
-            MenuObject("Whiteboard").apply { setResourceValue(R.drawable.whiteboard) }
+            MenuObject("Whiteboard").apply { setResourceValue(R.drawable.new_whiteboard) }
         whiteBoard.setBgColorValue((Color.BLACK))
         val logOut =
             MenuObject("Logout").apply { setResourceValue(R.drawable.logout) }

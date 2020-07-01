@@ -13,7 +13,6 @@ import android.widget.SeekBar.OnSeekBarChangeListener
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
-import com.github.naz013.colorslider.ColorSlider
 import com.ramadan.notify.R
 import com.ramadan.notify.databinding.NewWhiteboardBinding
 import com.ramadan.notify.ui.viewModel.NoteListener
@@ -53,10 +52,10 @@ class DrawNote : AppCompatActivity(), NoteListener, KodeinAware {
         whiteboard.setOnTouchListener(TouchListener())
         initMenuFragment()
 
-        penColorPicker.setListener(ColorSlider.OnColorSelectedListener { position, color ->
+        penColorPicker.setListener{ position, color ->
             whiteboard.setCurrentWidth(seekBar.progress)
             whiteboard.setCurrentColor(color)
-        })
+        }
 
         seekBar.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
@@ -123,7 +122,7 @@ class DrawNote : AppCompatActivity(), NoteListener, KodeinAware {
         val empty = MenuObject().apply {}
         empty.setBgColorValue((Color.BLACK))
         val clear =
-            MenuObject("Clear").apply { setResourceValue(R.drawable.new_whiteboard) }
+            MenuObject("Clear").apply { setResourceValue(R.drawable.clear_whiteboard) }
         clear.setBgColorValue((Color.rgb(32, 32, 32)))
         val save =
             MenuObject("Save").apply { setResourceValue(R.drawable.save_note) }
