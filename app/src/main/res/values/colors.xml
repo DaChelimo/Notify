@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#313131</color>
+    <color name="colorPrimaryLight">#525252</color>
+    <color name="colorPrimaryDark">#232323</color>
+    <color name="colorAccent">#ffc300</color>
+    <color name="lightGrey">#80e0e0e0</color>
+    <color name="grey">#cacabf</color>
+    <color name="white">#ffffff</color>
+    <color name="bright_pink">#ffd0d7</color>
+    <color name="yellow">#feff9c</color>
+    <color name="green1">#007944</color>
+    <color name="green">#a6f1a6</color>
+    <color name="sky">#9fd8fb</color>
+    <color name="blue">#1109bb</color>
+
+    <array name="noteColors">
+        <item>@color/white</item>
+        <item>@color/grey</item>
+        <item>@color/bright_pink</item>
+        <item>@color/green</item>
+        <item>@color/yellow</item>
+        <item>@color/sky</item>
+    </array>
+    <array name="penColors">
+        <item>@android:color/black</item>
+        <item>@color/green1</item>
+        <item>@color/blue</item>
+        <item>@android:color/holo_red_dark</item>
+        <item>@color/colorAccent</item>
+    </array>
+</resources>

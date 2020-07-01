@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "762933830622",
+    "firebase_url": "https://notify-8448c.firebaseio.com",
+    "project_id": "notify-8448c",
+    "storage_bucket": "notify-8448c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:762933830622:android:debcd77d52730a205db34f",
+        "android_client_info": {
+          "package_name": "com.ramadan.notify"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "762933830622-asqci21pr7kle1egi1ao7un4fnb9c4jj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA08tYGdJvfSNSfyVD6QP-1_DZGzLlawYE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "762933830622-asqci21pr7kle1egi1ao7un4fnb9c4jj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

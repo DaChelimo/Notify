@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AndroidLayouts">
+    <shared>
+      <config />
+    </shared>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="df45f332-c71d-4e75-a1ba-d12aa2ce3533" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="New_Device_API_26" />
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
+        <task path="$PROJECT_DIR$/app">
+          <activation />
+        </task>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="Notify" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="Notify" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="Notify" type="f1a62948:ProjectNode" />
+                <item name="app" type="2d1252cf:ModuleNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="Notify" type="f1a62948:ProjectNode" />
+                <item name="app" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Kotlin Interface" />
+        <option value="Kotlin Class" />
+        <option value="layoutResourceFile" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectId" id="1dZ5BlB8dJmoH9ohUbqWZzZ4WN3" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_directory_selection" value="$PROJECT_DIR$/app/src/main/res/drawable" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/src/main/res/drawable" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.17" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
+    <property name="show.migrate.to.gradle.popup" value="false" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY">
+      <recent name="com.ramadan.notify.data.Repository" />
+      <recent name="com.ramadan.notify.ui.ViewModel" />
+      <recent name="com.ramadan.notify.ui.Activity" />
+    </key>
+    <key name="CopyKotlinDeclarationDialog.RECENTS_KEY">
+      <recent name="com.ramadan.notify.ui.viewModel" />
+      <recent name="com.ramadan.notify.data.repository" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.ramadan.notify.utils" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\mhmdr\Documents\androidProjects\probelalkhan-firebase-auth-mvvm-b53ecc3\app\src\main\res\drawable" />
+      <recent name="C:\Users\mhmdr\Documents\androidProjects\probelalkhan-firebase-auth-mvvm-b53ecc3\app\src\main\res\layout" />
+      <recent name="C:\Users\mhmdr\Documents\androidProjects\probelalkhan-firebase-auth-mvvm-b53ecc3\app\src\main\java\com\ramadan\notify\ui\activity" />
+      <recent name="C:\Users\mhmdr\Documents\androidProjects\probelalkhan-firebase-auth-mvvm-b53ecc3\app\src\main\java\com\ramadan\notify\ui" />
+      <recent name="C:\Users\mhmdr\Documents\androidProjects\probelalkhan-firebase-auth-mvvm-b53ecc3\app\src\main\res\values" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="AndroidJUnit" factoryName="Android JUnit">
+      <option name="TEST_OBJECT" value="class" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App" activateToolWindowBeforeRun="false">
+      <module name="app" />
+      <option name="DEPLOY" value="true" />
+      <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
+      <option name="DEPLOY_AS_INSTANT" value="false" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="PM_INSTALL_OPTIONS" value="" />
+      <option name="DYNAMIC_FEATURES_DISABLED_LIST" value="" />
+      <option name="ACTIVITY_EXTRA_FLAGS" value="" />
+      <option name="MODE" value="default_activity" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
+      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
+      <option name="FORCE_STOP_RUNNING_APP" value="true" />
+      <option name="TARGET_SELECTION_MODE" value="DEVICE_AND_SNAPSHOT_COMBO_BOX" />
+      <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="-1" />
+      <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
+      <option name="DEBUGGER_TYPE" value="Auto" />
+      <Auto>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Auto>
+      <Hybrid>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Hybrid>
+      <Java />
+      <Native>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Native>
+      <Profilers>
+        <option name="ADVANCED_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_CONFIGURATION_NAME" value="Sample Java Methods" />
+      </Profilers>
+      <option name="DEEP_LINK" value="" />
+      <option name="ACTIVITY_CLASS" value="com.ramadan.notify.ui.Activity.LoginActivity" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="df45f332-c71d-4e75-a1ba-d12aa2ce3533" name="Default Changelist" comment="" />
+      <created>1592619641525</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1592619641525</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="185" y="106" key="#Notifications" timestamp="1592626418517">
+      <screen x="0" y="30" width="1536" height="834" />
+    </state>
+    <state x="185" y="106" key="#Notifications/0.30.1536.834@0.30.1536.834" timestamp="1592626418517" />
+    <state x="110" y="179" key="#PSD" timestamp="1592623456677">
+      <screen x="0" y="30" width="1536" height="834" />
+    </state>
+    <state x="110" y="179" key="#PSD/0.30.1536.834@0.30.1536.834" timestamp="1592623456677" />
+    <state x="47" y="102" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1592624206608">
+      <screen x="0" y="30" width="1536" height="834" />
+    </state>
+    <state x="47" y="102" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.30.1536.834@0.30.1536.834" timestamp="1592624206608" />
+    <state x="389" y="163" key="#com.intellij.ide.util.MemberChooser" timestamp="1593571482841">
+      <screen x="0" y="30" width="1536" height="834" />
+    </state>
+    <state x="389" y="163" key="#com.intellij.ide.util.MemberChooser/0.30.1536.834@0.30.1536.834" timestamp="1593571482841" />
+    <state x="322" y="231" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1592623923047">
+      <screen x="0" y="30" width="1536" height="834" />
+    </state>
+    <state x="322" y="231" key="#com.intellij.ide.util.TreeClassChooserDialog/0.30.1536.834@0.30.1536.834" timestamp="1592623923047" />
+    <state x="172" y="178" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1593203916263">
+      <screen x="0" y="30" width="1536" height="834" />
+    </state>
+    <state x="172" y="178" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.30.1536.834@0.30.1536.834" timestamp="1593203916263" />
+    <state x="0" y="374" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog" timestamp="1592627503469">
+      <screen x="0" y="30" width="1536" height="834" />
+    </state>
+    <state x="0" y="374" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog/0.30.1536.834@0.30.1536.834" timestamp="1592627503469" />
+    <state x="359" y="102" width="480" height="690" key="#org.jetbrains.kotlin.idea.refactoring.move.moveDeclarations.ui.MoveKotlinTopLevelDeclarationsDialog" timestamp="1592627560120">
+      <screen x="0" y="30" width="1536" height="834" />
+    </state>
+    <state x="359" y="102" width="480" height="690" key="#org.jetbrains.kotlin.idea.refactoring.move.moveDeclarations.ui.MoveKotlinTopLevelDeclarationsDialog/0.30.1536.834@0.30.1536.834" timestamp="1592627560120" />
+    <state x="344" y="302" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1592624046327">
+      <screen x="0" y="30" width="1536" height="834" />
+    </state>
+    <state x="344" y="302" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.30.1536.834@0.30.1536.834" timestamp="1592624046327" />
+    <state x="72" y="202" key="AndroidCreateResourceFileDialog" timestamp="1593204870915">
+      <screen x="0" y="30" width="1536" height="834" />
+    </state>
+    <state x="72" y="202" key="AndroidCreateResourceFileDialog/0.30.1536.834@0.30.1536.834" timestamp="1593204870915" />
+    <state x="329" y="188" key="FileChooserDialogImpl" timestamp="1593226328082">
+      <screen x="0" y="30" width="1536" height="834" />
+    </state>
+    <state x="329" y="188" key="FileChooserDialogImpl/0.30.1536.834@0.30.1536.834" timestamp="1593226328082" />
+    <state width="1113" height="202" key="GridCell.Tab.0.bottom" timestamp="1593572167463">
+      <screen x="0" y="30" width="1536" height="834" />
+    </state>
+    <state width="1113" height="202" key="GridCell.Tab.0.bottom/0.30.1536.834@0.30.1536.834" timestamp="1593572167463" />
+    <state width="1113" height="202" key="GridCell.Tab.0.center" timestamp="1593572167463">
+      <screen x="0" y="30" width="1536" height="834" />
+    </state>
+    <state width="1113" height="202" key="GridCell.Tab.0.center/0.30.1536.834@0.30.1536.834" timestamp="1593572167463" />
+    <state width="1113" height="202" key="GridCell.Tab.0.left" timestamp="1593572167462">
+      <screen x="0" y="30" width="1536" height="834" />
+    </state>
+    <state width="1113" height="202" key="GridCell.Tab.0.left/0.30.1536.834@0.30.1536.834" timestamp="1593572167462" />
+    <state width="1113" height="202" key="GridCell.Tab.0.right" timestamp="1593572167463">
+      <screen x="0" y="30" width="1536" height="834" />
+    </state>
+    <state width="1113" height="202" key="GridCell.Tab.0.right/0.30.1536.834@0.30.1536.834" timestamp="1593572167463" />
+    <state x="173" y="190" key="IDE.errors.dialog" timestamp="1592629535998">
+      <screen x="0" y="30" width="1536" height="834" />
+    </state>
+    <state x="173" y="190" key="IDE.errors.dialog/0.30.1536.834@0.30.1536.834" timestamp="1592629535998" />
+    <state x="316" y="225" key="chooseDestDirectoryDialog" timestamp="1593381096527">
+      <screen x="0" y="30" width="1536" height="834" />
+    </state>
+    <state x="316" y="225" key="chooseDestDirectoryDialog/0.30.1536.834@0.30.1536.834" timestamp="1593381096527" />
+    <state x="250" y="206" width="672" height="677" key="run.anything.popup" timestamp="1592950667654">
+      <screen x="0" y="30" width="1536" height="834" />
+    </state>
+    <state x="250" y="206" width="672" height="677" key="run.anything.popup/0.30.1536.834@0.30.1536.834" timestamp="1592950667654" />
+    <state x="266" y="107" width="670" height="676" key="search.everywhere.popup" timestamp="1592865261982">
+      <screen x="0" y="30" width="1536" height="834" />
+    </state>
+    <state x="266" y="107" width="670" height="676" key="search.everywhere.popup/0.30.1536.834@0.30.1536.834" timestamp="1592865261982" />
+  </component>
+</project>

@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: com.github.mohammadatif:Animatoo:master@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/94d26694afab990aad96bc97e2f7410c/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/94d26694afab990aad96bc97e2f7410c/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.mohammadatif/Animatoo/master/d18363581728bbebb84faf8ff1a6254104bc1410/Animatoo-master-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

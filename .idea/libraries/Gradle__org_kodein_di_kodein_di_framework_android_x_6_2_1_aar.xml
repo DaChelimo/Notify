@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: org.kodein.di:kodein-di-framework-android-x:6.2.1@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/912bdc79f9fa7d3d493e8274e2928d0e/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/912bdc79f9fa7d3d493e8274e2928d0e/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.kodein.di/kodein-di-framework-android-x/6.2.1/dc3208f290d4310ffecbd6336b37d0726977fe0d/kodein-di-framework-android-x-6.2.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

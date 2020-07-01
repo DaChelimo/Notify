@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: com.github.naz013:ColorSlider:2.0.6@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/53e678f8babeb7b6ad9302c037eb8a4b/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/53e678f8babeb7b6ad9302c037eb8a4b/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.naz013/ColorSlider/2.0.6/79d4a537fd177035886f8efaaf905064efef8d5/ColorSlider-2.0.6-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

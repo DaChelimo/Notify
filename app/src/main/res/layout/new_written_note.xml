@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+                name="noteModel"
+                type="com.ramadan.notify.ui.viewModel.NoteViewModel" />
+    </data>
+
+
+    <RelativeLayout
+            android:id="@+id/noteLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:background="@{noteModel.noteColor}">
+
+        <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                android:layout_centerInParent="true"
+                android:visibility="gone" />
+
+        <TextView
+                android:id="@+id/date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:text="@={noteModel.date}"
+                android:textColor="@color/colorPrimary"
+                android:textStyle="bold" />
+
+        <EditText
+                android:id="@+id/noteName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/date"
+                android:layout_centerHorizontal="true"
+                android:layout_marginVertical="10dp"
+                android:gravity="center"
+                android:hint="Note name"
+                android:text="@={noteModel.name}"
+                android:textColor="@color/colorPrimary"
+                android:textColorHint="@color/colorPrimaryLight" />
+
+        <com.ramadan.notify.utils.LinedEditText
+                android:id="@+id/noteContent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/noteName"
+                android:background="@null"
+                android:gravity="start"
+                android:hint="Type your note"
+                android:imeOptions="actionNone"
+                android:inputType="textMultiLine|textNoSuggestions"
+                android:layoutDirection="inherit"
+                android:singleLine="false"
+                android:text="@={noteModel.content}"
+                android:textAlignment="inherit"
+                android:textColor="@color/colorPrimary"
+                android:textColorHint="@color/colorPrimaryLight"
+                android:textDirection="inherit" />
+
+        <com.github.naz013.colorslider.ColorSlider
+                android:id="@+id/noteColorPicker"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="4dp"
+                app:cs_colors="@array/noteColors"
+                app:cs_steps="00" />
+
+    </RelativeLayout>
+
+</layout>
