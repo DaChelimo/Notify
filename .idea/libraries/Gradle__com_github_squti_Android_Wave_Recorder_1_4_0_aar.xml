@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: com.github.squti:Android-Wave-Recorder:1.4.0@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/eeb87c3632ba3e7f66b9bf0998735d54/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/eeb87c3632ba3e7f66b9bf0998735d54/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.squti/Android-Wave-Recorder/1.4.0/4f52bf0d72790f68e79fc5e8e9a4b4c5f35b6f4a/Android-Wave-Recorder-1.4.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

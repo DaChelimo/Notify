@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+                name="recordModel"
+                type="com.ramadan.notify.ui.viewModel.RecordViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".ui.activity.Record">
+
+
+        <com.devlomi.record_view.RecordView
+                android:id="@+id/recordView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:layout_toLeftOf="@id/recordButton"
+                app:counter_time_color="#ff0000"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/recordButton"
+                app:layout_constraintStart_toStartOf="parent"
+                app:slide_to_cancel_arrow="@drawable/recv_ic_arrow"
+                app:slide_to_cancel_arrow_color="#000000"
+                app:slide_to_cancel_bounds="8dp"
+                app:slide_to_cancel_margin_right="10dp"
+                app:slide_to_cancel_text="Slide To Cancel" />
+
+
+        <Button
+                android:id="@+id/btnChangeOnclick"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="Change onClick"
+                app:layout_constraintBottom_toTopOf="@+id/recordView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        <com.devlomi.record_view.RecordButton
+                android:id="@+id/recordButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/recv_bg_mic"
+                android:scaleType="centerInside"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:mic_icon="@drawable/recv_ic_mic_white" />
+
+
+        <TextView
+                android:id="@+id/recordingTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Recording..."
+                android:textColor="#FF0000"
+                android:textSize="40sp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        <Switch
+                android:id="@+id/showAmplitudeSwitch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+                android:id="@+id/showAmplitudeLabelTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Show Amplitude"
+                app:layout_constraintBottom_toBottomOf="@+id/showAmplitudeSwitch"
+                app:layout_constraintStart_toEndOf="@+id/showAmplitudeSwitch"
+                app:layout_constraintTop_toTopOf="@+id/showAmplitudeSwitch" />
+
+        <Switch
+                android:id="@+id/noiseSuppressorSwitch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/showAmplitudeSwitch"
+                app:layout_constraintStart_toEndOf="@+id/showAmplitudeLabelTextView"
+                app:layout_constraintTop_toTopOf="@+id/showAmplitudeSwitch" />
+
+        <TextView
+                android:id="@+id/noiseSuppressorTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Noise Suppressor"
+                app:layout_constraintBottom_toBottomOf="@+id/noiseSuppressorSwitch"
+                app:layout_constraintStart_toEndOf="@+id/noiseSuppressorSwitch"
+                app:layout_constraintTop_toTopOf="@+id/noiseSuppressorSwitch" />
+
+        <TextView
+                android:id="@+id/amplitudeTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="@+id/showAmplitudeSwitch"
+                app:layout_constraintTop_toBottomOf="@+id/showAmplitudeSwitch"
+                tools:text="Amplitude : " />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

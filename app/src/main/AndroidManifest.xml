@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
         package="com.ramadan.notify">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -18,6 +17,7 @@
             android:resizeableActivity="true"
             android:roundIcon="@drawable/logo2"
             android:theme="@style/AppTheme">
+        <activity android:name=".ui.activity.Record"></activity>
         <activity android:name=".ui.activity.Home" />
         <activity android:name=".ui.activity.SignUp" />
         <activity android:name=".ui.activity.SplashScreen">
@@ -29,12 +29,12 @@
         </activity>
         <activity android:name=".ui.activity.NewNote" />
         <activity android:name=".ui.activity.Login" />
-        <activity android:name=".ui.activity.DrawNote" />
+        <activity android:name=".ui.activity.Whiteboard" />
+        <activity android:name=".ui.activity.Test" />
 
         <meta-data
                 android:name="preloaded_fonts"
                 android:resource="@array/preloaded_fonts" />
-
     </application>
 
 </manifest>

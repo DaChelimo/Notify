@@ -6,14 +6,14 @@
     <data>
 
         <variable
-                name="noteModel"
-                type="com.ramadan.notify.ui.viewModel.NoteViewModel" />
+                name="whiteboardModel"
+                type="com.ramadan.notify.ui.viewModel.WhiteboardViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".ui.activity.DrawNote">
+            tools:context=".ui.activity.Whiteboard">
 
         <com.ramadan.notify.utils.DrawView
                 android:id="@+id/whiteboard"

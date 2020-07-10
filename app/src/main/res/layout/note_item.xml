@@ -7,6 +7,10 @@
         <variable
                 name="noteItem"
                 type="com.ramadan.notify.data.model.WrittenNote" />
+
+        <variable
+                name="whiteboardItem"
+                type="com.ramadan.notify.data.model.Whiteboard" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -34,9 +38,9 @@
                     android:layoutDirection="inherit"
                     android:text="@{noteItem.name}"
                     android:textAlignment="inherit"
-                    android:textStyle="bold"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="10sp" />
+                    android:textSize="10sp"
+                    android:textStyle="bold" />
 
             <com.ramadan.notify.utils.LinedTextView
                     android:id="@+id/content"
@@ -47,6 +51,12 @@
                     android:textColor="@color/colorPrimary"
                     android:textDirection="inherit"
                     android:textSize="14sp" />
+
+            <ImageView
+                    android:id="@+id/whiteboard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@{whiteboardItem.path}" />
 
         </LinearLayout>
 
