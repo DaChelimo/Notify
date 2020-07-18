@@ -110,17 +110,3 @@ private fun View.doOnApplyWindowInset(f: (View, WindowInsets, InitialPadding) ->
         })
     }
 }
-
-private class InitialPadding(
-    val left: Int,
-    val top: Int,
-    val right: Int,
-    val bottom: Int
-)
-
-private fun recordInitialPaddingForView(view: View) = InitialPadding(
-    view.paddingLeft,
-    view.paddingTop,
-    view.paddingRight,
-    view.paddingBottom
-)
