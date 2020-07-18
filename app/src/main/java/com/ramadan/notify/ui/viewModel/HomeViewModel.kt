@@ -10,6 +10,7 @@ import com.ramadan.notify.utils.startLoginActivity
 
 
 class HomeViewModel(private val repository: NoteRepository) : ViewModel() {
+
     fun getNotes(): LiveData<MutableList<WrittenNote>> {
         val mutableData = MutableLiveData<MutableList<WrittenNote>>()
         repository.fetchNotes().observeForever { mutableData.value = it }

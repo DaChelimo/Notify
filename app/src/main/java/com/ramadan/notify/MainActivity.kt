@@ -11,6 +11,7 @@ import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import com.ramadan.notify.ui.activity.*
 import com.ramadan.notify.ui.adapter.ViewPagerAdapter
+import com.ramadan.notify.ui.viewModel.HomeViewModel
 import com.yalantis.contextmenu.lib.ContextMenuDialogFragment
 import com.yalantis.contextmenu.lib.MenuObject
 import com.yalantis.contextmenu.lib.MenuParams
@@ -20,6 +21,7 @@ class MainActivity : AppCompatActivity() {
     private val whiteboards: Whiteboards = Whiteboards()
     private val notes: Notes = Notes()
     private val records: Records = Records()
+    private lateinit var viewModel: HomeViewModel
     private lateinit var contextMenuDialogFragment: ContextMenuDialogFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,36 +41,7 @@ class MainActivity : AppCompatActivity() {
         tabLayout.getTabAt(1)!!.setIcon(R.drawable.whiteboard)
         tabLayout.getTabAt(2)!!.setIcon(R.drawable.record)
 //        supportActionBar?.isHideOnContentScrollEnabled = true
-
-
-//
-//        //        lastColor = (container.background as ColorDrawable).color
-//        bottomBar.setOnItemSelectedListener { id ->
-//            when (id) {
-////                R.id.notes -> "notes"
-//                R.id.whiteboard -> Intent(this, Whiteboards::class.java).also {
-//                    startActivity(it)
-//                }
-//                R.id.records -> startRecordActivity()
-////                else -> "rrr"
-//            }
-//            val option = when (id) {
-//                R.id.notes -> R.color.colorPrimaryLight to "Notes"
-//                R.id.whiteboard -> R.color.colorPrimary to "Whiteboard"
-//                R.id.records -> R.color.colorPrimaryLight to "Records"
-//                else -> R.color.white to ""
-//            }
-//            val color = ContextCompat.getColor(this, option.first)
-//            container.colorAnimation(lastColor, color)
-//            lastColor = color
-//
-////            title.text = option.second
-//        }
-
-
         initMenuFragment()
-
-
     }
 
 
@@ -119,7 +92,7 @@ class MainActivity : AppCompatActivity() {
                         }
                     }
                     3 -> {
-//                        viewModel.logout(view)
+                        viewModel.logout(view)
                     }
                 }
             }
