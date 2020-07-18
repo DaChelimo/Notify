@@ -30,7 +30,7 @@ class GridViewAdapter(private val activity: Activity, private val filepath: Arra
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View? {
         var vi: View? = convertView
         if (convertView == null) vi =
-            inflater?.inflate(R.layout.testo, null)
+            inflater?.inflate(R.layout.whiteboard_item, null)
         val image: ImageView = vi?.findViewById(R.id.image) as ImageView
         val targetWidth = 100
         val targetHeight = 100

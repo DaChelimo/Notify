@@ -93,12 +93,6 @@ public class DrawView extends View {
         return bmp;
     }
 
-    public void clear2() {
-        mBitmap.eraseColor(Color.GREEN);
-        invalidate();
-        System.gc();
-
-    }
 
     public void setCurrentColor(int color) {
         currentColor = color;

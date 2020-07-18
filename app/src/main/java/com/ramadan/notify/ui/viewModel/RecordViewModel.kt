@@ -2,64 +2,52 @@
 
 package com.ramadan.notify.ui.viewModel
 
+import android.annotation.SuppressLint
 import android.content.pm.PackageManager
+import android.media.MediaMetadataRetriever
 import android.os.Environment
+import android.os.SystemClock
 import android.util.Log
+import android.widget.Chronometer
 import androidx.lifecycle.ViewModel
 import com.github.squti.androidwaverecorder.WaveRecorder
 import java.io.File
 import java.io.FileOutputStream
 import java.io.OutputStream
+import java.text.SimpleDateFormat
+import java.util.*
+
 
 class RecordViewModel : ViewModel() {
+
+    private var FilePathStrings: Array<String?>? = null
+    private var listFile: Array<File>? = null
+    var file: File? = null
 
     private val PERMISSIONS_REQUEST_RECORD_AUDIO = 77
     private var waveRecorder: WaveRecorder? = null
     private lateinit var filePath: String
     private var isRecording = false
     private var isPaused = false
+    private var name: String? = null
+    private val dirPath = Environment.getExternalStorageDirectory().path + "/Notify/Records"
 
 
     fun startRecording() {
-        isRecording = true
         saveRecordToExternalStorage()
         waveRecorder?.startRecording()
-//        noiseSuppressorSwitch.isEnabled = false
+
     }
+
 
     fun stopRecording() {
-        isRecording = false
         waveRecorder?.stopRecording()
-        println("File saved at : $filePath")
-//        showAmplitudeSwitch.isChecked = false
-//        Toast.makeText(this@RecordViewModel, "File saved at : $filePath", Toast.LENGTH_LONG).show()
-//        noiseSuppressorSwitch.isEnabled = true
+
     }
 
-//    private fun pauseRecording() {
-//        isPaused = true
-//        waveRecorder.pauseRecording()
-//    }
-//
-//    private fun resumeRecording() {
-//        isPaused = false
-//        waveRecorder.resumeRecording()
-//    }
-
     private fun saveRecordToExternalStorage() {
-        filePath =
-            Environment.getExternalStorageDirectory().absolutePath + "/Notify/Records/" + "notify" + System.currentTimeMillis()
-                .toString() + ".wav"
-        val dirPath = Environment.getExternalStorageDirectory().absolutePath.toString() + "/Notify/Records"
-//        val file = "notify" + UUID.randomUUID().toString() + ".png"
-//        val values = ContentValues()
-//        values.put(MediaStore.Images.Media.TITLE, file)
-//        values.put(MediaStore.Images.Media.CONTENT_TYPE, "path")
-//        values.put(MediaStore.Images.Media.DATE_ADDED, System.currentTimeMillis())
-//        values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpg")
-//        val uri: Uri =
-//            contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)!!
-
+        filePath = "$dirPath/notify" + System.currentTimeMillis().toString() + ".mp3"
+        name = filePath.substringAfterLast("Records/")
         try {
             val dir = File(dirPath)
             if (!dir.exists())
@@ -71,9 +59,50 @@ class RecordViewModel : ViewModel() {
             waveRecorder = WaveRecorder(filePath)
             outStream.flush() // empty the buffer
             outStream.close() // close the stream
+            println("File saved at : $filePath")
+
         } catch (e: Exception) {
             Log.e("saveToExternalStorage()", e.message)
         }
+    }
+
+    private fun getDuration(file: File): String? {
+        val mediaMetadataRetriever = MediaMetadataRetriever()
+        mediaMetadataRetriever.setDataSource(file.absolutePath)
+        val durationStr =
+            mediaMetadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION)
+        println(durationStr)
+        return durationStr
+    }
+
+    fun startChronometer(chronometer: Chronometer) {
+        chronometer.start()
+        chronometer.base = SystemClock.elapsedRealtime()
+    }
+
+    fun stopChronometer(chronometer: Chronometer) {
+        chronometer.stop()
+        chronometer.base = SystemClock.elapsedRealtime()
+    }
+
+
+    fun loadRecords(): Array<String?>? {
+        if (Environment.getExternalStorageState() != Environment.MEDIA_MOUNTED
+        ) {
+            println("Error")
+        } else {
+            file = File(
+                Environment.getExternalStorageDirectory().absolutePath.toString() + "/Notify/Records"
+            )
+        }
+        if (file!!.isDirectory) {
+            listFile = file!!.listFiles()
+            FilePathStrings = arrayOfNulls(listFile!!.size)
+            for (i in listFile!!.indices) {
+                FilePathStrings!![i] = listFile!![i].absolutePath
+            }
+        }
+        return FilePathStrings
     }
 
     fun onRequestPermissionsResult(

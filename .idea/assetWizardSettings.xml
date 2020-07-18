@@ -11,11 +11,26 @@
                   <entry key="vectorAssetStep">
                     <value>
                       <PersistentState>
+                        <option name="children">
+                          <map>
+                            <entry key="clipartAsset">
+                              <value>
+                                <PersistentState>
+                                  <option name="values">
+                                    <map>
+                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material/icons/materialicons/play_arrow/baseline_play_arrow_24.xml" />
+                                    </map>
+                                  </option>
+                                </PersistentState>
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="outputName" value="record" />
-                            <entry key="sourceFile" value="C:\Users\mhmdr\Downloads\iconfinder_034_Microphone_183596.svg" />
+                            <entry key="outputName" value="rename" />
+                            <entry key="sourceFile" value="C:\Users\mhmdr\Downloads\iconfinder_Rename-ui-ux-mobile-web_4960746.svg" />
                           </map>
                         </option>
                       </PersistentState>

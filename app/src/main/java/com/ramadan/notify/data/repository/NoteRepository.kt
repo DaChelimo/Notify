@@ -8,12 +8,6 @@ class NoteRepository(private val repository: Repository) {
 
     private var noteRepository: NoteRepository? = null
 
-    fun getInstance(): NoteRepository? {
-        if (noteRepository == null)
-            noteRepository = NoteRepository(repository)
-        return noteRepository
-    }
-
     fun insertNote(note: HashMap<String, Any?>) = repository.insertNote(note)
     fun updateNote(note: HashMap<String, Any?>) = repository.updateNote(note)
     fun deleteNote(ID: String) = repository.deleteNote(ID)

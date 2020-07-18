@@ -3,6 +3,7 @@
 package com.ramadan.notify.ui.activity
 
 import android.app.AlertDialog
+import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.os.Bundle
 import android.view.Menu
@@ -14,23 +15,22 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 import com.ramadan.notify.R
-import com.ramadan.notify.databinding.NewWhiteboardBinding
+import com.ramadan.notify.databinding.WhiteboardBinding
 import com.ramadan.notify.ui.viewModel.NoteListener
 import com.ramadan.notify.ui.viewModel.WhiteboardViewModel
 import com.ramadan.notify.utils.TouchListener
 import com.yalantis.contextmenu.lib.ContextMenuDialogFragment
 import com.yalantis.contextmenu.lib.MenuObject
 import com.yalantis.contextmenu.lib.MenuParams
-import kotlinx.android.synthetic.main.new_whiteboard.*
+import kotlinx.android.synthetic.main.whiteboard.*
 
 
 class Whiteboard : AppCompatActivity(), NoteListener {
-//    override val kodein by kodein()
-//    private val factory: NoteViewModelFactory by instance()
+
     private val viewModel by lazy {
         ViewModelProviders.of(this).get(WhiteboardViewModel::class.java)
     }
-    private lateinit var binding: NewWhiteboardBinding
+    private lateinit var binding: WhiteboardBinding
     private lateinit var contextMenuDialogFragment: ContextMenuDialogFragment
     var dialogBuilder: AlertDialog.Builder? = null
     var alertDialog: AlertDialog? = null
@@ -40,7 +40,7 @@ class Whiteboard : AppCompatActivity(), NoteListener {
         supportActionBar?.title = ""
         supportActionBar?.setHomeButtonEnabled(true)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        binding = DataBindingUtil.setContentView(this, R.layout.new_whiteboard)
+        binding = DataBindingUtil.setContentView(this, R.layout.whiteboard)
         binding.whiteboardModel = viewModel
         binding.lifecycleOwner = this
 //        viewModel.noteListener = this
@@ -48,7 +48,7 @@ class Whiteboard : AppCompatActivity(), NoteListener {
         whiteboard.setOnTouchListener(TouchListener())
         initMenuFragment()
 
-        penColorPicker.setListener{ position, color ->
+        penColorPicker.setListener { position, color ->
             whiteboard.setCurrentWidth(seekBar.progress)
             whiteboard.setCurrentColor(color)
         }
@@ -65,8 +65,25 @@ class Whiteboard : AppCompatActivity(), NoteListener {
 
     }
 
+    override fun onStart() {
+        super.onStart()
+        if (intent.hasExtra("bitmap")) {
+            val filepath = intent?.getStringArrayExtra("bitmap").toString()
+            println(filepath)
+            val bmpOptions = BitmapFactory.Options()
+            bmpOptions.inSampleSize = 2
+            bmpOptions.inJustDecodeBounds = false
+            val bitmap = BitmapFactory.decodeFile(filepath, bmpOptions)
+            println(bitmap?.toString())
+            whiteboard.mBitmap = bitmap
+//            println(intent?.getStringArrayExtra("bitmap").toString() + "   *****")
+//            whiteboard.mBitmap = intent.getParcelableExtra("bitmap") as Bitmap
+
+        }
+    }
+
     fun eraser(view: View) {
-        whiteboard.setCurrentWidth(seekBar.progress * 6)
+        whiteboard.setCurrentWidth(seekBar.progress * 8)
         whiteboard.setCurrentColor(Color.WHITE)
     }
 
@@ -101,13 +118,13 @@ class Whiteboard : AppCompatActivity(), NoteListener {
         contextMenuDialogFragment = ContextMenuDialogFragment.newInstance(menuParams).apply {
             menuItemClickListener = { view, position ->
                 when (position) {
-                    1 -> {
+                    0 -> {
                         viewModel.clearDrawingNote(this@Whiteboard.whiteboard)
                     }
-                    2 -> {
+                    1 -> {
                         viewModel.saveDrawingNote(view, this@Whiteboard.whiteboard)
                     }
-                    3 -> {
+                    2 -> {
                     }
                 }
             }
@@ -115,18 +132,15 @@ class Whiteboard : AppCompatActivity(), NoteListener {
     }
 
     private fun getMenuObjects() = mutableListOf<MenuObject>().apply {
-        val empty = MenuObject().apply {}
-        empty.setBgColorValue((Color.BLACK))
         val clear =
             MenuObject("Clear").apply { setResourceValue(R.drawable.clear_whiteboard) }
-        clear.setBgColorValue((Color.rgb(32, 32, 32)))
+        clear.setBgColorValue((Color.rgb(238, 238, 238)))
         val save =
             MenuObject("Save").apply { setResourceValue(R.drawable.save_note) }
-        save.setBgColorValue((Color.BLACK))
+        save.setBgColorValue((Color.WHITE))
         val delete =
             MenuObject("Delete").apply { setResourceValue(R.drawable.delete) }
-        delete.setBgColorValue((Color.rgb(32, 32, 32)))
-        add(empty)
+        delete.setBgColorValue((Color.rgb(238, 238, 238)))
         add(clear)
         add(save)
         add(delete)

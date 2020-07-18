@@ -5,29 +5,39 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="colorSecondary">@color/colorAccent</item>
-        <item name="android:textColorHint">@color/lightGrey</item>
+        <item name="android:textColorPrimary">@color/colorPrimary</item>
         <item name="android:strokeColor">@color/colorAccent</item>
-        <!--        <item name="android:textColor">@color/lightGrey</item>-->
-        <!--        <item name="android:textColorPrimary">@color/lightGrey</item>-->
-        <item name="android:statusBarColor">@color/colorPrimary</item>
+
+        <item name="android:statusBarColor">@color/silver</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:navigationBarColor">@color/silver</item>
         <item name="android:actionBarStyle">@style/MyActionBar</item>
         <item name="actionBarStyle">@style/MyActionBar</item>
-        <item name="android:colorBackground">@color/white</item>
+        <item name="android:colorBackground">@color/silver</item>
 
     </style>
 
     <style name="MyActionBar" parent="@style/Widget.AppCompat.ActionBar.Solid">
-        <item name="android:background">@color/colorPrimaryDark</item>
-        <item name="background">@color/colorPrimaryDark</item>
+        <item name="android:background">@color/silver</item>
+        <item name="background">@color/silver</item>
+        <item name="android:windowActionBarOverlay">true</item>
         <item name="android:titleTextStyle">@style/MyTheme.ActionBar.TitleTextStyle</item>
         <item name="titleTextStyle">@style/MyTheme.ActionBar.TitleTextStyle</item>
 
     </style>
 
-    <style name="MyTheme.ActionBar.TitleTextStyle" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
-        <item name="android:textColor">@color/colorAccent</item>
-        <item name="android:textAlignment">center</item>
+    <!-- ActionBar tabs text -->
+    <style name="MyActionBarTabText" parent="@style/Widget.AppCompat.ActionBar.TabText">
+        <item name="android:textColor">@color/colorPrimary</item>
+
     </style>
+
+    <style name="MyTheme.ActionBar.TitleTextStyle" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textSize">28sp</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
 
 </resources>

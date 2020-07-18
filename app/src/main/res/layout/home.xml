@@ -4,9 +4,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".ui.activity.Home">
-
+        android:layout_height="match_parent">
 
     <ProgressBar
             android:id="@+id/progressBar"
@@ -14,7 +12,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:foregroundGravity="center"
-            android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="@+id/recyclerView"
             app:layout_constraintEnd_toEndOf="@+id/recyclerView"
             app:layout_constraintStart_toStartOf="@+id/recyclerView"
@@ -33,17 +30,17 @@
 
 
     <com.ismaeldivita.chipnavigation.ChipNavigationBar
-            android:id="@+id/bottom_bar"
+            android:id="@+id/bottomBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorPrimaryDark"
             android:elevation="12dp"
-            android:padding="4dp"
+            android:padding="2dp"
             app:cnb_addBottomInset="false"
             app:cnb_addLeftInset="false"
             app:cnb_addRightInset="false"
             app:cnb_addTopInset="false"
-            app:cnb_iconSize="24dp"
+            app:cnb_iconSize="19dp"
             app:cnb_menuResource="@menu/bottom_menu"
             app:cnb_orientationMode="horizontal"
             app:cnb_radius="8dp"

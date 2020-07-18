@@ -38,7 +38,7 @@ class NoteViewModel(private val repository: NoteRepository) : ViewModel() {
     var date: String? = currentDate.format(todayDate)
     var name: String? = null
     var content: String? = null
-    var noteColor: Int? = Color.parseColor("#cacabf")
+    var noteColor: Int? = Color.parseColor("#ffffff")
 
     var noteListener: NoteListener? = null
     private val disposables = CompositeDisposable()

@@ -8,27 +8,24 @@
                 name="noteItem"
                 type="com.ramadan.notify.data.model.WrittenNote" />
 
-        <variable
-                name="whiteboardItem"
-                type="com.ramadan.notify.data.model.Whiteboard" />
     </data>
 
     <androidx.cardview.widget.CardView
             android:id="@+id/note"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="6dp"
-            android:background="@{noteItem.noteColor}"
-            android:clickable="true"
-            android:focusable="true"
             android:minHeight="120dp"
-            card_view:cardCornerRadius="14dp">
+            android:layout_gravity="center"
+            card_view:cardCornerRadius="10dp"
+            card_view:cardElevation="8dp"
+            card_view:cardPreventCornerOverlap="false"
+            card_view:cardUseCompatPadding="true">
 
         <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="2dp">
+                android:padding="10dp">
 
             <TextView
                     android:id="@+id/name"
@@ -38,7 +35,6 @@
                     android:layoutDirection="inherit"
                     android:text="@{noteItem.name}"
                     android:textAlignment="inherit"
-                    android:textColor="@color/colorPrimary"
                     android:textSize="10sp"
                     android:textStyle="bold" />
 
@@ -48,15 +44,9 @@
                     android:layout_height="wrap_content"
                     android:text="@{noteItem.content}"
                     android:textAlignment="inherit"
-                    android:textColor="@color/colorPrimary"
                     android:textDirection="inherit"
                     android:textSize="14sp" />
 
-            <ImageView
-                    android:id="@+id/whiteboard"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:src="@{whiteboardItem.path}" />
 
         </LinearLayout>
 

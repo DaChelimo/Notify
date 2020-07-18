@@ -1,6 +1,5 @@
 package com.ramadan.notify.ui.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.OnClickListener
@@ -10,10 +9,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ramadan.notify.R
 import com.ramadan.notify.data.model.WrittenNote
 import com.ramadan.notify.databinding.NoteItemBinding
-import com.ramadan.notify.utils.startNewNoteActivity
+import com.ramadan.notify.ui.activity.Notes
+import com.ramadan.notify.utils.startNoteActivity
 
 
-class NoteAdapter(val context: Context) :
+class NoteAdapter(val context: Notes) :
     RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
     private var dataList = mutableListOf<WrittenNote>()
 
@@ -47,9 +47,10 @@ class NoteAdapter(val context: Context) :
         RecyclerView.ViewHolder(binding.root), OnClickListener {
         fun bind(writtenNote: WrittenNote) {
             binding.noteItem = writtenNote
+            binding.note.setCardBackgroundColor(writtenNote.noteColor)
             binding.executePendingBindings()
             itemView.setOnClickListener {
-                it.context.startNewNoteActivity(writtenNote)
+                it.context.startNoteActivity(writtenNote)
             }
         }
 

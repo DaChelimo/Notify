@@ -9,8 +9,10 @@ import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.os.Build
 import android.os.Environment
+import android.os.Environment.getExternalStoragePublicDirectory
 import android.util.Log
 import android.view.View
+import android.widget.ImageView
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.ViewModel
 import com.ramadan.notify.utils.DrawView
@@ -21,12 +23,19 @@ import java.io.OutputStream
 
 class WhiteboardViewModel : ViewModel() {
     private lateinit var filePath: String
-    var boolean_folder = false
+    private var FilePathStrings: Array<String?>? = null
+    private var listFile: Array<File>? = null
+    var file: File? = null
+
+    //    var boolean_folder = false
+//    var adapter: WhiteboardAdapter? = null
+    var imageview: ImageView? = null
 
 
     fun clearDrawingNote(whiteboard: DrawView) {
         whiteboard.clear()
     }
+
 
     fun saveDrawingNote(view: View, whiteboard: DrawView) {
         val mContext = view.context
@@ -41,7 +50,6 @@ class WhiteboardViewModel : ViewModel() {
             whiteboard.isDrawingCacheEnabled = true
             saveImageToExternalStorage(whiteboard.drawingCache)
             whiteboard.destroyDrawingCache()
-            Log.d("file path", filePath)
         } else {
             println("22")
         }
@@ -50,10 +58,14 @@ class WhiteboardViewModel : ViewModel() {
 
     private fun saveImageToExternalStorage(bitmap: Bitmap) {
         filePath =
-            Environment.getExternalStorageDirectory().absolutePath + "/Notify" + "/Whiteboard/" + "notify" + System.currentTimeMillis()
+            Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_PICTURES
+            ).absolutePath + "/Notify/" + "notify" + System.currentTimeMillis()
                 .toString() + ".jpg"
         val dirPath =
-            Environment.getExternalStorageDirectory().absolutePath.toString() + "/Notify/Whiteboard"
+            Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_PICTURES
+            ).absolutePath.toString() + "/Notify"
 
 //        val file = "notify" + UUID.randomUUID().toString() + ".png"
 //        val values = ContentValues()
@@ -85,13 +97,25 @@ class WhiteboardViewModel : ViewModel() {
         }
     }
 
-    fun loadSavedImages(dir: File) {
-        val folder = File(
-            Environment.getExternalStorageDirectory().toString() + "/Notify/Whiteboard"
-        )
-    }
-
-    fun loadImage(file: File?) {
+    fun loadWhiteboards(): Array<String?>? {
+        if (Environment.getExternalStorageState() != Environment.MEDIA_MOUNTED
+        ) {
+            println("Error")
+        } else {
+            file = File(
+                getExternalStoragePublicDirectory(
+                    Environment.DIRECTORY_PICTURES
+                ).path + "/Notify"
+            )
+        }
+        if (file!!.isDirectory) {
+            listFile = file!!.listFiles()
+            FilePathStrings = arrayOfNulls(listFile!!.size)
+            for (i in listFile!!.indices) {
+                FilePathStrings!![i] = listFile!![i].absolutePath
+            }
+        }
+        return FilePathStrings
     }
 
 
@@ -112,5 +136,6 @@ class WhiteboardViewModel : ViewModel() {
         }
         return true
     }
+
 
 }

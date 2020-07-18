@@ -1,6 +1,7 @@
 <component name="libraryTable">
   <library name="Gradle: com.github.squti:Android-Wave-Recorder:1.4.0@aar">
     <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/eeb87c3632ba3e7f66b9bf0998735d54/AndroidManifest.xml" />
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/eeb87c3632ba3e7f66b9bf0998735d54/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/eeb87c3632ba3e7f66b9bf0998735d54/res" />
     </CLASSES>

@@ -2,33 +2,35 @@
 
 package com.ramadan.notify.ui.activity
 
-import android.app.Activity
-import android.graphics.Bitmap
 import android.os.Bundle
 import android.os.Environment
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.ramadan.notify.R
 import com.ramadan.notify.ui.adapter.WhiteboardAdapter
+import com.ramadan.notify.ui.viewModel.WhiteboardViewModel
 import kotlinx.android.synthetic.main.activity_gallery_picture.*
 import java.io.File
 
 
-class Test : Activity() {
+class Test : AppCompatActivity() {
     private var FilePathStrings: Array<String?>? = null
     private var listFile: Array<File>? = null
-    var adapter: WhiteboardAdapter? = null
     var file: File? = null
     var imageview: ImageView? = null
+    private val viewModel by lazy {
+        ViewModelProviders.of(this).get(WhiteboardViewModel::class.java)
+    }
+    private lateinit var adapter: WhiteboardAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_gallery_picture)
-        // Check for SD Card
         if (Environment.getExternalStorageState() != Environment.MEDIA_MOUNTED
         ) {
             Toast.makeText(
@@ -49,11 +51,12 @@ class Test : Activity() {
             }
         }
         println(FilePathStrings?.size)
-        adapter = WhiteboardAdapter(this, FilePathStrings!!)
+//        adapter = WhiteboardAdapter(this, viewModel.loadWhiteboards()!!)
+//        adapter = WhiteboardAdapter(this, FilePathStrings!!)
         val staggeredGridLayoutManager = StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL)
         recyclerView.layoutManager = staggeredGridLayoutManager
         recyclerView.itemAnimator = DefaultItemAnimator()
-        recyclerView!!.adapter = adapter
+//        recyclerView!!.adapter = adapter
 
 
 //        recyclerView!!.onItemClickListener =

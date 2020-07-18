@@ -1,6 +1,7 @@
 <component name="libraryTable">
   <library name="Gradle: com.github.Yalantis:Context-Menu.Android:1.1.4@aar">
     <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/4466e1454c3f1913eeb37726ab0ffbc5/AndroidManifest.xml" />
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/4466e1454c3f1913eeb37726ab0ffbc5/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/4466e1454c3f1913eeb37726ab0ffbc5/res" />
     </CLASSES>
