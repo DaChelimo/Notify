@@ -27,8 +27,6 @@ class RecordViewModel : ViewModel() {
     private val PERMISSIONS_REQUEST_RECORD_AUDIO = 77
     private var waveRecorder: WaveRecorder? = null
     private lateinit var filePath: String
-    private var isRecording = false
-    private var isPaused = false
     private var name: String? = null
     private val dirPath = Environment.getExternalStorageDirectory().path + "/Notify/Records"
 
@@ -64,15 +62,6 @@ class RecordViewModel : ViewModel() {
         } catch (e: Exception) {
             Log.e("saveToExternalStorage()", e.message)
         }
-    }
-
-    private fun getDuration(file: File): String? {
-        val mediaMetadataRetriever = MediaMetadataRetriever()
-        mediaMetadataRetriever.setDataSource(file.absolutePath)
-        val durationStr =
-            mediaMetadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION)
-        println(durationStr)
-        return durationStr
     }
 
     fun startChronometer(chronometer: Chronometer) {

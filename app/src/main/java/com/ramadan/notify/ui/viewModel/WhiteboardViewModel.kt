@@ -27,11 +27,6 @@ class WhiteboardViewModel : ViewModel() {
     private var listFile: Array<File>? = null
     var file: File? = null
 
-    //    var boolean_folder = false
-//    var adapter: WhiteboardAdapter? = null
-    var imageview: ImageView? = null
-
-
     fun clearDrawingNote(whiteboard: DrawView) {
         whiteboard.clear()
     }
@@ -66,15 +61,6 @@ class WhiteboardViewModel : ViewModel() {
             Environment.getExternalStoragePublicDirectory(
                 Environment.DIRECTORY_PICTURES
             ).absolutePath.toString() + "/Notify"
-
-//        val file = "notify" + UUID.randomUUID().toString() + ".png"
-//        val values = ContentValues()
-//        values.put(MediaStore.Images.Media.TITLE, file)
-//        values.put(MediaStore.Images.Media.CONTENT_TYPE, "path")
-//        values.put(MediaStore.Images.Media.DATE_ADDED, System.currentTimeMillis())
-//        values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpg")
-//        val uri: Uri =
-//            contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)!!
 
         try {
             val dir = File(dirPath)
