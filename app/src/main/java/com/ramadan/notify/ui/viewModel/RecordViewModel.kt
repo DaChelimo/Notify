@@ -45,7 +45,6 @@ class RecordViewModel : ViewModel() {
 
     private fun saveRecordToExternalStorage() {
         filePath = "$dirPath/notify" + System.currentTimeMillis().toString() + ".mp3"
-        name = filePath.substringAfterLast("Records/")
         try {
             val dir = File(dirPath)
             if (!dir.exists())
@@ -55,10 +54,8 @@ class RecordViewModel : ViewModel() {
             file.createNewFile()
             outStream = FileOutputStream(file)
             waveRecorder = WaveRecorder(filePath)
-            outStream.flush() // empty the buffer
-            outStream.close() // close the stream
-            println("File saved at : $filePath")
-
+            outStream.flush()
+            outStream.close()
         } catch (e: Exception) {
             Log.e("saveToExternalStorage()", e.message)
         }

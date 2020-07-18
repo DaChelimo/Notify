@@ -9,10 +9,8 @@ import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.os.Build
 import android.os.Environment
-import android.os.Environment.getExternalStoragePublicDirectory
 import android.util.Log
 import android.view.View
-import android.widget.ImageView
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.ViewModel
 import com.ramadan.notify.utils.DrawView
@@ -26,6 +24,10 @@ class WhiteboardViewModel : ViewModel() {
     private var FilePathStrings: Array<String?>? = null
     private var listFile: Array<File>? = null
     var file: File? = null
+    private val dirPath = Environment.getExternalStoragePublicDirectory(
+        Environment.DIRECTORY_PICTURES
+    ).absolutePath.toString() + "/Notify"
+
 
     fun clearDrawingNote(whiteboard: DrawView) {
         whiteboard.clear()
@@ -52,48 +54,28 @@ class WhiteboardViewModel : ViewModel() {
 
 
     private fun saveImageToExternalStorage(bitmap: Bitmap) {
-        filePath =
-            Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_PICTURES
-            ).absolutePath + "/Notify/" + "notify" + System.currentTimeMillis()
-                .toString() + ".jpg"
-        val dirPath =
-            Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_PICTURES
-            ).absolutePath.toString() + "/Notify"
-
+        filePath = "$dirPath/notify" + System.currentTimeMillis().toString() + ".jpg"
         try {
             val dir = File(dirPath)
             if (!dir.exists())
                 dir.mkdirs()
-//            val outStream: OutputStream = contentResolver.openOutputStream(uri)!!
             val outStream: OutputStream?
-            val file = File(
-                dirPath, "notify" + System.currentTimeMillis()
-                    .toString() + ".jpg"
-            )
+            val file = File(filePath)
             file.createNewFile()
             outStream = FileOutputStream(file)
-            // 100 means no compression, the lower you go, the stronger the compression
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outStream);
-            outStream.flush() // empty the buffer
-            outStream.close() // close the stream
+            outStream.flush()
+            outStream.close()
         } catch (e: Exception) {
             Log.e("saveToExternalStorage()", e.message)
         }
     }
 
     fun loadWhiteboards(): Array<String?>? {
-        if (Environment.getExternalStorageState() != Environment.MEDIA_MOUNTED
-        ) {
+        if (Environment.getExternalStorageState() != Environment.MEDIA_MOUNTED)
             println("Error")
-        } else {
-            file = File(
-                getExternalStoragePublicDirectory(
-                    Environment.DIRECTORY_PICTURES
-                ).path + "/Notify"
-            )
-        }
+        else
+            file = File(dirPath)
         if (file!!.isDirectory) {
             listFile = file!!.listFiles()
             FilePathStrings = arrayOfNulls(listFile!!.size)
