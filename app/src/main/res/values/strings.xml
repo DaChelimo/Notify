@@ -7,14 +7,11 @@
     <string name="dialog_text_delete">Are you sure you would like to delete this file?</string>
     <string name="dialog_title_licenses">Open Source Licenses</string>
     <string name="dialog_title_share">Share File</string>
-    <string name="dialog_title_rename">Rename File</string>
     <string name="dialog_title_options">Options</string>
 
     <string name="dialog_file_share">Share File</string>
     <string name="dialog_file_rename">Rename File</string>
     <string name="dialog_file_delete">Delete File</string>
-    <string name="dialog_action_cancel">Cancel</string>
-    <string name="dialog_action_ok">OK</string>
     <string name="dialog_action_yes">Yes</string>
     <string name="dialog_action_no">No</string>
 

@@ -13,6 +13,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.OnClickListener
+import android.view.View.inflate
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.TextView
@@ -51,10 +52,12 @@ class RecordAdapter(private val activity: Records, private val filepath: Array<S
     }
 
     override fun onBindViewHolder(holder: RecordViewHolder, position: Int) {
+        val mContext: Context = holder.itemView.context
         val file = File(filepath[position]!!)
         holder.customView(file)
 
     }
+
 
     inner class RecordViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
         OnClickListener {
@@ -62,8 +65,7 @@ class RecordAdapter(private val activity: Records, private val filepath: Array<S
         fun customView(file: File) {
             val s = Date(file.lastModified())
             itemView.recordTitle.text = file.nameWithoutExtension
-            itemView.recordLength.text =
-                mContext.getRecordLength(getDuration(file)!!.toLong())
+            itemView.recordLength.text = mContext.getRecordLength(getDuration(file)!!.toLong())
             itemView.recordDate.text = currentDate.format(s)
 
             itemView.setOnClickListener {
@@ -80,29 +82,7 @@ class RecordAdapter(private val activity: Records, private val filepath: Array<S
             }
 
             itemView.setOnLongClickListener {
-
-                val dialogBuilder: AlertDialog.Builder = AlertDialog.Builder(mContext)
-                val view: View = LayoutInflater.from(mContext).inflate(R.layout.option_dialog, null)
-                val alertDialog = dialogBuilder.create()
-                alertDialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-                dialogBuilder.setView(view)
-                dialogBuilder.show()
-                val share = view.findViewById<TextView>(R.id.share)
-                val rename = view.findViewById<TextView>(R.id.rename)
-                val delete = view.findViewById<TextView>(R.id.delete)
-                share.setOnClickListener {
-                    shareFileDialog(file)
-                    alertDialog.dismiss()
-                }
-                rename.setOnClickListener {
-                    renameFileDialog(file)
-                    alertDialog.dismiss()
-                }
-                delete.setOnClickListener {
-                    file.delete()
-                    Toast.makeText(mContext, "Deleted", Toast.LENGTH_SHORT).show()
-                    alertDialog.dismiss()
-                }
+                showOption(file)
                 false
             }
 
@@ -111,6 +91,64 @@ class RecordAdapter(private val activity: Records, private val filepath: Array<S
         override fun onClick(view: View?) {
         }
 
+        private fun showOption(file: File) {
+            val dialogBuilder: AlertDialog.Builder = AlertDialog.Builder(mContext)
+            val view: View = inflate(mContext, R.layout.option_dialog, null)
+            dialogBuilder.setView(view)
+            val alertDialog = dialogBuilder.create()
+            alertDialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            dialogBuilder.show()
+            alertDialog.setCancelable(true)
+            val share = view.findViewById<TextView>(R.id.share)
+            val rename = view.findViewById<TextView>(R.id.rename)
+            val delete = view.findViewById<TextView>(R.id.delete)
+            share.setOnClickListener {
+                shareRecord(file)
+                alertDialog.dismiss()
+            }
+            rename.setOnClickListener {
+                renameRecord(file)
+                alertDialog.dismiss()
+            }
+            delete.setOnClickListener {
+                file.delete()
+                Toast.makeText(mContext, "Deleted", Toast.LENGTH_SHORT).show()
+                alertDialog.dismiss()
+            }
+        }
+
+
+        private fun shareRecord(file: File) {
+            val shareIntent = Intent()
+            shareIntent.action = Intent.ACTION_SEND
+            shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file))
+            shareIntent.type = "audio/mp3"
+            mContext.startActivity(Intent.createChooser(shareIntent, "Send to"))
+        }
+
+        private fun renameRecord(file: File) {
+            val renameFileBuilder = AlertDialog.Builder(mContext)
+            val inflater = LayoutInflater.from(mContext)
+            val view: View = inflater.inflate(R.layout.rename_dialog, null)
+            val newName = view.findViewById<View>(R.id.new_name) as EditText
+            val dirPath = Environment.getExternalStorageDirectory().path + "/Notify/Records/"
+
+            renameFileBuilder.setTitle("Rename")
+            renameFileBuilder.setCancelable(true)
+            renameFileBuilder.setPositiveButton("Ok") { dialog, id ->
+                try {
+                    val value = newName.text.toString() + ".mp3"
+                    file.renameTo(File(dirPath + value))
+                } catch (e: java.lang.Exception) {
+                    Log.e("exception", e.message!!)
+                }
+                dialog.cancel()
+            }
+            renameFileBuilder.setNegativeButton("Cancel") { dialog, id -> dialog.cancel() }
+            renameFileBuilder.setView(view)
+            val alert = renameFileBuilder.create()
+            alert.show()
+        }
 
         private fun getDuration(file: File): String? {
             val mediaMetadataRetriever = MediaMetadataRetriever()
@@ -120,68 +158,6 @@ class RecordAdapter(private val activity: Records, private val filepath: Array<S
             println(durationStr)
             return durationStr
         }
-
-        private fun shareFileDialog(file: File) {
-            val shareIntent = Intent()
-            shareIntent.action = Intent.ACTION_SEND
-            shareIntent.putExtra(
-                Intent.EXTRA_STREAM,
-                Uri.fromFile(file)
-            )
-            shareIntent.type = "audio/mp3"
-            mContext.startActivity(
-                Intent.createChooser(
-                    shareIntent,
-                    mContext.getText(R.string.send_to)
-                )
-            )
-        }
-
-        fun renameFileDialog(file: File) {
-            val renameFileBuilder = AlertDialog.Builder(mContext)
-            val inflater = LayoutInflater.from(mContext)
-            val view: View = inflater.inflate(R.layout.rename_dialog, null)
-            val newName = view.findViewById<View>(R.id.new_name) as EditText
-            val dirPath = Environment.getExternalStorageDirectory().path + "/Notify/Records/"
-
-            renameFileBuilder.setTitle(mContext.getString(R.string.dialog_title_rename))
-            renameFileBuilder.setCancelable(true)
-            renameFileBuilder.setPositiveButton(mContext.getString(R.string.dialog_action_ok)) { dialog, id ->
-                try {
-                    val value = newName.text.toString() + ".mp3"
-                    file.renameTo(File(dirPath + value))
-                } catch (e: java.lang.Exception) {
-                    Log.e("exception", e.message!!)
-                }
-                dialog.cancel()
-            }
-            renameFileBuilder.setNegativeButton(
-                mContext.getString(R.string.dialog_action_cancel)
-            ) { dialog, id -> dialog.cancel() }
-            renameFileBuilder.setView(view)
-            val alert = renameFileBuilder.create()
-            alert.show()
-        }
-//
-//        fun rename(position: Int, name: String) {
-//            var mFilePath: String = Environment.getExternalStorageDirectory().absolutePath
-//            mFilePath += "/SoundRecorder/$name"
-//            val f = File(mFilePath)
-//            if (f.exists() && !f.isDirectory) {
-//                //file name is not unique, cannot rename file.
-//                Toast.makeText(
-//                    mContext,
-//                    String.format(mContext.getString(R.string.toast_file_exists), name),
-//                    Toast.LENGTH_SHORT
-//                ).show()
-//            } else {
-//                //file name is unique, rename file
-//                val oldFilePath = File(getItem(position).getFilePath())
-//                oldFilePath.renameTo(f)
-//                mDatabase.renameItem(getItem(position), name, mFilePath)
-//                notifyItemChanged(position)
-//            }
-//        }
 
     }
 
