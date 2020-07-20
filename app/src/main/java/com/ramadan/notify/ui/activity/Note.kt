@@ -53,6 +53,7 @@ class Note : AppCompatActivity(), NoteListener, KodeinAware {
         noteColorPicker.setListener { position, color ->
             noteLayout.setBackgroundColor(color)
             viewModel.noteColor = color
+            supportActionBar?.setBackgroundDrawable(ColorDrawable(color))
         }
         initMenuFragment()
     }
@@ -90,8 +91,6 @@ class Note : AppCompatActivity(), NoteListener, KodeinAware {
     private fun observeDate(ID: String) {
         viewModel.getNote(ID).observe(this, Observer {
             supportActionBar?.title = it.name
-//            val colorDrawable =
-//                ColorDrawable(ContextCompat.getColor(this, it.noteColor))
             supportActionBar?.setBackgroundDrawable(ColorDrawable(it.noteColor))
             binding.noteModel = viewModel
             binding.lifecycleOwner = this

@@ -33,13 +33,13 @@ class MainActivity : AppCompatActivity() {
         val viewPagerAdapter =
             ViewPagerAdapter(supportFragmentManager, 0)
         viewPagerAdapter.addFragment(notes)
-        viewPagerAdapter.addFragment(whiteboards)
         viewPagerAdapter.addFragment(records)
+        viewPagerAdapter.addFragment(whiteboards)
         viewPager.adapter = viewPagerAdapter
         tabLayout.setupWithViewPager(viewPager)
         tabLayout.getTabAt(0)!!.setIcon(R.drawable.note)
-        tabLayout.getTabAt(1)!!.setIcon(R.drawable.whiteboard)
-        tabLayout.getTabAt(2)!!.setIcon(R.drawable.record)
+        tabLayout.getTabAt(1)!!.setIcon(R.drawable.record)
+        tabLayout.getTabAt(2)!!.setIcon(R.drawable.whiteboard)
 //        supportActionBar?.isHideOnContentScrollEnabled = true
         initMenuFragment()
     }

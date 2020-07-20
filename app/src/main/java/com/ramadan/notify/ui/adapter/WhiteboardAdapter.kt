@@ -44,17 +44,19 @@ class WhiteboardAdapter(private val activity: Whiteboards, private val filepath:
 
     inner class WhiteboardViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun customView(bitmap: Bitmap) {
-            itemView.image.setImageBitmap(bitmap)
-            itemView.setOnClickListener(View.OnClickListener {
+            itemView.whiteboardImg.setImageBitmap(bitmap)
+//            itemView.whiteboardTitle.text =
+//                filepath[adapterPosition].
+                itemView.setOnClickListener(View.OnClickListener {
 
-                Intent(itemView.context, Whiteboard::class.java).also {
-                    it.putExtra("bitmap", filepath)
-                    println(bitmap.toString())
+                    Intent(itemView.context, Whiteboard::class.java).also {
+                        it.putExtra("bitmap", filepath)
+                        println(bitmap.toString())
 //                    it.putExtra("bitmap1", bitmap)
-                    itemView.context.startActivity(it)
-                }
+                        itemView.context.startActivity(it)
+                    }
 
-            })
+                })
         }
     }
 }
