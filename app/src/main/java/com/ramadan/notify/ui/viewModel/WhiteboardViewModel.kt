@@ -26,15 +26,16 @@ class WhiteboardViewModel : ViewModel() {
     var file: File? = null
     private val dirPath = Environment.getExternalStoragePublicDirectory(
         Environment.DIRECTORY_PICTURES
-    ).absolutePath.toString() + "/Notify"
+    ).path.toString() + "/Notify"
 
+    val noteListener: NoteListener? = null
 
     fun clearDrawingNote(whiteboard: DrawView) {
         whiteboard.clear()
     }
 
 
-    fun saveDrawingNote(view: View, whiteboard: DrawView) {
+    fun saveDrawingNote(fileName: String, view: View, whiteboard: DrawView) {
         val mContext = view.context
         val requestCode = 112
         if (Build.VERSION.SDK_INT >= 23) {
@@ -45,37 +46,46 @@ class WhiteboardViewModel : ViewModel() {
             if (!hasPermissions(mContext, *permissions))
                 ActivityCompat.requestPermissions((mContext as Activity), permissions, requestCode)
             whiteboard.isDrawingCacheEnabled = true
-            saveImageToExternalStorage(whiteboard.drawingCache)
+            saveImageToExternalStorage(whiteboard.drawingCache, fileName)
             whiteboard.destroyDrawingCache()
         } else {
-            println("22")
+            noteListener?.onFailure("Can't get permission")
         }
     }
 
 
-    private fun saveImageToExternalStorage(bitmap: Bitmap) {
-        filePath = "$dirPath/notify" + System.currentTimeMillis().toString() + ".jpg"
+    private fun saveImageToExternalStorage(bitmap: Bitmap, fileName: String) {
+        filePath = "$dirPath/$fileName.jpg"
         try {
             val dir = File(dirPath)
             if (!dir.exists())
                 dir.mkdirs()
-            val outStream: OutputStream?
             val file = File(filePath)
+            if (file.exists()) {
+                noteListener?.onFailure("Name is already exist")
+                return
+            }
+            noteListener?.onStarted()
             file.createNewFile()
+            val outStream: OutputStream?
             outStream = FileOutputStream(file)
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outStream);
             outStream.flush()
             outStream.close()
+            noteListener?.onSuccess()
         } catch (e: Exception) {
-            Log.e("saveToExternalStorage()", e.message)
+            Log.e("saveToExternalStorage()", e.message!!)
+            noteListener?.onFailure(e.message!!)
+
         }
     }
 
     fun loadWhiteboards(): Array<String?>? {
         if (Environment.getExternalStorageState() != Environment.MEDIA_MOUNTED)
-            println("Error")
+            noteListener?.onFailure("Failed to load whiteboards")
         else
-            file = File(dirPath)
+            noteListener?.onStarted()
+        file = File(dirPath)
         if (file!!.isDirectory) {
             listFile = file!!.listFiles()
             FilePathStrings = arrayOfNulls(listFile!!.size)
@@ -83,6 +93,7 @@ class WhiteboardViewModel : ViewModel() {
                 FilePathStrings!![i] = listFile!![i].absolutePath
             }
         }
+        noteListener?.onSuccess()
         return FilePathStrings
     }
 

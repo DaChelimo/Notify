@@ -7,21 +7,30 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.Window
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import com.ramadan.notify.ui.activity.*
 import com.ramadan.notify.ui.adapter.ViewPagerAdapter
 import com.ramadan.notify.ui.viewModel.HomeViewModel
+import com.ramadan.notify.ui.viewModel.HomeViewModelFactory
 import com.yalantis.contextmenu.lib.ContextMenuDialogFragment
 import com.yalantis.contextmenu.lib.MenuObject
 import com.yalantis.contextmenu.lib.MenuParams
+import org.kodein.di.KodeinAware
+import org.kodein.di.android.kodein
+import org.kodein.di.generic.instance
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), KodeinAware {
     private val whiteboards: Whiteboards = Whiteboards()
     private val notes: Notes = Notes()
+    override val kodein by kodein()
+    private val factory: HomeViewModelFactory by instance()
     private val records: Records = Records()
-    private lateinit var viewModel: HomeViewModel
+    private val viewModel by lazy {
+        ViewModelProviders.of(this, factory).get(HomeViewModel::class.java)
+    }
     private lateinit var contextMenuDialogFragment: ContextMenuDialogFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {

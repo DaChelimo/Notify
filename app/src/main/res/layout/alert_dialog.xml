@@ -43,7 +43,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginVertical="10dp"
-                    android:text="Do you like to overwrite this note or make a new one?"
+                    android:text="Do you like to save change or dismiss?"
                     android:textAlignment="center" />
 
             <LinearLayout
@@ -54,22 +54,21 @@
                     android:orientation="horizontal">
 
                 <TextView
-                        android:id="@+id/overwrite"
+                        android:id="@+id/saveChange"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="16dp"
-                        android:text="Overwrite"
+                        android:text="Save Change"
                         android:textAllCaps="false"
                         android:textSize="19sp"
                         android:textStyle="bold" />
 
                 <TextView
-                        android:id="@+id/newNote"
+                        android:id="@+id/dismiss"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="16dp"
-                        android:text="New"
-
+                        android:text="Dismiss"
                         android:textAllCaps="false"
                         android:textSize="19sp"
                         android:textStyle="bold" />

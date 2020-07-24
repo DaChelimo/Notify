@@ -3,14 +3,19 @@
 package com.ramadan.notify.ui.activity
 
 import android.app.AlertDialog
-import android.graphics.BitmapFactory
 import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.EditText
 import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
@@ -19,6 +24,7 @@ import com.ramadan.notify.databinding.WhiteboardBinding
 import com.ramadan.notify.ui.viewModel.NoteListener
 import com.ramadan.notify.ui.viewModel.WhiteboardViewModel
 import com.ramadan.notify.utils.TouchListener
+import com.ramadan.notify.utils.startHomeActivity
 import com.yalantis.contextmenu.lib.ContextMenuDialogFragment
 import com.yalantis.contextmenu.lib.MenuObject
 import com.yalantis.contextmenu.lib.MenuParams
@@ -32,18 +38,17 @@ class Whiteboard : AppCompatActivity(), NoteListener {
     }
     private lateinit var binding: WhiteboardBinding
     private lateinit var contextMenuDialogFragment: ContextMenuDialogFragment
-    var dialogBuilder: AlertDialog.Builder? = null
-    var alertDialog: AlertDialog? = null
+    var value: String = "null"
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        supportActionBar?.title = ""
+        supportActionBar?.title = "Whiteboard"
         supportActionBar?.setHomeButtonEnabled(true)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         binding = DataBindingUtil.setContentView(this, R.layout.whiteboard)
         binding.whiteboardModel = viewModel
         binding.lifecycleOwner = this
-//        viewModel.noteListener = this
         whiteboard.requestFocus()
         whiteboard.setOnTouchListener(TouchListener())
         initMenuFragment()
@@ -51,6 +56,7 @@ class Whiteboard : AppCompatActivity(), NoteListener {
         penColorPicker.setListener { position, color ->
             whiteboard.setCurrentWidth(seekBar.progress)
             whiteboard.setCurrentColor(color)
+            eraser.setBackgroundColor(resources.getColor(R.color.white))
         }
 
         seekBar.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
@@ -62,29 +68,57 @@ class Whiteboard : AppCompatActivity(), NoteListener {
             override fun onStopTrackingTouch(seekBar: SeekBar) {}
         })
 
-
     }
 
-    override fun onStart() {
-        super.onStart()
-        if (intent.hasExtra("bitmap")) {
-            val filepath = intent?.getStringArrayExtra("bitmap").toString()
-            println(filepath)
-            val bmpOptions = BitmapFactory.Options()
-            bmpOptions.inSampleSize = 2
-            bmpOptions.inJustDecodeBounds = false
-            val bitmap = BitmapFactory.decodeFile(filepath, bmpOptions)
-            println(bitmap?.toString())
-            whiteboard.mBitmap = bitmap
-//            println(intent?.getStringArrayExtra("bitmap").toString() + "   *****")
-//            whiteboard.mBitmap = intent.getParcelableExtra("bitmap") as Bitmap
+    override fun onBackPressed() {
+        super.onBackPressed()
+        if (whiteboard.isDirty)
+            showAlertDialog()
+        else
+            super.onBackPressed()
+    }
 
+    private fun showAlertDialog() {
+        val dialogBuilder = AlertDialog.Builder(this)
+        val layoutView = layoutInflater.inflate(R.layout.alert_dialog, null)
+        dialogBuilder.setView(layoutView)
+        val alertDialog = dialogBuilder.create()
+        alertDialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        alertDialog.show()
+        val saveChange = layoutView.findViewById<TextView>(R.id.saveChange)
+        val dismiss = layoutView.findViewById<TextView>(R.id.dismiss)
+        saveChange.setOnClickListener {
+            viewModel.saveDrawingNote(value, it, whiteboard)
         }
+        dismiss.setOnClickListener { super.onBackPressed() }
+    }
+
+    private fun setName() {
+        val alertDialog = AlertDialog.Builder(this)
+        val inflater = LayoutInflater.from(this)
+        val view: View = inflater.inflate(R.layout.rename_dialog, null)
+        val fileName = view.findViewById<View>(R.id.new_name) as EditText
+        alertDialog.setTitle("Set name")
+        alertDialog.setCancelable(true)
+        alertDialog.setPositiveButton("Confirm") { dialog, id ->
+            try {
+                value = fileName.text.toString()
+            } catch (e: java.lang.Exception) {
+                Log.e("exception", e.message!!)
+            }
+            dialog.cancel()
+        }
+        alertDialog.setNegativeButton("Cancel") { dialog, id -> dialog.cancel() }
+        alertDialog.setView(view)
+        val alert = alertDialog.create()
+        alert.show()
     }
 
     fun eraser(view: View) {
         whiteboard.setCurrentWidth(seekBar.progress * 8)
         whiteboard.setCurrentColor(Color.WHITE)
+        eraser.setBackgroundColor(resources.getColor(R.color.silver))
+        penColorPicker.isLockMode = true
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -122,9 +156,8 @@ class Whiteboard : AppCompatActivity(), NoteListener {
                         viewModel.clearDrawingNote(this@Whiteboard.whiteboard)
                     }
                     1 -> {
-                        viewModel.saveDrawingNote(view, this@Whiteboard.whiteboard)
-                    }
-                    2 -> {
+                        setName()
+                        viewModel.saveDrawingNote(value, view, this@Whiteboard.whiteboard)
                     }
                 }
             }
@@ -138,12 +171,8 @@ class Whiteboard : AppCompatActivity(), NoteListener {
         val save =
             MenuObject("Save").apply { setResourceValue(R.drawable.save_note) }
         save.setBgColorValue((Color.WHITE))
-        val delete =
-            MenuObject("Delete").apply { setResourceValue(R.drawable.delete) }
-        delete.setBgColorValue((Color.rgb(238, 238, 238)))
         add(clear)
         add(save)
-        add(delete)
     }
 
     private fun showContextMenuDialogFragment() {
@@ -153,15 +182,17 @@ class Whiteboard : AppCompatActivity(), NoteListener {
     }
 
     override fun onStarted() {
-        TODO("Not yet implemented")
+        whiteboardProgress.visibility = View.VISIBLE
     }
 
     override fun onSuccess() {
-        TODO("Not yet implemented")
+        whiteboardProgress.visibility = View.GONE
+        startHomeActivity()
     }
 
     override fun onFailure(message: String) {
-        TODO("Not yet implemented")
+        whiteboardProgress.visibility = View.GONE
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
 

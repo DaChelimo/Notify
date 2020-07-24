@@ -4,6 +4,8 @@ package com.ramadan.notify.ui.viewModel
 
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
+import android.content.res.Resources
+import android.graphics.Color
 import android.media.MediaMetadataRetriever
 import android.os.Environment
 import android.os.SystemClock
@@ -11,6 +13,7 @@ import android.util.Log
 import android.widget.Chronometer
 import androidx.lifecycle.ViewModel
 import com.github.squti.androidwaverecorder.WaveRecorder
+import com.ramadan.notify.R
 import java.io.File
 import java.io.FileOutputStream
 import java.io.OutputStream
@@ -64,11 +67,13 @@ class RecordViewModel : ViewModel() {
     fun startChronometer(chronometer: Chronometer) {
         chronometer.start()
         chronometer.base = SystemClock.elapsedRealtime()
+        chronometer.setTextColor(Color.parseColor("#21bf73"))
     }
 
     fun stopChronometer(chronometer: Chronometer) {
         chronometer.stop()
         chronometer.base = SystemClock.elapsedRealtime()
+        chronometer.setTextColor(Color.parseColor("#525252"))
     }
 
 

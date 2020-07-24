@@ -23,12 +23,6 @@ import org.kodein.di.generic.instance
 class Notes : Fragment(), KodeinAware {
 
     override val kodein by kodein()
-//    override val kodeinContext: KodeinContext<Activity> get() = kcontext(requireActivity())
-
-    //    override lateinit val kodein: Kodein
-//    override val kodein = LateInitKodein()
-
-
     private val factory: HomeViewModelFactory by instance()
     private val viewModel by lazy {
         ViewModelProviders.of(this, factory).get(HomeViewModel::class.java)

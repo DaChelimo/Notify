@@ -18,7 +18,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material/icons/materialicons/play_arrow/baseline_play_arrow_24.xml" />
+                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material/icons/materialicons/arrow_back/baseline_arrow_back_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -28,8 +28,8 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="assetSourceType" value="FILE" />
-                            <entry key="outputName" value="rename" />
+                            <entry key="color" value="ffffff" />
+                            <entry key="outputName" value="navigate_back" />
                             <entry key="sourceFile" value="C:\Users\mhmdr\Downloads\iconfinder_Rename-ui-ux-mobile-web_4960746.svg" />
                           </map>
                         </option>

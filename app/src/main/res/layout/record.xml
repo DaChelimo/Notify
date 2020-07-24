@@ -11,8 +11,8 @@
             android:id="@+id/chronometer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-light"
             android:textSize="60sp"
+
             app:layout_constraintBottom_toBottomOf="@+id/recordProgressBar"
             app:layout_constraintEnd_toEndOf="@+id/recordProgressBar"
             app:layout_constraintStart_toStartOf="@+id/recordProgressBar"

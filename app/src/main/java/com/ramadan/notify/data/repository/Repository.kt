@@ -47,44 +47,44 @@ class Repository {
         }
     }
 
-    fun insertNote(data: HashMap<String, Any?>) = Completable.create { emitter ->
+    fun insertNote(data: HashMap<String, Any?>): String {
+        var status = "null"
         FirebaseFirestore.getInstance().collection("user").document(auth.currentUser!!.uid)
             .collection("note").document(data["noteID"].toString()).set(data, SetOptions.merge())
             .addOnCompleteListener {
-                if (!emitter.isDisposed) {
-                    if (it.isSuccessful) {
-                        emitter.onComplete()
-                    }
-                } else
-                    emitter.onError(it.exception!!)
+                if (it.isSuccessful)
+                    status = "successful"
+            }.addOnFailureListener {
+                status = it.message.toString()
+                println(it.toString())
             }
+        return status
     }
 
-    fun updateNote(data: HashMap<String, Any?>) = Completable.create { emitter ->
+
+    fun updateNote(data: HashMap<String, Any?>): String {
+        var status = "null"
         FirebaseFirestore.getInstance().collection("user").document(auth.currentUser!!.uid)
             .collection("note").document(data["noteID"].toString()).update(data)
             .addOnCompleteListener {
-                if (!emitter.isDisposed) {
-                    if (it.isSuccessful) {
-                        emitter.onComplete()
-                    }
-                } else
-                    emitter.onError(it.exception!!)
-            }
+                if (it.isSuccessful)
+                    status = "successful"
+            }.addOnFailureListener { status = it.message.toString() }
+        return status
     }
 
-    fun deleteNote(ID: String) = Completable.create { emitter ->
+
+    fun deleteNote(ID: String): String {
+        var status = "null"
         FirebaseFirestore.getInstance().collection("user").document(auth.currentUser!!.uid)
             .collection("note").document(ID).delete()
             .addOnCompleteListener {
-                if (!emitter.isDisposed) {
-                    if (it.isSuccessful) {
-                        emitter.onComplete()
-                    }
-                } else
-                    emitter.onError(it.exception!!)
-            }
+                if (it.isSuccessful)
+                    status = "successful"
+            }.addOnFailureListener { status = it.message.toString() }
+        return status
     }
+
 
     fun fetchNotes(): MutableLiveData<MutableList<WrittenNote>> {
         val mutableData = MutableLiveData<MutableList<WrittenNote>>()

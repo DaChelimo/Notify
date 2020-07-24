@@ -9,12 +9,11 @@ import androidx.appcompat.app.AppCompatActivity
 import com.ramadan.notify.R
 import com.ramadan.notify.utils.startHomeActivity
 import com.ramadan.notify.utils.startLoginActivity
+import kotlinx.android.synthetic.main.splash_screen.*
 
 
 class SplashScreen : AppCompatActivity() {
     private val timeOut: Long = 2500
-    private lateinit var l1: LinearLayout
-    private lateinit var l2: LinearLayout
     private lateinit var leftToRight: Animation
     private lateinit var rightToLeft: Animation
 
@@ -26,11 +25,9 @@ class SplashScreen : AppCompatActivity() {
         startLoginActivity()
         }, timeOut)
 
-        l1 = findViewById(R.id.left)
-        l2 = findViewById(R.id.right)
         leftToRight = AnimationUtils.loadAnimation(this, R.anim.left_to_right)
         rightToLeft = AnimationUtils.loadAnimation(this, R.anim.right_to_left)
-        l1.animation = leftToRight
-        l2.animation = rightToLeft
+        note.animation = leftToRight
+        text.animation = rightToLeft
     }
 }

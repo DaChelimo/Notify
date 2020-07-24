@@ -29,7 +29,7 @@ class Records : Fragment() {
         observeData()
     }
 
-    fun observeData() {
+    private fun observeData() {
         adapter = RecordAdapter(this, viewModel.loadRecords()!!)
     }
 

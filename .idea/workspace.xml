@@ -3,8 +3,13 @@
   <component name="AndroidLayouts">
     <shared>
       <config>
-        <device id="pixel_3_xl" />
         <device id="pixel" />
+        <device id="4.7in WXGA" />
+        <device id="tv_720p" />
+        <device id="wear_square" />
+        <device id="Nexus 10" />
+        <device id="Nexus 7" />
+        <device id="pixel_3_xl" />
       </config>
     </shared>
   </component>
@@ -20,11 +25,46 @@
       <change beforePath="$PROJECT_DIR$/.gradle/5.1.1/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.1.1/javaCompile/javaCompile.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.1.1/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.1.1/javaCompile/taskHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/assetWizardSettings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/assetWizardSettings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/app/app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/app/app.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ramadan/notify/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ramadan/notify/MainActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ramadan/notify/data/repository/NoteRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ramadan/notify/data/repository/NoteRepository.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ramadan/notify/data/repository/Repository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ramadan/notify/data/repository/Repository.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ramadan/notify/ui/activity/Login.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ramadan/notify/ui/activity/Login.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ramadan/notify/ui/activity/Note.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ramadan/notify/ui/activity/Note.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ramadan/notify/ui/activity/Notes.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ramadan/notify/ui/activity/Notes.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ramadan/notify/ui/activity/Records.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ramadan/notify/ui/activity/Records.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ramadan/notify/ui/activity/SignUp.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ramadan/notify/ui/activity/SignUp.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ramadan/notify/ui/activity/SplashScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ramadan/notify/ui/activity/SplashScreen.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ramadan/notify/ui/activity/Whiteboard.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ramadan/notify/ui/activity/Whiteboard.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ramadan/notify/ui/adapter/NoteAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ramadan/notify/ui/adapter/NoteAdapter.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ramadan/notify/ui/adapter/RecordAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ramadan/notify/ui/adapter/RecordAdapter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ramadan/notify/ui/adapter/WhiteboardAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ramadan/notify/ui/adapter/WhiteboardAdapter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ramadan/notify/ui/viewModel/AuthViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ramadan/notify/ui/viewModel/AuthViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ramadan/notify/ui/viewModel/NoteViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ramadan/notify/ui/viewModel/NoteViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ramadan/notify/ui/viewModel/RecordViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ramadan/notify/ui/viewModel/RecordViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ramadan/notify/ui/viewModel/WhiteboardViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ramadan/notify/ui/viewModel/WhiteboardViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ramadan/notify/utils/ViewUtils.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ramadan/notify/utils/ViewUtils.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable-v24/button.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-v24/button.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable-v24/email.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-v24/email.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/box.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/logo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/logo2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/text.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/alert_dialog.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/alert_dialog.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/login.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/login.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/note.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/note.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/option_dialog.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/option_dialog.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/record.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/record.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/rename_dialog.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/rename_dialog.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/sign_up.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/sign_up.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/splash_screen.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/splash_screen.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/whiteboard.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/whiteboard.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/whiteboard_item.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/whiteboard_item.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -32,7 +72,7 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="New_Device_API_26" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="FUH0216913011885" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -85,7 +125,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="last_directory_selection" value="$PROJECT_DIR$/app/src/main/res/drawable" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/src/main/res/layout" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/src/main/res/drawable" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.17" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -98,6 +138,9 @@
       <recent name="com.ramadan.notify.ui.ViewModel" />
       <recent name="com.ramadan.notify.ui.Activity" />
     </key>
+    <key name="android.template.-930127770">
+      <recent name="com.ramadan.notify.ui.activity" />
+    </key>
     <key name="CopyKotlinDeclarationDialog.RECENTS_KEY">
       <recent name="com.ramadan.notify.ui.adapter" />
       <recent name="com.ramadan.notify" />
@@ -108,15 +151,12 @@
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\mhmdr\Documents\androidProjects\Notify\app\src\main\res\drawable-v24" />
     </key>
-    <key name="android.template.-930127770">
-      <recent name="com.ramadan.notify.ui.activity" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\mhmdr\Documents\androidProjects\Notify\app\src\main\res\drawable" />
       <recent name="C:\Users\mhmdr\Documents\androidProjects\Notify\app\src\main\res\layout" />
       <recent name="C:\Users\mhmdr\Documents\androidProjects\Notify\app\src\main\res\drawable-v24" />
       <recent name="C:\Users\mhmdr\Documents\androidProjects\probelalkhan-firebase-auth-mvvm-b53ecc3\app\src\main\res\drawable" />
       <recent name="C:\Users\mhmdr\Documents\androidProjects\probelalkhan-firebase-auth-mvvm-b53ecc3\app\src\main\res\layout" />
-      <recent name="C:\Users\mhmdr\Documents\androidProjects\probelalkhan-firebase-auth-mvvm-b53ecc3\app\src\main\java\com\ramadan\notify\ui\activity" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.ramadan.notify.utils" />
@@ -208,10 +248,10 @@
       <screen x="0" y="30" width="1536" height="834" />
     </state>
     <state x="47" y="102" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.30.1536.834@0.30.1536.834" timestamp="1593650681961" />
-    <state x="389" y="163" key="#com.intellij.ide.util.MemberChooser" timestamp="1594965544680">
+    <state x="389" y="163" key="#com.intellij.ide.util.MemberChooser" timestamp="1595366355742">
       <screen x="0" y="30" width="1536" height="834" />
     </state>
-    <state x="389" y="163" key="#com.intellij.ide.util.MemberChooser/0.30.1536.834@0.30.1536.834" timestamp="1594965544680" />
+    <state x="389" y="163" key="#com.intellij.ide.util.MemberChooser/0.30.1536.834@0.30.1536.834" timestamp="1595366355742" />
     <state x="322" y="231" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1592623923047">
       <screen x="0" y="30" width="1536" height="834" />
     </state>
@@ -244,42 +284,50 @@
       <screen x="0" y="30" width="1536" height="834" />
     </state>
     <state x="475" y="218" key="AndroidProcessChooserDialog/0.30.1536.834@0.30.1536.834" timestamp="1594885063177" />
-    <state x="100" y="134" width="850" height="634" key="DiffContextDialog" timestamp="1594968588875">
+    <state x="349" y="152" key="AndroidThemeDialog" timestamp="1595418823231">
       <screen x="0" y="30" width="1536" height="834" />
     </state>
-    <state x="100" y="134" width="850" height="634" key="DiffContextDialog/0.30.1536.834@0.30.1536.834" timestamp="1594968588875" />
+    <state x="349" y="152" key="AndroidThemeDialog/0.30.1536.834@0.30.1536.834" timestamp="1595418823231" />
+    <state x="100" y="134" width="850" height="634" key="DiffContextDialog" timestamp="1595373157994">
+      <screen x="0" y="30" width="1536" height="834" />
+    </state>
+    <state x="100" y="134" width="850" height="634" key="DiffContextDialog/0.30.1536.834@0.30.1536.834" timestamp="1595373157994" />
+    <state x="449" y="202" key="Downloadable.Font.Dialog.Size" timestamp="1595303166028">
+      <screen x="0" y="30" width="1536" height="834" />
+    </state>
+    <state x="449" y="202" key="Downloadable.Font.Dialog.Size/0.30.1536.834@0.30.1536.834" timestamp="1595303166028" />
     <state x="329" y="188" key="FileChooserDialogImpl" timestamp="1595017532160">
       <screen x="0" y="30" width="1536" height="834" />
     </state>
     <state x="329" y="188" key="FileChooserDialogImpl/0.30.1536.834@0.30.1536.834" timestamp="1595017532160" />
-    <state width="1127" height="154" key="GridCell.Tab.0.bottom" timestamp="1595228409536">
+    <state width="1497" height="172" key="GridCell.Tab.0.bottom" timestamp="1595459050521">
       <screen x="0" y="30" width="1536" height="834" />
     </state>
-    <state width="1127" height="154" key="GridCell.Tab.0.bottom/0.30.1536.834@0.30.1536.834" timestamp="1595228409536" />
-    <state width="1127" height="154" key="GridCell.Tab.0.center" timestamp="1595228409536">
+    <state width="1497" height="172" key="GridCell.Tab.0.bottom/0.30.1536.834@0.30.1536.834" timestamp="1595459050521" />
+    <state width="1497" height="172" key="GridCell.Tab.0.center" timestamp="1595459050521">
       <screen x="0" y="30" width="1536" height="834" />
     </state>
-    <state width="1127" height="154" key="GridCell.Tab.0.center/0.30.1536.834@0.30.1536.834" timestamp="1595228409536" />
-    <state width="1127" height="154" key="GridCell.Tab.0.left" timestamp="1595228409536">
+    <state width="1497" height="172" key="GridCell.Tab.0.center/0.30.1536.834@0.30.1536.834" timestamp="1595459050521" />
+    <state width="1497" height="172" key="GridCell.Tab.0.left" timestamp="1595459050521">
       <screen x="0" y="30" width="1536" height="834" />
     </state>
-    <state width="1127" height="154" key="GridCell.Tab.0.left/0.30.1536.834@0.30.1536.834" timestamp="1595228409536" />
-    <state width="1127" height="154" key="GridCell.Tab.0.right" timestamp="1595228409536">
+    <state width="1497" height="172" key="GridCell.Tab.0.left/0.30.1536.834@0.30.1536.834" timestamp="1595459050521" />
+    <state width="1497" height="172" key="GridCell.Tab.0.right" timestamp="1595459050521">
       <screen x="0" y="30" width="1536" height="834" />
     </state>
-    <state width="1127" height="154" key="GridCell.Tab.0.right/0.30.1536.834@0.30.1536.834" timestamp="1595228409536" />
+    <state width="1497" height="172" key="GridCell.Tab.0.right/0.30.1536.834@0.30.1536.834" timestamp="1595459050521" />
     <state x="173" y="190" key="IDE.errors.dialog" timestamp="1594789074627">
       <screen x="0" y="30" width="1536" height="834" />
     </state>
     <state x="173" y="190" key="IDE.errors.dialog/0.30.1536.834@0.30.1536.834" timestamp="1594789074627" />
-    <state x="316" y="225" key="chooseDestDirectoryDialog" timestamp="1593381096527">
+    <state x="316" y="225" key="chooseDestDirectoryDialog" timestamp="1595368504365">
       <screen x="0" y="30" width="1536" height="834" />
     </state>
-    <state x="316" y="225" key="chooseDestDirectoryDialog/0.30.1536.834@0.30.1536.834" timestamp="1593381096527" />
-    <state x="100" y="134" width="850" height="634" maximized="true" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1594969474337">
+    <state x="316" y="225" key="chooseDestDirectoryDialog/0.30.1536.834@0.30.1536.834" timestamp="1595368504365" />
+    <state x="100" y="134" width="850" height="634" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1595373157994">
       <screen x="0" y="30" width="1536" height="834" />
     </state>
-    <state x="100" y="134" width="850" height="634" maximized="true" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.30.1536.834@0.30.1536.834" timestamp="1594969474337" />
+    <state x="100" y="134" width="850" height="634" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.30.1536.834@0.30.1536.834" timestamp="1595373157994" />
     <state x="79" y="188" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2" timestamp="1594885329362">
       <screen x="0" y="30" width="1536" height="834" />
     </state>
@@ -288,13 +336,29 @@
       <screen x="0" y="30" width="1536" height="834" />
     </state>
     <state x="330" y="98" key="refactoring.ChangeSignatureDialog/0.30.1536.834@0.30.1536.834" timestamp="1594454459867" />
-    <state x="250" y="206" width="672" height="677" key="run.anything.popup" timestamp="1594458395319">
+    <state x="250" y="206" width="672" height="677" key="run.anything.popup" timestamp="1595416841814">
       <screen x="0" y="30" width="1536" height="834" />
     </state>
-    <state x="250" y="206" width="672" height="677" key="run.anything.popup/0.30.1536.834@0.30.1536.834" timestamp="1594458395319" />
+    <state x="250" y="206" width="672" height="677" key="run.anything.popup/0.30.1536.834@0.30.1536.834" timestamp="1595416841814" />
     <state x="266" y="107" width="672" height="676" key="search.everywhere.popup" timestamp="1594501660365">
       <screen x="0" y="30" width="1536" height="834" />
     </state>
     <state x="266" y="107" width="672" height="676" key="search.everywhere.popup/0.30.1536.834@0.30.1536.834" timestamp="1594501660365" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/ramadan/notify/ui/activity/Whiteboard.kt</url>
+          <line>104</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/ramadan/notify/ui/viewModel/WhiteboardViewModel.kt</url>
+          <line>57</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

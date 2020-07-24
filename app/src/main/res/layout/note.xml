@@ -34,7 +34,7 @@
                 android:textColor="@color/colorPrimary"
                 android:textStyle="bold" />
 
-        <EditText
+        <com.ramadan.notify.utils.LinedEditText
                 android:id="@+id/noteName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

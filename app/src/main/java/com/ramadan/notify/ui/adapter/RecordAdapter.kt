@@ -12,7 +12,6 @@ import android.os.Environment
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.OnClickListener
 import android.view.View.inflate
 import android.view.ViewGroup
 import android.widget.EditText
@@ -52,21 +51,19 @@ class RecordAdapter(private val activity: Records, private val filepath: Array<S
     }
 
     override fun onBindViewHolder(holder: RecordViewHolder, position: Int) {
-        val mContext: Context = holder.itemView.context
         val file = File(filepath[position]!!)
         holder.customView(file)
 
     }
 
 
-    inner class RecordViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
-        OnClickListener {
+    inner class RecordViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val mContext: Context = itemView.context
         fun customView(file: File) {
-            val s = Date(file.lastModified())
+            val date = Date(file.lastModified())
             itemView.recordTitle.text = file.nameWithoutExtension
             itemView.recordLength.text = mContext.getRecordLength(getDuration(file)!!.toLong())
-            itemView.recordDate.text = currentDate.format(s)
+            itemView.recordDate.text = currentDate.format(date)
 
             itemView.setOnClickListener {
                 try {
@@ -88,9 +85,6 @@ class RecordAdapter(private val activity: Records, private val filepath: Array<S
 
         }
 
-        override fun onClick(view: View?) {
-        }
-
         private fun showOption(file: File) {
             val dialogBuilder: AlertDialog.Builder = AlertDialog.Builder(mContext)
             val view: View = inflate(mContext, R.layout.option_dialog, null)
@@ -104,7 +98,7 @@ class RecordAdapter(private val activity: Records, private val filepath: Array<S
             val delete = view.findViewById<TextView>(R.id.delete)
             share.setOnClickListener {
                 shareRecord(file)
-                alertDialog.dismiss()
+                alertDialog.cancel()
             }
             rename.setOnClickListener {
                 renameRecord(file)
@@ -132,16 +126,16 @@ class RecordAdapter(private val activity: Records, private val filepath: Array<S
             val view: View = inflater.inflate(R.layout.rename_dialog, null)
             val newName = view.findViewById<View>(R.id.new_name) as EditText
             val dirPath = Environment.getExternalStorageDirectory().path + "/Notify/Records/"
-
             renameFileBuilder.setTitle("Rename")
             renameFileBuilder.setCancelable(true)
-            renameFileBuilder.setPositiveButton("Ok") { dialog, id ->
+            renameFileBuilder.setPositiveButton("Confirm") { dialog, id ->
                 try {
                     val value = newName.text.toString() + ".mp3"
                     file.renameTo(File(dirPath + value))
                 } catch (e: java.lang.Exception) {
                     Log.e("exception", e.message!!)
                 }
+                Toast.makeText(mContext, "Renamed", Toast.LENGTH_SHORT).show()
                 dialog.cancel()
             }
             renameFileBuilder.setNegativeButton("Cancel") { dialog, id -> dialog.cancel() }

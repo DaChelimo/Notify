@@ -3,6 +3,7 @@ package com.ramadan.notify.ui.viewModel
 import android.content.Intent
 import android.view.View
 import androidx.lifecycle.ViewModel
+import com.ramadan.notify.MainActivity
 import com.ramadan.notify.data.repository.UserRepository
 import com.ramadan.notify.ui.activity.Login
 import com.ramadan.notify.ui.activity.SignUp
@@ -57,6 +58,11 @@ class AuthViewModel(private val repository: UserRepository) : ViewModel() {
 
     fun goToLogin(view: View) {
         Intent(view.context, Login::class.java).also {
+            view.context.startActivity(it)
+        }
+    }
+    fun goToX(view: View) {
+        Intent(view.context, MainActivity::class.java).also {
             view.context.startActivity(it)
         }
     }

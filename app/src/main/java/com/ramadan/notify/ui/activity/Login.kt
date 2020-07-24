@@ -28,11 +28,19 @@ class Login : AppCompatActivity(), AuthListener, KodeinAware {
         super.onCreate(savedInstanceState)
         val binding: LoginBinding = DataBindingUtil.setContentView(this, R.layout.login)
         viewModel = ViewModelProviders.of(this, factory).get(AuthViewModel::class.java)
-        binding.viewmodel = viewModel
+        binding.loginModel = viewModel
         binding.lifecycleOwner = this
         viewModel.authListener = this
         supportActionBar?.hide()
 
+
+    }
+
+    override fun onStart() {
+        super.onStart()
+        println(viewModel.user)
+        println("*******************")
+        viewModel.user?.let { startHomeActivity() }
     }
 
     override fun onStarted() {
@@ -49,10 +57,4 @@ class Login : AppCompatActivity(), AuthListener, KodeinAware {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
-    override fun onStart() {
-        super.onStart()
-        println(viewModel.user)
-        println("*******************")
-        viewModel.user?.let { startHomeActivity() }
-    }
 }

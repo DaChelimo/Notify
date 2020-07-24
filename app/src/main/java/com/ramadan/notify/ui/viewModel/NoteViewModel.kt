@@ -2,30 +2,13 @@
 
 package com.ramadan.notify.ui.viewModel
 
-import android.Manifest
 import android.annotation.SuppressLint
-import android.app.Activity
-import android.content.Context
-import android.content.pm.PackageManager
-import android.graphics.Bitmap
 import android.graphics.Color
-import android.os.Build
-import android.os.Environment
-import android.util.Log
-import android.view.View
-import androidx.core.app.ActivityCompat
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.github.naz013.colorslider.ColorSlider
 import com.ramadan.notify.data.model.WrittenNote
 import com.ramadan.notify.data.repository.NoteRepository
-import com.ramadan.notify.utils.DrawView
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
-import java.io.File
-import java.io.FileOutputStream
-import java.io.OutputStream
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -43,13 +26,6 @@ class NoteViewModel(private val repository: NoteRepository) : ViewModel() {
     var noteListener: NoteListener? = null
     private val disposables = CompositeDisposable()
 
-    fun changeColor(colorSlider: ColorSlider) {
-        println("Fffff")
-        colorSlider.setListener { position, color ->
-            println(color.toString())
-            noteColor = color
-        }
-    }
 
     fun getNote(ID: String): MutableLiveData<WrittenNote> {
         val mutableData = MutableLiveData<WrittenNote>()
@@ -76,11 +52,12 @@ class NoteViewModel(private val repository: NoteRepository) : ViewModel() {
             "noteID" to ID, "noteDate" to date, "noteName" to name
             , "noteContent" to content, "noteColor" to noteColor
         )
-        val disposable = repository.insertNote(note)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({ noteListener?.onSuccess() }, { noteListener?.onFailure(it.message!!) })
-        disposables.add(disposable)
+        val status = repository.insertNote(note)
+        if (status == "successful")
+            noteListener?.onSuccess()
+        else
+            noteListener?.onFailure(status)
+        return
     }
 
     fun updateNote() {
@@ -91,11 +68,12 @@ class NoteViewModel(private val repository: NoteRepository) : ViewModel() {
             "noteID" to ID, "noteDate" to date, "noteName" to name
             , "noteContent" to content, "noteColor" to noteColor
         )
-        val disposable = repository.updateNote(note)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({ noteListener?.onSuccess() }, { noteListener?.onFailure(it.message!!) })
-        disposables.add(disposable)
+        val status = repository.updateNote(note)
+        if (status == "successful")
+            noteListener?.onSuccess()
+        else
+            noteListener?.onFailure(status)
+        return
     }
 
     fun deleteNote() {
@@ -104,13 +82,13 @@ class NoteViewModel(private val repository: NoteRepository) : ViewModel() {
             return
         }
         noteListener?.onStarted()
-        val disposable = repository.deleteNote(ID!!)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({ noteListener?.onSuccess() }, { noteListener?.onFailure(it.message!!) })
-        disposables.add(disposable)
+        val status = repository.deleteNote(ID!!)
+        if (status == "successful")
+            noteListener?.onSuccess()
+        else
+            noteListener?.onFailure(status)
+        return
     }
-
 
 
     override fun onCleared() {

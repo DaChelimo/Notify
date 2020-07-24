@@ -40,12 +40,13 @@ class Note : AppCompatActivity(), NoteListener, KodeinAware {
     }
     private lateinit var binding: NoteBinding
     private lateinit var contextMenuDialogFragment: ContextMenuDialogFragment
-
+    private var flag: Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.title = "New note"
         supportActionBar?.setHomeButtonEnabled(true)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setBackgroundDrawable(ColorDrawable(viewModel.noteColor!!))
         binding = DataBindingUtil.setContentView(this, R.layout.note)
         binding.noteModel = viewModel
         binding.lifecycleOwner = this
@@ -69,10 +70,12 @@ class Note : AppCompatActivity(), NoteListener, KodeinAware {
     }
 
     override fun onBackPressed() {
-        if (noteContent.text.isNullOrEmpty())
-            super.onBackPressed()
-        else
-            showAlertDialog()
+        when {
+            noteContent.text.isNullOrEmpty() -> super.onBackPressed()
+            noteContent.text!!.length == viewModel.content!!.length -> super.onBackPressed()
+            else -> showAlertDialog()
+        }
+
     }
 
     private fun showAlertDialog() {
@@ -82,20 +85,24 @@ class Note : AppCompatActivity(), NoteListener, KodeinAware {
         val alertDialog = dialogBuilder.create()
         alertDialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         alertDialog.show()
-        val overwrite = layoutView.findViewById<TextView>(R.id.overwrite)
-        val newNote = layoutView.findViewById<TextView>(R.id.newNote)
-        overwrite.setOnClickListener { }
-        newNote.setOnClickListener { }
+        val saveChange = layoutView.findViewById<TextView>(R.id.saveChange)
+        val dismiss = layoutView.findViewById<TextView>(R.id.dismiss)
+        saveChange.setOnClickListener {
+            if (intent.hasExtra("note"))
+                viewModel.updateNote()
+            viewModel.insertNote()
+        }
+        dismiss.setOnClickListener { super.onBackPressed() }
     }
 
     private fun observeDate(ID: String) {
         viewModel.getNote(ID).observe(this, Observer {
             supportActionBar?.title = it.name
             supportActionBar?.setBackgroundDrawable(ColorDrawable(it.noteColor))
+            noteColorPicker.selectColor(it.noteColor)
             binding.noteModel = viewModel
             binding.lifecycleOwner = this
             viewModel.noteListener = this
-
         })
     }
 

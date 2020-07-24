@@ -6,43 +6,52 @@
     <data>
 
         <variable
-                name="viewmodel"
+                name="signUpModel"
                 type="com.ramadan.notify.ui.viewModel.AuthViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scrollbarAlwaysDrawVerticalTrack="true"
             tools:context=".ui.activity.SignUp">
 
-        <RelativeLayout
-                android:id="@+id/relativeLayout"
+        <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="220dp"
                 android:background="@color/colorAccent"
-                android:gravity="top"
+                android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
+
+            <ImageButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="20dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@color/colorAccent"
+                    android:onClick="@{(v) -> signUpModel.goToLogin(v)}"
+                    android:src="@drawable/navigate_back" />
+
+            <TextView
+                    android:id="@+id/signUpText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="20dp"
                     android:text="Sign Up"
                     android:textColor="@color/white"
                     android:textSize="26sp"
                     android:textStyle="bold" />
 
-        </RelativeLayout>
+        </LinearLayout>
 
         <GridLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="140dp"
-                android:padding="2dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -54,24 +63,21 @@
 
                 <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
-                        android:isScrollContainer="true"
                         android:layout_height="wrap_content"
+                        android:isScrollContainer="true"
                         app:cardCornerRadius="16dp">
 
                     <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
-                            android:padding="10dp">
+                            android:padding="4dp">
 
                         <com.google.android.material.textfield.TextInputLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginVertical="10dp"
-                                android:textColorHint="@android:color/darker_gray"
-                                app:boxBackgroundMode="outline"
-                                app:startIconDrawable="@drawable/email"
-                                app:startIconTint="@color/colorAccent">
+                                app:startIconDrawable="@drawable/email">
 
                             <EditText
                                     android:id="@+id/email"
@@ -79,20 +85,15 @@
                                     android:layout_height="wrap_content"
                                     android:hint="Email"
                                     android:inputType="textEmailAddress"
-                                    android:text="@={viewmodel.email}"
-                                    android:textColor="#fff" />
+                                    android:text="@={signUpModel.email}" />
                         </com.google.android.material.textfield.TextInputLayout>
 
                         <com.google.android.material.textfield.TextInputLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginVertical="10dp"
-                                android:textColorHint="@android:color/darker_gray"
-                                app:boxBackgroundMode="outline"
                                 app:passwordToggleEnabled="true"
-                                app:passwordToggleTint="@android:color/darker_gray"
-                                app:startIconDrawable="@drawable/password"
-                                app:startIconTint="@color/colorAccent">
+                                app:startIconDrawable="@drawable/password">
 
                             <EditText
                                     android:id="@+id/password"
@@ -100,20 +101,15 @@
                                     android:layout_height="wrap_content"
                                     android:hint="Password"
                                     android:inputType="text|textPassword"
-                                    android:text="@={viewmodel.password}"
-                                    android:textColor="#fff" />
+                                    android:text="@={signUpModel.password}" />
                         </com.google.android.material.textfield.TextInputLayout>
 
                         <com.google.android.material.textfield.TextInputLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginVertical="10dp"
-                                android:textColorHint="@android:color/darker_gray"
-                                app:boxBackgroundMode="outline"
                                 app:passwordToggleEnabled="true"
-                                app:passwordToggleTint="@android:color/darker_gray"
-                                app:startIconDrawable="@drawable/password"
-                                app:startIconTint="@color/colorAccent">
+                                app:startIconDrawable="@drawable/password">
 
                             <EditText
                                     android:id="@+id/password2"
@@ -121,8 +117,7 @@
                                     android:layout_height="wrap_content"
                                     android:hint="Confirm Password"
                                     android:inputType="text|textPassword"
-                                    android:text="@={viewmodel.confirmPassword}"
-                                    android:textColor="#fff" />
+                                    android:text="@={signUpModel.confirmPassword}" />
                         </com.google.android.material.textfield.TextInputLayout>
 
                         <ProgressBar
@@ -140,11 +135,13 @@
                                 android:layout_gravity="center"
                                 android:layout_marginVertical="10dp"
                                 android:background="@drawable/button"
-                                android:onClick="@{() -> viewmodel.signUp()}"
+                                android:onClick="@{() -> signUpModel.signUp()}"
                                 android:paddingHorizontal="36dp"
                                 android:text="Submit"
                                 android:textAllCaps="false"
-                                android:textColor="@color/white" />
+                                android:textColor="@color/white"
+                                android:textSize="18sp"
+                                android:textStyle="bold" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
