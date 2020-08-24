@@ -19,7 +19,6 @@ class NotifyApplication : Application(), KodeinAware {
 
     override val kodein = Kodein.lazy {
         import(androidXModule(this@NotifyApplication))
-
         bind() from singleton { Repository() }
         bind() from singleton { UserRepository(instance()) }
         bind() from singleton { NoteRepository(instance()) }

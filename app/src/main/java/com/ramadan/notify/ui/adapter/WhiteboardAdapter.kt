@@ -70,9 +70,6 @@ class WhiteboardAdapter(private val activity: Whiteboards, private val filepath:
     }
 
 
-
-
-
     inner class WhiteboardViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val mContext: Context = itemView.context
         fun customView(bitmap: Bitmap) {
@@ -122,9 +119,12 @@ class WhiteboardAdapter(private val activity: Whiteboards, private val filepath:
             val dirPath = Environment.getExternalStoragePublicDirectory(
                 Environment.DIRECTORY_PICTURES
             ).path.toString() + "/Notify/"
-
             renameFileBuilder.setTitle("Rename")
             renameFileBuilder.setCancelable(true)
+            renameFileBuilder.setNegativeButton("Cancel") { dialog, id -> dialog.cancel() }
+            renameFileBuilder.setView(view)
+            val alert = renameFileBuilder.create()
+            alert.show()
             renameFileBuilder.setPositiveButton("Ok") { dialog, id ->
                 try {
                     val value = newName.text.toString() + ".jpg"
@@ -132,12 +132,9 @@ class WhiteboardAdapter(private val activity: Whiteboards, private val filepath:
                 } catch (e: java.lang.Exception) {
                     Log.e("exception", e.message!!)
                 }
-                dialog.cancel()
+                alert.cancel()
             }
-            renameFileBuilder.setNegativeButton("Cancel") { dialog, id -> dialog.cancel() }
-            renameFileBuilder.setView(view)
-            val alert = renameFileBuilder.create()
-            alert.show()
+
         }
     }
 }

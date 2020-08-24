@@ -17,6 +17,7 @@ class Repository {
     private val db: FirebaseFirestore by lazy {
         FirebaseFirestore.getInstance()
     }
+    var status = "null"
 
     fun logout() = auth.signOut()
 
@@ -47,42 +48,37 @@ class Repository {
         }
     }
 
-    fun insertNote(data: HashMap<String, Any?>): String {
-        var status = "null"
+    fun insertNote(data: HashMap<String, Any?>) {
         FirebaseFirestore.getInstance().collection("user").document(auth.currentUser!!.uid)
             .collection("note").document(data["noteID"].toString()).set(data, SetOptions.merge())
             .addOnCompleteListener {
-                if (it.isSuccessful)
-                    status = "successful"
+                if (it.isSuccessful) {
+                }
             }.addOnFailureListener {
                 status = it.message.toString()
                 println(it.toString())
             }
-        return status
     }
 
 
-    fun updateNote(data: HashMap<String, Any?>): String {
-        var status = "null"
+    fun updateNote(data: HashMap<String, Any?>) {
         FirebaseFirestore.getInstance().collection("user").document(auth.currentUser!!.uid)
             .collection("note").document(data["noteID"].toString()).update(data)
             .addOnCompleteListener {
-                if (it.isSuccessful)
-                    status = "successful"
+                if (it.isSuccessful) {
+                }
             }.addOnFailureListener { status = it.message.toString() }
-        return status
     }
 
 
-    fun deleteNote(ID: String): String {
-        var status = "null"
+    fun deleteNote(ID: String) {
         FirebaseFirestore.getInstance().collection("user").document(auth.currentUser!!.uid)
             .collection("note").document(ID).delete()
             .addOnCompleteListener {
-                if (it.isSuccessful)
-                    status = "successful"
+                if (it.isSuccessful) {
+                }
             }.addOnFailureListener { status = it.message.toString() }
-        return status
+
     }
 
 
@@ -119,7 +115,6 @@ class Repository {
                 val noteName: String? = document.getString("noteName")
                 val noteContent: String? = document.getString("noteContent")
                 val noteColor: Long? = document.getLong("noteColor")
-
                 mutableData.value = WrittenNote(
                     noteID!!, noteDate!!, noteName!!,
                     noteContent!!, noteColor!!.toInt()

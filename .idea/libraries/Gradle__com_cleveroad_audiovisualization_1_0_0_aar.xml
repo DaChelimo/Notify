@@ -1,9 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: com.cleveroad:audiovisualization:1.0.0@aar">
     <CLASSES>
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/25b0c83da58fb056504053f4c5271c97/AndroidManifest.xml" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/25b0c83da58fb056504053f4c5271c97/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/25b0c83da58fb056504053f4c5271c97/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/22c82248bde568d9d5581342aee6c4f4/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/22c82248bde568d9d5581342aee6c4f4/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/22c82248bde568d9d5581342aee6c4f4/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

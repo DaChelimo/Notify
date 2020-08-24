@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#313131</color>
+    <color name="colorPrimaryLight">#232323</color>
+    <color name="colorPrimaryDark">#525252</color>
+    <color name="colorAccent">#21bf73</color>
+    <color name="yellow2">#ffc300</color>
+    <color name="lightGrey">#80e0e0e0</color>
+    <color name="grey">#cacabf</color>
+    <color name="silver">#eeeeee</color>
+    <color name="white">#ffffff</color>
+    <color name="bright_pink">#ffd0d7</color>
+    <color name="yellow">#feff9c</color>
+    <color name="green1">#007944</color>
+    <color name="green">#a6f1a6</color>
+    <color name="sky">#9fd8fb</color>
+    <color name="blue">#1109bb</color>
+    <color name="transparent">@android:color/transparent</color>
+    <color name="colorBackground">#313131</color>
+    <color name="colorText">#eeeeee</color>
+    <color name="actionbar_background">#151515</color>
+    <color name="actionbar_text">#eeeeee</color>
+    <color name="eraser">#313131</color>
+    <color name="whiteboard">#313131</color>
+
+    <array name="noteColors">
+        <item>@color/white</item>
+        <item>@color/grey</item>
+        <item>@color/bright_pink</item>
+        <item>@color/green</item>
+        <item>@color/yellow</item>
+        <item>@color/sky</item>
+    </array>
+    <array name="penColors">
+        <item>@android:color/black</item>
+        <item>@color/green1</item>
+        <item>@color/blue</item>
+        <item>@android:color/holo_red_dark</item>
+        <item>@color/yellow2</item>
+    </array>
+</resources>

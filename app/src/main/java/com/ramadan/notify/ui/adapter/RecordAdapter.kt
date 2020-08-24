@@ -107,7 +107,7 @@ class RecordAdapter(private val activity: Records, private val filepath: Array<S
             delete.setOnClickListener {
                 file.delete()
                 Toast.makeText(mContext, "Deleted", Toast.LENGTH_SHORT).show()
-                alertDialog.dismiss()
+                alertDialog.cancel()
             }
         }
 

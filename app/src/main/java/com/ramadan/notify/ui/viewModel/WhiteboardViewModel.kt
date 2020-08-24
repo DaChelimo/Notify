@@ -56,6 +56,7 @@ class WhiteboardViewModel : ViewModel() {
 
     private fun saveImageToExternalStorage(bitmap: Bitmap, fileName: String) {
         filePath = "$dirPath/$fileName.jpg"
+        print(filePath)
         try {
             val dir = File(dirPath)
             if (!dir.exists())

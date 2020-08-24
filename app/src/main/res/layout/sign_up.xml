@@ -18,7 +18,7 @@
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="220dp"
-                android:background="@color/colorAccent"
+                android:background="@drawable/background"
                 android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -47,7 +47,7 @@
 
         </LinearLayout>
 
-        <GridLayout
+        <ScrollView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
@@ -56,16 +56,11 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-            <ScrollView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:isScrollContainer="true">
-
                 <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:isScrollContainer="true"
-                        app:cardCornerRadius="16dp">
+                        app:cardCornerRadius="25dp">
 
                     <LinearLayout
                             android:layout_width="match_parent"
@@ -145,8 +140,7 @@
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
-            </ScrollView>
-        </GridLayout>
+        </ScrollView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

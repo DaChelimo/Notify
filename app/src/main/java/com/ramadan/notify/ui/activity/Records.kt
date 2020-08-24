@@ -4,12 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.ramadan.notify.R
 import com.ramadan.notify.ui.adapter.RecordAdapter
 import com.ramadan.notify.ui.viewModel.RecordViewModel
@@ -20,12 +19,8 @@ class Records : Fragment() {
     }
     private lateinit var adapter: RecordAdapter
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
-    override fun onStart() {
-        super.onStart()
+    override fun onResume() {
+        super.onResume()
         observeData()
     }
 
@@ -38,13 +33,10 @@ class Records : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.recycle_view, container, false)
-        val progress: ProgressBar = view.findViewById(R.id.progressBar)
         val recyclerView: RecyclerView = view.findViewById(R.id.dashboardRecycleView)
-        val staggeredGridLayoutManager = StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL)
-        recyclerView.layoutManager = staggeredGridLayoutManager
+        recyclerView.layoutManager = GridLayoutManager(view.context,2)
         observeData()
         recyclerView.adapter = adapter
-        progress.visibility = View.GONE
         return view
     }
 

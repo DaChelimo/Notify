@@ -4,7 +4,6 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="8dp"
         tools:context=".ui.activity.Record">
 
     <Chronometer
@@ -12,7 +11,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="60sp"
-
             app:layout_constraintBottom_toBottomOf="@+id/recordProgressBar"
             app:layout_constraintEnd_toEndOf="@+id/recordProgressBar"
             app:layout_constraintStart_toStartOf="@+id/recordProgressBar"
@@ -34,13 +32,13 @@
             app:layout_constraintTop_toTopOf="parent" />
 
 
-
     <com.devlomi.record_view.RecordView
+            android:layout_margin="8dp"
             android:id="@+id/recordView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="9"
-            android:background="@color/silver"
+            android:background="@color/transparent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/recordButton"
             app:layout_constraintStart_toStartOf="parent"
@@ -52,6 +50,7 @@
 
     <com.devlomi.record_view.RecordButton
             android:id="@+id/recordButton"
+            android:layout_margin="8dp"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:background="@drawable/record_background"
@@ -61,55 +60,4 @@
             app:mic_icon="@drawable/record"
             app:tint="@color/white" />
 
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-        <!--        <Switch&ndash;&gt;-->
-        <!--                android:id="@+id/showAmplitudeSwitch"-->
-        <!--                android:layout_width="wrap_content"-->
-        <!--                android:layout_height="wrap_content"-->
-        <!--                android:layout_marginStart="16dp"-->
-        <!--                android:layout_marginLeft="16dp"-->
-        <!--                android:layout_marginTop="16dp"-->
-        <!--                app:layout_constraintStart_toStartOf="parent"-->
-        <!--                app:layout_constraintTop_toTopOf="parent" />-->
-
-        <!--        <TextView-->
-        <!--                android:id="@+id/showAmplitudeLabelTextView"-->
-        <!--                android:layout_width="wrap_content"-->
-        <!--                android:layout_height="wrap_content"-->
-        <!--                android:text="Show Amplitude"-->
-        <!--                app:layout_constraintBottom_toBottomOf="@+id/showAmplitudeSwitch"-->
-        <!--                app:layout_constraintStart_toEndOf="@+id/showAmplitudeSwitch"-->
-        <!--                app:layout_constraintTop_toTopOf="@+id/showAmplitudeSwitch" />-->
-
-        <!--        <Switch-->
-        <!--                android:id="@+id/noiseSuppressorSwitch"-->
-        <!--                android:layout_width="wrap_content"-->
-        <!--                android:layout_height="wrap_content"-->
-        <!--                android:layout_marginStart="16dp"-->
-        <!--                android:layout_marginLeft="16dp"-->
-        <!--                app:layout_constraintBottom_toBottomOf="@+id/showAmplitudeSwitch"-->
-        <!--                app:layout_constraintStart_toEndOf="@+id/showAmplitudeLabelTextView"-->
-        <!--                app:layout_constraintTop_toTopOf="@+id/showAmplitudeSwitch" />-->
-
-        <!--        <TextView-->
-        <!--                android:id="@+id/noiseSuppressorTextView"-->
-        <!--                android:layout_width="wrap_content"-->
-        <!--                android:layout_height="wrap_content"-->
-        <!--                android:text="Noise Suppressor"-->
-        <!--                app:layout_constraintBottom_toBottomOf="@+id/noiseSuppressorSwitch"-->
-        <!--                app:layout_constraintStart_toEndOf="@+id/noiseSuppressorSwitch"-->
-        <!--                app:layout_constraintTop_toTopOf="@+id/noiseSuppressorSwitch" />-->
-
-        <!--        <TextView-->
-        <!--                android:id="@+id/amplitudeTextView"-->
-        <!--                android:layout_width="wrap_content"-->
-        <!--                android:layout_height="wrap_content"-->
-        <!--                android:layout_marginTop="24dp"-->
-        <!--                android:textSize="20sp"-->
-        <!--                app:layout_constraintStart_toStartOf="@+id/showAmplitudeSwitch"-->
-        <!--                app:layout_constraintTop_toBottomOf="@+id/showAmplitudeSwitch"-->
-        <!--                tools:text="Amplitude : " />-->

@@ -36,10 +36,8 @@ class Login : AppCompatActivity(), AuthListener, KodeinAware {
 
     }
 
-    override fun onStart() {
-        super.onStart()
-        println(viewModel.user)
-        println("*******************")
+    override fun onResume() {
+        super.onResume()
         viewModel.user?.let { startHomeActivity() }
     }
 

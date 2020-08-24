@@ -47,32 +47,30 @@ class NoteViewModel(private val repository: NoteRepository) : ViewModel() {
         }
         if (name.isNullOrEmpty())
             name = ""
-        noteListener?.onStarted()
         val note = hashMapOf(
-            "noteID" to ID, "noteDate" to date, "noteName" to name
-            , "noteContent" to content, "noteColor" to noteColor
+            "noteID" to ID,
+            "noteDate" to date,
+            "noteName" to name,
+            "noteContent" to content,
+            "noteColor" to noteColor
         )
-        val status = repository.insertNote(note)
-        if (status == "successful")
-            noteListener?.onSuccess()
-        else
-            noteListener?.onFailure(status)
+        repository.insertNote(note)
+        noteListener?.onSuccess()
         return
     }
 
     fun updateNote() {
         if (name.isNullOrEmpty())
             name = ""
-        noteListener?.onStarted()
         val note = hashMapOf(
-            "noteID" to ID, "noteDate" to date, "noteName" to name
-            , "noteContent" to content, "noteColor" to noteColor
+            "noteID" to ID,
+            "noteDate" to date,
+            "noteName" to name,
+            "noteContent" to content,
+            "noteColor" to noteColor
         )
-        val status = repository.updateNote(note)
-        if (status == "successful")
-            noteListener?.onSuccess()
-        else
-            noteListener?.onFailure(status)
+        repository.updateNote(note)
+        noteListener?.onSuccess()
         return
     }
 
@@ -81,15 +79,10 @@ class NoteViewModel(private val repository: NoteRepository) : ViewModel() {
             noteListener?.onFailure("No content to delete")
             return
         }
-        noteListener?.onStarted()
-        val status = repository.deleteNote(ID!!)
-        if (status == "successful")
-            noteListener?.onSuccess()
-        else
-            noteListener?.onFailure(status)
+        repository.deleteNote(ID!!)
+        noteListener?.onSuccess()
         return
     }
-
 
     override fun onCleared() {
         super.onCleared()

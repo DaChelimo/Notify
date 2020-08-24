@@ -18,9 +18,9 @@
         <com.ramadan.notify.utils.DrawView
                 android:id="@+id/whiteboard"
                 android:layout_width="match_parent"
+                android:background="@color/white"
                 android:layout_height="0dp"
                 android:layout_marginBottom="8dp"
-                android:background="@color/white"
                 app:layout_constraintBottom_toTopOf="@+id/seekBar"
                 app:layout_constraintCircleRadius="140dp"
                 app:layout_constraintEnd_toEndOf="parent"

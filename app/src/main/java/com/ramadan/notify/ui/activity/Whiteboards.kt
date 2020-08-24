@@ -22,12 +22,8 @@ class Whiteboards : Fragment() {
     }
     private lateinit var adapter: WhiteboardAdapter
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
-    override fun onStart() {
-        super.onStart()
+    override fun onResume() {
+        super.onResume()
         observeData()
     }
 
@@ -41,14 +37,12 @@ class Whiteboards : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.recycle_view, container, false)
-        val progress: ProgressBar = view.findViewById(R.id.progressBar)
         val recyclerView: RecyclerView = view.findViewById(R.id.dashboardRecycleView)
         val staggeredGridLayoutManager =
             StaggeredGridLayoutManager(1, LinearLayoutManager.HORIZONTAL)
         recyclerView.layoutManager = staggeredGridLayoutManager
         observeData()
         recyclerView.adapter = adapter
-        progress.visibility = View.GONE
         return view
     }
 

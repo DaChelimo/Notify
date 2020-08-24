@@ -38,7 +38,7 @@ class Whiteboard : AppCompatActivity(), NoteListener {
     }
     private lateinit var binding: WhiteboardBinding
     private lateinit var contextMenuDialogFragment: ContextMenuDialogFragment
-    var value: String = "null"
+    private var whiteboardName: String = "null"
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,7 +63,6 @@ class Whiteboard : AppCompatActivity(), NoteListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
                 whiteboard.setCurrentWidth(progress)
             }
-
             override fun onStartTrackingTouch(seekBar: SeekBar) {}
             override fun onStopTrackingTouch(seekBar: SeekBar) {}
         })
@@ -71,11 +70,7 @@ class Whiteboard : AppCompatActivity(), NoteListener {
     }
 
     override fun onBackPressed() {
-        super.onBackPressed()
-        if (whiteboard.isDirty)
             showAlertDialog()
-        else
-            super.onBackPressed()
     }
 
     private fun showAlertDialog() {
@@ -83,14 +78,14 @@ class Whiteboard : AppCompatActivity(), NoteListener {
         val layoutView = layoutInflater.inflate(R.layout.alert_dialog, null)
         dialogBuilder.setView(layoutView)
         val alertDialog = dialogBuilder.create()
-        alertDialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        alertDialog.show()
         val saveChange = layoutView.findViewById<TextView>(R.id.saveChange)
         val dismiss = layoutView.findViewById<TextView>(R.id.dismiss)
         saveChange.setOnClickListener {
-            viewModel.saveDrawingNote(value, it, whiteboard)
+            viewModel.saveDrawingNote(whiteboardName, it, whiteboard)
         }
         dismiss.setOnClickListener { super.onBackPressed() }
+        alertDialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        alertDialog.show()
     }
 
     private fun setName() {
@@ -102,7 +97,7 @@ class Whiteboard : AppCompatActivity(), NoteListener {
         alertDialog.setCancelable(true)
         alertDialog.setPositiveButton("Confirm") { dialog, id ->
             try {
-                value = fileName.text.toString()
+                whiteboardName = fileName.text.toString()
             } catch (e: java.lang.Exception) {
                 Log.e("exception", e.message!!)
             }
@@ -117,7 +112,7 @@ class Whiteboard : AppCompatActivity(), NoteListener {
     fun eraser(view: View) {
         whiteboard.setCurrentWidth(seekBar.progress * 8)
         whiteboard.setCurrentColor(Color.WHITE)
-        eraser.setBackgroundColor(resources.getColor(R.color.silver))
+        eraser.setBackgroundColor(resources.getColor(R.color.colorAccent))
         penColorPicker.isLockMode = true
     }
 
@@ -157,7 +152,7 @@ class Whiteboard : AppCompatActivity(), NoteListener {
                     }
                     1 -> {
                         setName()
-                        viewModel.saveDrawingNote(value, view, this@Whiteboard.whiteboard)
+                        viewModel.saveDrawingNote(whiteboardName, view, this@Whiteboard.whiteboard)
                     }
                 }
             }

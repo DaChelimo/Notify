@@ -6,9 +6,9 @@ import android.app.AlertDialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.os.Handler
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -21,7 +21,6 @@ import com.ramadan.notify.databinding.NoteBinding
 import com.ramadan.notify.ui.viewModel.NoteListener
 import com.ramadan.notify.ui.viewModel.NoteViewModel
 import com.ramadan.notify.ui.viewModel.NoteViewModelFactory
-import com.ramadan.notify.utils.startHomeActivity
 import com.yalantis.contextmenu.lib.ContextMenuDialogFragment
 import com.yalantis.contextmenu.lib.MenuObject
 import com.yalantis.contextmenu.lib.MenuParams
@@ -32,7 +31,7 @@ import org.kodein.di.generic.instance
 
 
 class Note : AppCompatActivity(), NoteListener, KodeinAware {
-
+    private lateinit var loadingDialog: AlertDialog
     override val kodein by kodein()
     private val factory: NoteViewModelFactory by instance()
     private val viewModel by lazy {
@@ -43,10 +42,11 @@ class Note : AppCompatActivity(), NoteListener, KodeinAware {
     private var flag: Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        supportActionBar?.title = "New note"
+        supportActionBar?.title = " "
         supportActionBar?.setHomeButtonEnabled(true)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setBackgroundDrawable(ColorDrawable(viewModel.noteColor!!))
+        loadingDialog()
         binding = DataBindingUtil.setContentView(this, R.layout.note)
         binding.noteModel = viewModel
         binding.lifecycleOwner = this
@@ -59,23 +59,25 @@ class Note : AppCompatActivity(), NoteListener, KodeinAware {
         initMenuFragment()
     }
 
-    override fun onStart() {
-        super.onStart()
+    override fun onResume() {
+        super.onResume()
         if (intent.hasExtra("note")) {
+            loadingDialog.show()
             val writtenNote: WrittenNote = intent.getSerializableExtra("note") as WrittenNote
-            if (writtenNote.content.isNotEmpty()) {
+            if (writtenNote.content.isNotEmpty())
                 observeDate(writtenNote.ID)
-            }
         }
+        Handler().postDelayed({
+            loadingDialog.dismiss()
+        }, 2000)
     }
 
     override fun onBackPressed() {
-        when {
-            noteContent.text.isNullOrEmpty() -> super.onBackPressed()
-            noteContent.text!!.length == viewModel.content!!.length -> super.onBackPressed()
-            else -> showAlertDialog()
+        if (!noteContent.text.isNullOrEmpty()) {
+            showAlertDialog()
+        } else {
+            super.onBackPressed()
         }
-
     }
 
     private fun showAlertDialog() {
@@ -95,9 +97,16 @@ class Note : AppCompatActivity(), NoteListener, KodeinAware {
         dismiss.setOnClickListener { super.onBackPressed() }
     }
 
+    private fun loadingDialog() {
+        val dialogBuilder = AlertDialog.Builder(this)
+        val layoutView = layoutInflater.inflate(R.layout.loading_dialog, null)
+        dialogBuilder.setView(layoutView)
+        loadingDialog = dialogBuilder.create()
+        loadingDialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+    }
+
     private fun observeDate(ID: String) {
         viewModel.getNote(ID).observe(this, Observer {
-            supportActionBar?.title = it.name
             supportActionBar?.setBackgroundDrawable(ColorDrawable(it.noteColor))
             noteColorPicker.selectColor(it.noteColor)
             binding.noteModel = viewModel
@@ -168,16 +177,16 @@ class Note : AppCompatActivity(), NoteListener, KodeinAware {
     }
 
     override fun onStarted() {
-        progressBar.visibility = View.VISIBLE
+        loadingDialog.show()
     }
 
     override fun onSuccess() {
-        progressBar.visibility = View.GONE
-        startHomeActivity()
+        loadingDialog.hide()
+        super.onBackPressed()
     }
 
     override fun onFailure(message: String) {
-        progressBar.visibility = View.GONE
+        loadingDialog.hide()
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 

@@ -26,12 +26,10 @@ public class LinedEditText extends androidx.appcompat.widget.AppCompatEditText {
         int firstLineY = getLineBounds(0, bounds);
         int lineHeight = getLineHeight();
         int totalLines = Math.max(getLineCount(), getHeight() / lineHeight);
-
         for (int i = 0; i < totalLines; i++) {
             int lineY = firstLineY + i * lineHeight;
             canvas.drawLine(bounds.left, lineY, bounds.right, lineY, linePaint);
         }
-
         super.onDraw(canvas);
     }
 }

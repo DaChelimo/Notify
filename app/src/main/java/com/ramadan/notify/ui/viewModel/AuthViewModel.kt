@@ -39,7 +39,7 @@ class AuthViewModel(private val repository: UserRepository) : ViewModel() {
             return
         }
         if (!password.equals(confirmPassword)) {
-            authListener?.onFailure("Passwords don't match ")
+            authListener?.onFailure("Passwords are different")
             return
         }
         authListener?.onStarted()
@@ -61,6 +61,7 @@ class AuthViewModel(private val repository: UserRepository) : ViewModel() {
             view.context.startActivity(it)
         }
     }
+
     fun goToX(view: View) {
         Intent(view.context, MainActivity::class.java).also {
             view.context.startActivity(it)

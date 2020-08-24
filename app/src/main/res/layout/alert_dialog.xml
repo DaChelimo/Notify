@@ -3,8 +3,8 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
         android:layout_gravity="center"
+        android:layout_marginHorizontal="16dp"
         android:orientation="vertical">
 
     <ImageView
@@ -13,7 +13,6 @@
             android:layout_gravity="center"
             android:layout_marginVertical="6dp"
             android:src="@drawable/attention" />
-
 
     <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -43,7 +42,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginVertical="10dp"
-                    android:text="Do you like to save change or dismiss?"
+                    android:text="Do you like to save changes?"
                     android:textAlignment="center" />
 
             <LinearLayout
@@ -58,8 +57,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="16dp"
-                        android:text="Save Change"
+                        android:text="Yes"
                         android:textAllCaps="false"
+                        android:textColor="@color/colorAccent"
                         android:textSize="19sp"
                         android:textStyle="bold" />
 
@@ -70,6 +70,7 @@
                         android:layout_marginHorizontal="16dp"
                         android:text="Dismiss"
                         android:textAllCaps="false"
+                        android:textColor="#D32F2F"
                         android:textSize="19sp"
                         android:textStyle="bold" />
 

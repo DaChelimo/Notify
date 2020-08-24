@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#313131</color>
-    <color name="colorPrimaryLight">#525252</color>
-    <color name="colorPrimaryDark">#232323</color>
+    <color name="colorPrimaryLight">#232323</color>
+    <color name="colorPrimaryDark">#525252</color>
     <color name="colorAccent">#21bf73</color>
     <color name="yellow2">#ffc300</color>
     <color name="lightGrey">#80e0e0e0</color>
@@ -16,6 +16,13 @@
     <color name="sky">#9fd8fb</color>
     <color name="blue">#1109bb</color>
     <color name="transparent">@android:color/transparent</color>
+    <color name="colorBackground">#eeeeee</color>
+    <color name="colorText">#313131</color>
+    <color name="actionbar_background">#eeeeee</color>
+    <color name="actionbar_text">#313131</color>
+    <color name="eraser">#eeeeee</color>
+    <color name="whiteboard">#ffffff</color>
+
 
     <array name="noteColors">
         <item>@color/white</item>

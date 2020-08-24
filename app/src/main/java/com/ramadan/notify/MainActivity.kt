@@ -23,14 +23,14 @@ import org.kodein.di.generic.instance
 
 
 class MainActivity : AppCompatActivity(), KodeinAware {
-    private val whiteboards: Whiteboards = Whiteboards()
-    private val notes: Notes = Notes()
     override val kodein by kodein()
     private val factory: HomeViewModelFactory by instance()
-    private val records: Records = Records()
     private val viewModel by lazy {
         ViewModelProviders.of(this, factory).get(HomeViewModel::class.java)
     }
+    private val notes: Notes = Notes()
+    private val records: Records = Records()
+    private val whiteboards: Whiteboards = Whiteboards()
     private lateinit var contextMenuDialogFragment: ContextMenuDialogFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,8 +39,7 @@ class MainActivity : AppCompatActivity(), KodeinAware {
         setContentView(R.layout.main)
         val viewPager: ViewPager = findViewById(R.id.view_pager)
         val tabLayout: TabLayout = findViewById(R.id.tabs)
-        val viewPagerAdapter =
-            ViewPagerAdapter(supportFragmentManager, 0)
+        val viewPagerAdapter = ViewPagerAdapter(supportFragmentManager, 0)
         viewPagerAdapter.addFragment(notes)
         viewPagerAdapter.addFragment(records)
         viewPagerAdapter.addFragment(whiteboards)
@@ -52,7 +51,6 @@ class MainActivity : AppCompatActivity(), KodeinAware {
 //        supportActionBar?.isHideOnContentScrollEnabled = true
         initMenuFragment()
     }
-
 
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
@@ -91,12 +89,12 @@ class MainActivity : AppCompatActivity(), KodeinAware {
                         }
                     }
                     1 -> {
-                        Intent(view.context, Whiteboard::class.java).also {
+                        Intent(view.context, Record::class.java).also {
                             startActivity(it)
                         }
                     }
                     2 -> {
-                        Intent(view.context, Record::class.java).also {
+                        Intent(view.context, Whiteboard::class.java).also {
                             startActivity(it)
                         }
                     }
@@ -111,19 +109,19 @@ class MainActivity : AppCompatActivity(), KodeinAware {
     private fun getMenuObjects() = mutableListOf<MenuObject>().apply {
         val note =
             MenuObject("New note").apply { setResourceValue(R.drawable.note) }
-        note.setBgColorValue((Color.rgb(238, 238, 238)))
-        val whiteboard =
-            MenuObject("New Whiteboard").apply { setResourceValue(R.drawable.whiteboard) }
-        whiteboard.setBgColorValue((Color.WHITE))
+        note.setBgColorValue(Color.rgb(238, 238, 238))
         val record =
             MenuObject("New record").apply { setResourceValue(R.drawable.record) }
-        record.setBgColorValue((Color.rgb(238, 238, 238)))
+        record.setBgColorValue(Color.WHITE)
+        val whiteboard =
+            MenuObject("New Whiteboard").apply { setResourceValue(R.drawable.whiteboard) }
+        whiteboard.setBgColorValue(Color.rgb(238, 238, 238))
         val logOut =
             MenuObject("Logout").apply { setResourceValue(R.drawable.logout) }
-        logOut.setBgColorValue((Color.WHITE))
+        logOut.setBgColorValue(Color.WHITE)
         add(note)
-        add(whiteboard)
         add(record)
+        add(whiteboard)
         add(logOut)
     }
 

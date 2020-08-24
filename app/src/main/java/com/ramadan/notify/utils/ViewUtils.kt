@@ -1,17 +1,28 @@
 package com.ramadan.notify.utils
 
-import android.animation.ArgbEvaluator
-import android.animation.ValueAnimator
+import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
-import android.view.View
-import android.view.WindowInsets
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
+import android.view.LayoutInflater
 import com.ramadan.notify.MainActivity
+import com.ramadan.notify.R
 import com.ramadan.notify.data.model.Record
 import com.ramadan.notify.data.model.WrittenNote
 import com.ramadan.notify.ui.activity.Login
 import com.ramadan.notify.ui.activity.Note
 import com.ramadan.notify.ui.activity.Whiteboards
+
+fun Context.loadingDialog(): AlertDialog? = let {
+    var alertDialog: AlertDialog? = null
+    val dialogBuilder = AlertDialog.Builder(this)
+    val layoutView = LayoutInflater.from(this).inflate(R.layout.loading_dialog, null)
+    dialogBuilder.setView(layoutView)
+    alertDialog = dialogBuilder.create()
+    alertDialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+    return alertDialog
+}
 
 fun Context.startHomeActivity() =
     Intent(this, MainActivity::class.java).also {

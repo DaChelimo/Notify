@@ -19,7 +19,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
-                android:background="@color/silver"
+                android:background="@color/colorBackground"
                 android:scaleType="fitCenter"
                 android:src="@drawable/record_art"
                 card_view:layout_constraintEnd_toEndOf="parent"
@@ -31,8 +31,6 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-
-                android:background="@color/white"
                 android:orientation="vertical"
                 card_view:layout_constraintBottom_toBottomOf="parent"
                 card_view:layout_constraintEnd_toEndOf="parent"
