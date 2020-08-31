@@ -32,8 +32,10 @@
         <item>@color/yellow</item>
         <item>@color/sky</item>
     </array>
+
     <array name="penColors">
         <item>@android:color/black</item>
+        <item>@color/white</item>
         <item>@color/green1</item>
         <item>@color/blue</item>
         <item>@android:color/holo_red_dark</item>

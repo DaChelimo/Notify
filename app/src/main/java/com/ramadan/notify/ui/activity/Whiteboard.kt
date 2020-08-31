@@ -16,10 +16,8 @@ import android.widget.SeekBar.OnSeekBarChangeListener
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 import com.ramadan.notify.R
-import com.ramadan.notify.databinding.WhiteboardBinding
 import com.ramadan.notify.ui.viewModel.NoteListener
 import com.ramadan.notify.ui.viewModel.WhiteboardViewModel
 import com.ramadan.notify.utils.TouchListener
@@ -35,19 +33,17 @@ class Whiteboard : AppCompatActivity(), NoteListener {
     private val viewModel by lazy {
         ViewModelProviders.of(this).get(WhiteboardViewModel::class.java)
     }
-    private lateinit var binding: WhiteboardBinding
     private lateinit var contextMenuDialogFragment: ContextMenuDialogFragment
     private var whiteboardName: String = "null"
+    private var boardColor: String = "white"
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.whiteboard)
         supportActionBar?.title = "Whiteboard"
         supportActionBar?.setHomeButtonEnabled(true)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        binding = DataBindingUtil.setContentView(this, R.layout.whiteboard)
-        binding.whiteboardModel = viewModel
-        binding.lifecycleOwner = this
         whiteboard.requestFocus()
         whiteboard.setOnTouchListener(TouchListener())
         initMenuFragment()
@@ -98,7 +94,7 @@ class Whiteboard : AppCompatActivity(), NoteListener {
         val inflater = LayoutInflater.from(this)
         val view: View = inflater.inflate(R.layout.rename_dialog, null)
         dialogBuilder.setView(view)
-        dialogBuilder.setCancelable(true)
+        dialogBuilder.setCancelable(false)
         val fileName = view.findViewById<View>(R.id.new_name) as EditText
         val alertDialog = dialogBuilder.create()
         alertDialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
@@ -109,13 +105,18 @@ class Whiteboard : AppCompatActivity(), NoteListener {
             whiteboardName = fileName.text.toString()
             viewModel.saveDrawingNote(whiteboardName, this, whiteboard)
             super.onBackPressed()
+            onSuccess()
         }
         cancel.setOnClickListener { alertDialog.cancel() }
     }
 
     fun eraser(view: View) {
+        if (boardColor == "white") {
+            whiteboard.setCurrentColor(Color.WHITE)
+        } else {
+            whiteboard.setCurrentColor(Color.BLACK)
+        }
         whiteboard.setCurrentWidth(seekBar.progress * 8)
-        whiteboard.setCurrentColor(Color.WHITE)
         eraser.setBackgroundColor(resources.getColor(R.color.colorAccent))
         penColorPicker.isLockMode = true
     }
@@ -157,6 +158,10 @@ class Whiteboard : AppCompatActivity(), NoteListener {
                     1 -> {
                         setName()
                     }
+                    3 -> {
+                        whiteboard.setBackgroundColor(Color.BLACK)
+                        boardColor = "black"
+                    }
                 }
             }
         }
@@ -169,8 +174,12 @@ class Whiteboard : AppCompatActivity(), NoteListener {
         val save =
             MenuObject("Save").apply { setResourceValue(R.drawable.save_note) }
         save.setBgColorValue((Color.WHITE))
+        val blackboard =
+            MenuObject("Blackboard").apply { setResourceValue(R.drawable.whiteboard) }
+        blackboard.setBgColorValue((Color.rgb(238, 238, 238)))
         add(clear)
         add(save)
+        add(blackboard)
     }
 
     private fun showContextMenuDialogFragment() {
@@ -180,16 +189,13 @@ class Whiteboard : AppCompatActivity(), NoteListener {
     }
 
     override fun onStarted() {
-        whiteboardProgress.visibility = View.VISIBLE
     }
 
     override fun onSuccess() {
-        whiteboardProgress.visibility = View.GONE
         startHomeActivity()
     }
 
     override fun onFailure(message: String) {
-        whiteboardProgress.visibility = View.GONE
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 }

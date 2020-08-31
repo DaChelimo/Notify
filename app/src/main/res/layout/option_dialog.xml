@@ -5,8 +5,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginHorizontal="16dp"
-        card_view:cardCornerRadius="25dp"
-        card_view:cardElevation="25dp">
+        card_view:cardCornerRadius="25dp">
 
     <LinearLayout
             android:layout_width="match_parent"

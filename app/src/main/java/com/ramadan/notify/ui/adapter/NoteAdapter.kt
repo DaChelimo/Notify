@@ -53,6 +53,8 @@ class NoteAdapter(val context: Notes) :
     override fun onBindViewHolder(holder: NoteViewHolder, position: Int) {
         val writtenNote: WrittenNote = dataList[position]
         holder.bind(writtenNote)
+        //        holder.img.setAnimation(AnimationUtils.loadAnimation(mContext, R.anim.zoom_in));
+
     }
 
     inner class NoteViewHolder(private var binding: NoteItemBinding) :
@@ -60,6 +62,7 @@ class NoteAdapter(val context: Notes) :
         private val mContext: Context = itemView.context
         fun bind(writtenNote: WrittenNote) {
             binding.noteItem = writtenNote
+
             binding.note.setCardBackgroundColor(writtenNote.noteColor)
             binding.executePendingBindings()
             itemView.setOnClickListener {

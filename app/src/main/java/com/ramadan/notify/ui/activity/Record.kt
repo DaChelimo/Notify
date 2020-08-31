@@ -49,17 +49,10 @@ class Record : AppCompatActivity(), NoteListener {
         recordView.setOnRecordListener(object : OnRecordListener {
             override fun onStart() {
                 if (!isRecording) {
-                    if (ContextCompat.checkSelfPermission(
-                            this@Record,
-                            Manifest.permission.RECORD_AUDIO
-                        )
-                        != PackageManager.PERMISSION_GRANTED
-                    ) {
+                    if (ContextCompat.checkSelfPermission(this@Record, Manifest.permission.RECORD_AUDIO)
+                        != PackageManager.PERMISSION_GRANTED) {
                         ActivityCompat.requestPermissions(
-                            this@Record,
-                            arrayOf(Manifest.permission.RECORD_AUDIO),
-                            PERMISSIONS_REQUEST_RECORD_AUDIO
-                        )
+                            this@Record, arrayOf(Manifest.permission.RECORD_AUDIO), 77)
                     } else {
                         Handler().postDelayed(Runnable {
                             viewModel.startRecording()

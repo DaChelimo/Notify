@@ -4,17 +4,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        app:cardCornerRadius="25dp"
-        app:cardElevation="25dp">
+        app:cardCornerRadius="25dp">
 
 
     <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:orientation="vertical"
             android:paddingHorizontal="64dp"
-            android:paddingVertical="8dp">
+            android:paddingVertical="8dp"
+            android:orientation="vertical">
 
 
         <TextView

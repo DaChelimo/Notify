@@ -14,6 +14,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
@@ -71,7 +72,7 @@ class WhiteboardAdapter(private val activity: Whiteboards, private val filepath:
             holder.itemView.setOnClickListener {
                 holder.itemView.context.startWhiteboardActivity()
             }
-        }else{
+        } else {
             holder.itemView.context.startHomeActivity()
         }
     }
@@ -81,6 +82,7 @@ class WhiteboardAdapter(private val activity: Whiteboards, private val filepath:
         private val mContext: Context = itemView.context
         fun customView(bitmap: Bitmap) {
             itemView.whiteboardImg.setImageBitmap(bitmap)
+            itemView.whiteboardImg.setAnimation(AnimationUtils.loadAnimation(mContext, R.anim.zoom_in))
         }
 
         fun showOption(file: File) {
@@ -106,6 +108,7 @@ class WhiteboardAdapter(private val activity: Whiteboards, private val filepath:
                 file.delete()
                 Toast.makeText(mContext, "Deleted", Toast.LENGTH_SHORT).show()
                 alertDialog.cancel()
+                mContext.startHomeActivity()
             }
         }
 
@@ -121,14 +124,15 @@ class WhiteboardAdapter(private val activity: Whiteboards, private val filepath:
             val dialogBuilder = AlertDialog.Builder(mContext)
             val inflater = LayoutInflater.from(mContext)
             val view: View = inflater.inflate(R.layout.rename_dialog, null)
+            dialogBuilder.setCancelable(true)
+            dialogBuilder.setView(view)
             val newName = view.findViewById<View>(R.id.new_name) as EditText
             val dirPath = Environment.getExternalStoragePublicDirectory(
                 Environment.DIRECTORY_PICTURES
             ).path.toString() + "/Notify/"
-            dialogBuilder.setCancelable(true)
-            dialogBuilder.setView(view)
-            val alert = dialogBuilder.create()
-            alert.show()
+            val alertDialog = dialogBuilder.create()
+            alertDialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            alertDialog.show()
             val confirm = view.findViewById<TextView>(R.id.confirm)
             val cancel = view.findViewById<TextView>(R.id.cancel)
             confirm.setOnClickListener {
@@ -136,12 +140,13 @@ class WhiteboardAdapter(private val activity: Whiteboards, private val filepath:
                     val value = newName.text.toString() + ".jpg"
                     file.renameTo(File(dirPath + value))
                     Toast.makeText(mContext, "Renamed", Toast.LENGTH_SHORT).show()
-                    alert.cancel()
+                    alertDialog.cancel()
+                    mContext.startHomeActivity()
                 } catch (e: java.lang.Exception) {
                     Log.e("exception", e.message!!)
                 }
             }
-            cancel.setOnClickListener { alert.cancel() }
+            cancel.setOnClickListener { alertDialog.cancel() }
         }
     }
 }
