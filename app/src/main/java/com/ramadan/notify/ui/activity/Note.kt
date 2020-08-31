@@ -42,7 +42,7 @@ class Note : AppCompatActivity(), NoteListener, KodeinAware {
     private var flag: Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        supportActionBar?.title = " "
+        supportActionBar?.title = "Text Note"
         supportActionBar?.setHomeButtonEnabled(true)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setBackgroundDrawable(ColorDrawable(viewModel.noteColor!!))

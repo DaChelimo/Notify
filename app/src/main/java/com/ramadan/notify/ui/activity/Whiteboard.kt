@@ -6,7 +6,6 @@ import android.app.AlertDialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
@@ -63,6 +62,7 @@ class Whiteboard : AppCompatActivity(), NoteListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
                 whiteboard.setCurrentWidth(progress)
             }
+
             override fun onStartTrackingTouch(seekBar: SeekBar) {}
             override fun onStopTrackingTouch(seekBar: SeekBar) {}
         })
@@ -70,43 +70,47 @@ class Whiteboard : AppCompatActivity(), NoteListener {
     }
 
     override fun onBackPressed() {
-            showAlertDialog()
+        if (whiteboard.isDirty) {
+            println("Dirty")
+        }
+        showAlertDialog()
     }
 
     private fun showAlertDialog() {
         val dialogBuilder = AlertDialog.Builder(this)
-        val layoutView = layoutInflater.inflate(R.layout.alert_dialog, null)
-        dialogBuilder.setView(layoutView)
+        val view = layoutInflater.inflate(R.layout.alert_dialog, null)
+        dialogBuilder.setView(view)
+        dialogBuilder.setCancelable(true)
         val alertDialog = dialogBuilder.create()
-        val saveChange = layoutView.findViewById<TextView>(R.id.saveChange)
-        val dismiss = layoutView.findViewById<TextView>(R.id.dismiss)
-        saveChange.setOnClickListener {
-            viewModel.saveDrawingNote(whiteboardName, it, whiteboard)
-        }
-        dismiss.setOnClickListener { super.onBackPressed() }
         alertDialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         alertDialog.show()
+        val saveChange = view.findViewById<TextView>(R.id.saveChange)
+        val dismiss = view.findViewById<TextView>(R.id.dismiss)
+        saveChange.setOnClickListener {
+            setName()
+            alertDialog.cancel()
+        }
+        dismiss.setOnClickListener { super.onBackPressed() }
     }
 
     private fun setName() {
-        val alertDialog = AlertDialog.Builder(this)
+        val dialogBuilder = AlertDialog.Builder(this)
         val inflater = LayoutInflater.from(this)
         val view: View = inflater.inflate(R.layout.rename_dialog, null)
+        dialogBuilder.setView(view)
+        dialogBuilder.setCancelable(true)
         val fileName = view.findViewById<View>(R.id.new_name) as EditText
-        alertDialog.setTitle("Set name")
-        alertDialog.setCancelable(true)
-        alertDialog.setPositiveButton("Confirm") { dialog, id ->
-            try {
-                whiteboardName = fileName.text.toString()
-            } catch (e: java.lang.Exception) {
-                Log.e("exception", e.message!!)
-            }
-            dialog.cancel()
+        val alertDialog = dialogBuilder.create()
+        alertDialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        alertDialog.show()
+        val confirm = view.findViewById<TextView>(R.id.confirm)
+        val cancel = view.findViewById<TextView>(R.id.cancel)
+        confirm.setOnClickListener {
+            whiteboardName = fileName.text.toString()
+            viewModel.saveDrawingNote(whiteboardName, this, whiteboard)
+            super.onBackPressed()
         }
-        alertDialog.setNegativeButton("Cancel") { dialog, id -> dialog.cancel() }
-        alertDialog.setView(view)
-        val alert = alertDialog.create()
-        alert.show()
+        cancel.setOnClickListener { alertDialog.cancel() }
     }
 
     fun eraser(view: View) {
@@ -152,7 +156,6 @@ class Whiteboard : AppCompatActivity(), NoteListener {
                     }
                     1 -> {
                         setName()
-                        viewModel.saveDrawingNote(whiteboardName, view, this@Whiteboard.whiteboard)
                     }
                 }
             }
@@ -189,6 +192,4 @@ class Whiteboard : AppCompatActivity(), NoteListener {
         whiteboardProgress.visibility = View.GONE
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
-
-
 }

@@ -35,16 +35,15 @@ class WhiteboardViewModel : ViewModel() {
     }
 
 
-    fun saveDrawingNote(fileName: String, view: View, whiteboard: DrawView) {
-        val mContext = view.context
+    fun saveDrawingNote(fileName: String, context: Context, whiteboard: DrawView) {
         val requestCode = 112
         if (Build.VERSION.SDK_INT >= 23) {
             val permissions = arrayOf(
                 Manifest.permission.READ_EXTERNAL_STORAGE,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE
             )
-            if (!hasPermissions(mContext, *permissions))
-                ActivityCompat.requestPermissions((mContext as Activity), permissions, requestCode)
+            if (!hasPermissions(context, *permissions))
+                ActivityCompat.requestPermissions((context as Activity), permissions, requestCode)
             whiteboard.isDrawingCacheEnabled = true
             saveImageToExternalStorage(whiteboard.drawingCache, fileName)
             whiteboard.destroyDrawingCache()

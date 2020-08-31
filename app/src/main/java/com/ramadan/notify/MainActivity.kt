@@ -108,13 +108,13 @@ class MainActivity : AppCompatActivity(), KodeinAware {
 
     private fun getMenuObjects() = mutableListOf<MenuObject>().apply {
         val note =
-            MenuObject("New note").apply { setResourceValue(R.drawable.note) }
+            MenuObject("New text note").apply { setResourceValue(R.drawable.note) }
         note.setBgColorValue(Color.rgb(238, 238, 238))
         val record =
-            MenuObject("New record").apply { setResourceValue(R.drawable.record) }
+            MenuObject("New voice note").apply { setResourceValue(R.drawable.record) }
         record.setBgColorValue(Color.WHITE)
         val whiteboard =
-            MenuObject("New Whiteboard").apply { setResourceValue(R.drawable.whiteboard) }
+            MenuObject("New whiteboard").apply { setResourceValue(R.drawable.whiteboard) }
         whiteboard.setBgColorValue(Color.rgb(238, 238, 238))
         val logOut =
             MenuObject("Logout").apply { setResourceValue(R.drawable.logout) }

@@ -37,13 +37,11 @@ class RecordViewModel : ViewModel() {
     fun startRecording() {
         saveRecordToExternalStorage()
         waveRecorder?.startRecording()
-
     }
 
 
     fun stopRecording() {
         waveRecorder?.stopRecording()
-
     }
 
     private fun saveRecordToExternalStorage() {

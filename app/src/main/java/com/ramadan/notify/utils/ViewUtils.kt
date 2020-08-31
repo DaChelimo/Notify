@@ -12,6 +12,7 @@ import com.ramadan.notify.data.model.Record
 import com.ramadan.notify.data.model.WrittenNote
 import com.ramadan.notify.ui.activity.Login
 import com.ramadan.notify.ui.activity.Note
+import com.ramadan.notify.ui.activity.Whiteboard
 import com.ramadan.notify.ui.activity.Whiteboards
 
 fun Context.loadingDialog(): AlertDialog? = let {
@@ -41,9 +42,8 @@ fun Context.startRecordActivity() =
         startActivity(it)
     }
 
-fun Context.startWhiteboardsActivity() =
-    Intent(this, Whiteboards::class.java).also {
-        it.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+fun Context.startWhiteboardActivity() =
+    Intent(this, Whiteboard::class.java).also {
         startActivity(it)
     }
 

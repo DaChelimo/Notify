@@ -20,6 +20,8 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.ramadan.notify.R
 import com.ramadan.notify.ui.activity.Whiteboards
+import com.ramadan.notify.utils.startHomeActivity
+import com.ramadan.notify.utils.startWhiteboardActivity
 import kotlinx.android.synthetic.main.whiteboard_item.view.*
 import java.io.File
 import java.text.SimpleDateFormat
@@ -58,15 +60,20 @@ class WhiteboardAdapter(private val activity: Whiteboards, private val filepath:
         bmpOptions.inSampleSize = 2
         bmpOptions.inJustDecodeBounds = false
         bitmap = BitmapFactory.decodeFile(file.path, bmpOptions)
-        holder.customView(bitmap!!)
-        holder.itemView.whiteboardTitle.text = file.nameWithoutExtension
-        holder.itemView.whiteboardDate.text = currentDate.format(date)
-        holder.itemView.setOnLongClickListener {
-            holder.showOption(file)
-            false
+        if (bitmap != null) {
+            holder.customView(bitmap!!)
+            holder.itemView.whiteboardTitle.text = file.nameWithoutExtension
+            holder.itemView.whiteboardDate.text = currentDate.format(date)
+            holder.itemView.setOnLongClickListener {
+                holder.showOption(file)
+                false
+            }
+            holder.itemView.setOnClickListener {
+                holder.itemView.context.startWhiteboardActivity()
+            }
+        }else{
+            holder.itemView.context.startHomeActivity()
         }
-
-
     }
 
 
@@ -82,7 +89,7 @@ class WhiteboardAdapter(private val activity: Whiteboards, private val filepath:
             dialogBuilder.setView(view)
             val alertDialog = dialogBuilder.create()
             alertDialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            dialogBuilder.show()
+            alertDialog.show()
             alertDialog.setCancelable(true)
             val share = view.findViewById<TextView>(R.id.share)
             val rename = view.findViewById<TextView>(R.id.rename)
@@ -93,13 +100,12 @@ class WhiteboardAdapter(private val activity: Whiteboards, private val filepath:
             }
             rename.setOnClickListener {
                 renameRecord(file)
-                Toast.makeText(mContext, "Renamed", Toast.LENGTH_SHORT).show()
                 alertDialog.dismiss()
             }
             delete.setOnClickListener {
                 file.delete()
                 Toast.makeText(mContext, "Deleted", Toast.LENGTH_SHORT).show()
-                alertDialog.dismiss()
+                alertDialog.cancel()
             }
         }
 
@@ -112,29 +118,30 @@ class WhiteboardAdapter(private val activity: Whiteboards, private val filepath:
         }
 
         private fun renameRecord(file: File) {
-            val renameFileBuilder = AlertDialog.Builder(mContext)
+            val dialogBuilder = AlertDialog.Builder(mContext)
             val inflater = LayoutInflater.from(mContext)
             val view: View = inflater.inflate(R.layout.rename_dialog, null)
             val newName = view.findViewById<View>(R.id.new_name) as EditText
             val dirPath = Environment.getExternalStoragePublicDirectory(
                 Environment.DIRECTORY_PICTURES
             ).path.toString() + "/Notify/"
-            renameFileBuilder.setTitle("Rename")
-            renameFileBuilder.setCancelable(true)
-            renameFileBuilder.setNegativeButton("Cancel") { dialog, id -> dialog.cancel() }
-            renameFileBuilder.setView(view)
-            val alert = renameFileBuilder.create()
+            dialogBuilder.setCancelable(true)
+            dialogBuilder.setView(view)
+            val alert = dialogBuilder.create()
             alert.show()
-            renameFileBuilder.setPositiveButton("Ok") { dialog, id ->
+            val confirm = view.findViewById<TextView>(R.id.confirm)
+            val cancel = view.findViewById<TextView>(R.id.cancel)
+            confirm.setOnClickListener {
                 try {
                     val value = newName.text.toString() + ".jpg"
                     file.renameTo(File(dirPath + value))
+                    Toast.makeText(mContext, "Renamed", Toast.LENGTH_SHORT).show()
+                    alert.cancel()
                 } catch (e: java.lang.Exception) {
                     Log.e("exception", e.message!!)
                 }
-                alert.cancel()
             }
-
+            cancel.setOnClickListener { alert.cancel() }
         }
     }
 }

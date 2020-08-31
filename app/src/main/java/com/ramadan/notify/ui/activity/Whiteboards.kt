@@ -2,11 +2,11 @@
 
 package com.ramadan.notify.ui.activity
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -22,8 +22,8 @@ class Whiteboards : Fragment() {
     }
     private lateinit var adapter: WhiteboardAdapter
 
-    override fun onResume() {
-        super.onResume()
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
         observeData()
     }
 
@@ -31,6 +31,7 @@ class Whiteboards : Fragment() {
         adapter = WhiteboardAdapter(this, viewModel.loadWhiteboards()!!)
 
     }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

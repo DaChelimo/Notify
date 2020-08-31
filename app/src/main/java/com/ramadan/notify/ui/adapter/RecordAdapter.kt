@@ -53,9 +53,7 @@ class RecordAdapter(private val activity: Records, private val filepath: Array<S
     override fun onBindViewHolder(holder: RecordViewHolder, position: Int) {
         val file = File(filepath[position]!!)
         holder.customView(file)
-
     }
-
 
     inner class RecordViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val mContext: Context = itemView.context
@@ -64,7 +62,6 @@ class RecordAdapter(private val activity: Records, private val filepath: Array<S
             itemView.recordTitle.text = file.nameWithoutExtension
             itemView.recordLength.text = mContext.getRecordLength(getDuration(file)!!.toLong())
             itemView.recordDate.text = currentDate.format(date)
-
             itemView.setOnClickListener {
                 try {
                     val playRecord = PlayRecord().newInstance(file)
@@ -72,17 +69,14 @@ class RecordAdapter(private val activity: Records, private val filepath: Array<S
                         .supportFragmentManager
                         .beginTransaction()
                     playRecord?.show(transaction, "dialog_playback")
-
                 } catch (e: Exception) {
                     println(e)
                 }
             }
-
             itemView.setOnLongClickListener {
                 showOption(file)
                 false
             }
-
         }
 
         private fun showOption(file: File) {
@@ -121,27 +115,29 @@ class RecordAdapter(private val activity: Records, private val filepath: Array<S
         }
 
         private fun renameRecord(file: File) {
-            val renameFileBuilder = AlertDialog.Builder(mContext)
+            val dialogBuilder = AlertDialog.Builder(mContext)
             val inflater = LayoutInflater.from(mContext)
             val view: View = inflater.inflate(R.layout.rename_dialog, null)
             val newName = view.findViewById<View>(R.id.new_name) as EditText
             val dirPath = Environment.getExternalStorageDirectory().path + "/Notify/Records/"
-            renameFileBuilder.setTitle("Rename")
-            renameFileBuilder.setCancelable(true)
-            renameFileBuilder.setPositiveButton("Confirm") { dialog, id ->
+            dialogBuilder.setCancelable(true)
+            dialogBuilder.setView(view)
+            val alert = dialogBuilder.create()
+            alert.show()
+            val confirm = view.findViewById<TextView>(R.id.confirm)
+            val cancel = view.findViewById<TextView>(R.id.cancel)
+            confirm.setOnClickListener {
                 try {
                     val value = newName.text.toString() + ".mp3"
                     file.renameTo(File(dirPath + value))
+                    Toast.makeText(mContext, "Renamed", Toast.LENGTH_SHORT).show()
+                    alert.cancel()
                 } catch (e: java.lang.Exception) {
                     Log.e("exception", e.message!!)
                 }
-                Toast.makeText(mContext, "Renamed", Toast.LENGTH_SHORT).show()
-                dialog.cancel()
             }
-            renameFileBuilder.setNegativeButton("Cancel") { dialog, id -> dialog.cancel() }
-            renameFileBuilder.setView(view)
-            val alert = renameFileBuilder.create()
-            alert.show()
+            cancel.setOnClickListener { alert.cancel() }
+
         }
 
         private fun getDuration(file: File): String? {

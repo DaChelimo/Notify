@@ -53,17 +53,7 @@
                     android:orientation="horizontal">
 
                 <TextView
-                        android:id="@+id/saveChange"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="16dp"
-                        android:text="Yes"
-                        android:textAllCaps="false"
-                        android:textColor="@color/colorAccent"
-                        android:textSize="19sp"
-                        android:textStyle="bold" />
 
-                <TextView
                         android:id="@+id/dismiss"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -71,6 +61,17 @@
                         android:text="Dismiss"
                         android:textAllCaps="false"
                         android:textColor="#D32F2F"
+                        android:textSize="19sp"
+                        android:textStyle="bold" />
+
+                <TextView
+                        android:id="@+id/saveChange"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="16dp"
+                        android:text="Yes"
+                        android:textAllCaps="false"
+                        android:textColor="@color/colorAccent"
                         android:textSize="19sp"
                         android:textStyle="bold" />
 
