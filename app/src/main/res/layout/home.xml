@@ -29,22 +29,6 @@
             app:layout_constraintTop_toTopOf="parent" />
 
 
-    <com.ismaeldivita.chipnavigation.ChipNavigationBar
-            android:id="@+id/bottomBar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorPrimaryDark"
-            android:elevation="12dp"
-            android:padding="2dp"
-            app:cnb_addBottomInset="false"
-            app:cnb_addLeftInset="false"
-            app:cnb_addRightInset="false"
-            app:cnb_addTopInset="false"
-            app:cnb_iconSize="19dp"
-            app:cnb_menuResource="@menu/bottom_menu"
-            app:cnb_orientationMode="horizontal"
-            app:cnb_radius="8dp"
-            app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

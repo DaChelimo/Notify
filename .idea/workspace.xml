@@ -19,6 +19,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="df45f332-c71d-4e75-a1ba-d12aa2ce3533" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_intro.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.1.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.1.1/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.1.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.1.1/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.1.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.1.1/fileHashes/fileHashes.bin" afterDir="false" />
@@ -29,17 +30,24 @@
       <change beforePath="$PROJECT_DIR$/.gradle/5.1.1/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.1.1/javaCompile/javaCompile.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.1.1/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.1.1/javaCompile/taskHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_appcompat_appcompat_1_1_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_appcompat_appcompat_resources_1_1_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_constraintlayout_constraintlayout_2_0_0_beta6_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_constraintlayout_constraintlayout_solver_2_0_0_beta6_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_core_core_1_3_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_material_material_1_3_0_alpha01_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_ismaeldivita_chipnavigation_chip_navigation_bar_1_3_2_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/app/app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/app/app.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ramadan/notify/ui/activity/Record.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ramadan/notify/ui/activity/Record.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ramadan/notify/ui/activity/Whiteboard.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ramadan/notify/ui/activity/Whiteboard.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ramadan/notify/ui/adapter/NoteAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ramadan/notify/ui/adapter/NoteAdapter.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ramadan/notify/ui/adapter/WhiteboardAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ramadan/notify/ui/adapter/WhiteboardAdapter.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/loading_dialog.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/loading_dialog.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ramadan/notify/ui/activity/Test.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ramadan/notify/ui/activity/Test.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ramadan/notify/utils/ViewUtils.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ramadan/notify/utils/ViewUtils.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_gallery_picture.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/home.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/home.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/option_dialog.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/option_dialog.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/recycle_view.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/recycle_view.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/whiteboard.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/whiteboard.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-night/colors.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-night/colors.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,11 +83,11 @@
       <list>
         <option value="Kotlin Interface" />
         <option value="Class" />
-        <option value="Kotlin File" />
         <option value="layoutResourceFile" />
         <option value="resourceFile" />
         <option value="Kotlin Class" />
         <option value="valueResourceFile" />
+        <option value="Kotlin File" />
       </list>
     </option>
   </component>
@@ -115,11 +123,11 @@
       <recent name="com.ramadan.notify.ui.Activity" />
     </key>
     <key name="CopyKotlinDeclarationDialog.RECENTS_KEY">
+      <recent name="com.ramadan.notify.ui.activity" />
+      <recent name="com.ramadan.notify.data.model" />
       <recent name="com.ramadan.notify.ui.adapter" />
       <recent name="com.ramadan.notify" />
-      <recent name="com.ramadan.notify.data.model" />
       <recent name="com.ramadan.notify.ui.viewModel" />
-      <recent name="com.ramadan.notify.data.repository" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\mhmdr\Documents\androidProjects\Notify\app\src\main\res\values" />
@@ -282,22 +290,22 @@
       <screen x="0" y="30" width="1536" height="834" />
     </state>
     <state x="329" y="188" key="FileChooserDialogImpl/0.30.1536.834@0.30.1536.834" timestamp="1598840197532" />
-    <state width="1170" height="225" key="GridCell.Tab.0.bottom" timestamp="1598867232768">
+    <state width="1170" height="225" key="GridCell.Tab.0.bottom" timestamp="1598922386650">
       <screen x="0" y="30" width="1536" height="834" />
     </state>
-    <state width="1170" height="225" key="GridCell.Tab.0.bottom/0.30.1536.834@0.30.1536.834" timestamp="1598867232768" />
-    <state width="1170" height="225" key="GridCell.Tab.0.center" timestamp="1598867232768">
+    <state width="1170" height="225" key="GridCell.Tab.0.bottom/0.30.1536.834@0.30.1536.834" timestamp="1598922386650" />
+    <state width="1170" height="225" key="GridCell.Tab.0.center" timestamp="1598922386650">
       <screen x="0" y="30" width="1536" height="834" />
     </state>
-    <state width="1170" height="225" key="GridCell.Tab.0.center/0.30.1536.834@0.30.1536.834" timestamp="1598867232768" />
-    <state width="1170" height="225" key="GridCell.Tab.0.left" timestamp="1598867232768">
+    <state width="1170" height="225" key="GridCell.Tab.0.center/0.30.1536.834@0.30.1536.834" timestamp="1598922386650" />
+    <state width="1170" height="225" key="GridCell.Tab.0.left" timestamp="1598922386650">
       <screen x="0" y="30" width="1536" height="834" />
     </state>
-    <state width="1170" height="225" key="GridCell.Tab.0.left/0.30.1536.834@0.30.1536.834" timestamp="1598867232768" />
-    <state width="1170" height="225" key="GridCell.Tab.0.right" timestamp="1598867232768">
+    <state width="1170" height="225" key="GridCell.Tab.0.left/0.30.1536.834@0.30.1536.834" timestamp="1598922386650" />
+    <state width="1170" height="225" key="GridCell.Tab.0.right" timestamp="1598922386650">
       <screen x="0" y="30" width="1536" height="834" />
     </state>
-    <state width="1170" height="225" key="GridCell.Tab.0.right/0.30.1536.834@0.30.1536.834" timestamp="1598867232768" />
+    <state width="1170" height="225" key="GridCell.Tab.0.right/0.30.1536.834@0.30.1536.834" timestamp="1598922386650" />
     <state x="173" y="190" key="IDE.errors.dialog" timestamp="1594789074627">
       <screen x="0" y="30" width="1536" height="834" />
     </state>

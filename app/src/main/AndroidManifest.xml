@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <uses-permission android:name="android.permission.WRITE_USER_DICTIONARY" />
 
@@ -33,6 +34,7 @@
         <activity android:name=".ui.activity.Note" />
         <activity android:name=".ui.activity.Whiteboard" />
         <activity android:name=".ui.activity.Test" />
+        <activity android:name=".ui.activity.Test2" />
 
         <meta-data
                 android:name="preloaded_fonts"

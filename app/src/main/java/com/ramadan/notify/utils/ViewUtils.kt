@@ -10,10 +10,7 @@ import com.ramadan.notify.MainActivity
 import com.ramadan.notify.R
 import com.ramadan.notify.data.model.Record
 import com.ramadan.notify.data.model.WrittenNote
-import com.ramadan.notify.ui.activity.Login
-import com.ramadan.notify.ui.activity.Note
-import com.ramadan.notify.ui.activity.Whiteboard
-import com.ramadan.notify.ui.activity.Whiteboards
+import com.ramadan.notify.ui.activity.*
 
 fun Context.loadingDialog(): AlertDialog? = let {
     var alertDialog: AlertDialog? = null
@@ -43,7 +40,7 @@ fun Context.startRecordActivity() =
     }
 
 fun Context.startWhiteboardActivity() =
-    Intent(this, Whiteboard::class.java).also {
+    Intent(this, Test2::class.java).also {
         startActivity(it)
     }
 
