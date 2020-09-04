@@ -3,15 +3,12 @@ package com.ramadan.notify.utils;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
-import android.os.Build;
 import android.util.AttributeSet;
 import android.view.View;
 
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 
 import java.util.ArrayList;
 
@@ -39,11 +36,6 @@ public class DrawView extends View {
         super(context, attrs, defStyleAttr);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    public DrawView(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
-    }
-
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
@@ -67,7 +59,6 @@ public class DrawView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-
         int i = 0;
         for (Path path : paths) {
             mBitmapPaint = new Paint(Paint.DITHER_FLAG);
@@ -81,18 +72,6 @@ public class DrawView extends View {
             i++;
         }
     }
-
-    public Bitmap getBitmap() {
-        //this.measure(100, 100);
-        //this.layout(0, 0, 100, 100);
-        this.setDrawingCacheEnabled(true);
-        this.buildDrawingCache();
-        Bitmap bmp = Bitmap.createBitmap(this.getDrawingCache());
-        this.setDrawingCacheEnabled(false);
-
-        return bmp;
-    }
-
 
     public void setCurrentColor(int color) {
         currentColor = color;

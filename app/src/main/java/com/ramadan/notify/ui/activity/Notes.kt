@@ -1,8 +1,6 @@
 package com.ramadan.notify.ui.activity
 
-import android.app.AlertDialog
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -23,7 +21,6 @@ import org.kodein.di.generic.instance
 
 
 class Notes : Fragment(), KodeinAware {
-    private lateinit var loadingDialog: AlertDialog
     override val kodein by kodein()
     private val factory: HomeViewModelFactory by instance()
     private val viewModel by lazy {
@@ -31,16 +28,15 @@ class Notes : Fragment(), KodeinAware {
     }
     private lateinit var adapter: NoteAdapter
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        observeData()
     }
 
-    override fun onStart() {
-        super.onStart()
-        viewModel.getNotes().observe(this, Observer {
+    private fun observeData() {
+        viewModel.getNotes().observe(viewLifecycleOwner, Observer {
             adapter.setDataList(it)
         })
-        loadingDialog.hide()
     }
 
     override fun onCreateView(
@@ -48,22 +44,12 @@ class Notes : Fragment(), KodeinAware {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.recycle_view, container, false)
-        loadingDialog()
-        loadingDialog.show()
         adapter = NoteAdapter(this)
         val recyclerView: RecyclerView = view.findViewById(R.id.dashboardRecycleView)
         val staggeredGridLayoutManager = StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL)
         recyclerView.layoutManager = staggeredGridLayoutManager
         recyclerView.adapter = adapter
+        observeData()
         return view
     }
-
-    private fun loadingDialog() {
-        val dialogBuilder = AlertDialog.Builder(context)
-        val layoutView = layoutInflater.inflate(R.layout.loading_dialog, null)
-        dialogBuilder.setView(layoutView)
-        loadingDialog = dialogBuilder.create()
-        loadingDialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-    }
-
 }

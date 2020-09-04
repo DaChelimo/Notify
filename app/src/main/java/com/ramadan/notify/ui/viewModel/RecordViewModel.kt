@@ -2,114 +2,83 @@
 
 package com.ramadan.notify.ui.viewModel
 
-import android.annotation.SuppressLint
-import android.content.pm.PackageManager
-import android.content.res.Resources
-import android.graphics.Color
-import android.media.MediaMetadataRetriever
+import android.media.MediaRecorder
 import android.os.Environment
-import android.os.SystemClock
 import android.util.Log
-import android.widget.Chronometer
 import androidx.lifecycle.ViewModel
-import com.github.squti.androidwaverecorder.WaveRecorder
-import com.ramadan.notify.R
+import io.reactivex.Completable
 import java.io.File
-import java.io.FileOutputStream
-import java.io.OutputStream
-import java.text.SimpleDateFormat
-import java.util.*
 
 
-class RecordViewModel : ViewModel() {
+class RecordViewModel : ViewModel(), MediaRecorder.OnErrorListener {
 
-    private var FilePathStrings: Array<String?>? = null
+    private var filePathStrings: Array<String?>? = null
     private var listFile: Array<File>? = null
     var file: File? = null
-
-    private val PERMISSIONS_REQUEST_RECORD_AUDIO = 77
-    private var waveRecorder: WaveRecorder? = null
-    private lateinit var filePath: String
-    private var name: String? = null
     private val dirPath = Environment.getExternalStorageDirectory().path + "/Notify/Records"
-
+    private var filePath = dirPath + "/notify${System.currentTimeMillis()}.mp3"
+    private var mRecorder = MediaRecorder()
+    private var outputFile: File? = null
 
     fun startRecording() {
-        saveRecordToExternalStorage()
-        waveRecorder?.startRecording()
+        mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC)
+        mRecorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
+        mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.HE_AAC)
+        mRecorder.setAudioEncodingBitRate(48000)
+        mRecorder.setAudioSamplingRate(16000)
+        mRecorder.setOutputFile(outputFile!!.path)
+        mRecorder.setOnErrorListener(this)
+        mRecorder.prepare()
+        mRecorder.start()
+        Log.w("Record", "started recording to " + outputFile)
     }
 
-
-    fun stopRecording() {
-        waveRecorder?.stopRecording()
-    }
-
-    private fun saveRecordToExternalStorage() {
-        filePath = "$dirPath/notify" + System.currentTimeMillis().toString() + ".mp3"
-        try {
-            val dir = File(dirPath)
-            if (!dir.exists())
-                dir.mkdirs()
-            val outStream: OutputStream?
-            val file = File(filePath)
-            file.createNewFile()
-            outStream = FileOutputStream(file)
-            waveRecorder = WaveRecorder(filePath)
-            outStream.flush()
-            outStream.close()
-        } catch (e: Exception) {
-            Log.e("saveToExternalStorage()", e.message)
+    fun stopRecording(boolean: Boolean) {
+        mRecorder.setOnErrorListener(this)
+        mRecorder.stop()
+        mRecorder.release()
+        if ((outputFile == null) || (boolean)) {
+            Log.w("Record", "Deleted File ")
+            outputFile?.delete();
         }
     }
 
-    fun startChronometer(chronometer: Chronometer) {
-        chronometer.start()
-        chronometer.base = SystemClock.elapsedRealtime()
-        chronometer.setTextColor(Color.parseColor("#21bf73"))
-    }
-
-    fun stopChronometer(chronometer: Chronometer) {
-        chronometer.stop()
-        chronometer.base = SystemClock.elapsedRealtime()
-        chronometer.setTextColor(Color.parseColor("#525252"))
+    fun saveRecordToExternalStorage(fileName: String): Boolean {
+        filePath = "$dirPath/$fileName.mp3"
+        outputFile = File(filePath)
+        if (outputFile!!.exists()) {
+            return false
+        }
+        return true
     }
 
 
     fun loadRecords(): Array<String?>? {
-        if (Environment.getExternalStorageState() != Environment.MEDIA_MOUNTED
-        ) {
-            println("Error")
+        if (Environment.getExternalStorageState() != Environment.MEDIA_MOUNTED) {
+            Log.e("Record", "Environment.MEDIA IS MOUNTED")
         } else {
-            file = File(
-                Environment.getExternalStorageDirectory().absolutePath.toString() + "/Notify/Records"
-            )
+            val dir = File(dirPath)
+            if (!dir.exists())
+                dir.mkdirs()
+            file = File(dirPath)
         }
         if (file!!.isDirectory) {
             listFile = file!!.listFiles()
-            FilePathStrings = arrayOfNulls(listFile!!.size)
+            listFile!!.sortByDescending { it.lastModified() }
+            filePathStrings = arrayOfNulls(listFile!!.size)
             for (i in listFile!!.indices) {
-                FilePathStrings!![i] = listFile!![i].absolutePath
+                filePathStrings!![i] = listFile!![i].absolutePath
             }
+        } else {
+            Log.e("Records", "Error in load records2")
         }
-        return FilePathStrings
+        return filePathStrings
     }
 
-    fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<String>, grantResults: IntArray
-    ) {
-        when (requestCode) {
-            PERMISSIONS_REQUEST_RECORD_AUDIO -> {
-                if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-                    startRecording()
-                }
-                return
-            }
 
-            else -> {
-            }
-        }
-
-
+    override fun onError(mr: MediaRecorder?, what: Int, extra: Int) {
+        Log.e("Record", mr.toString())
+//        recordListener!!.onFailure("sorry, try again")
     }
+
 }

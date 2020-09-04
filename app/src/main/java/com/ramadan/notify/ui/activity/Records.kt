@@ -1,5 +1,6 @@
 package com.ramadan.notify.ui.activity
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,7 +8,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ramadan.notify.R
 import com.ramadan.notify.ui.adapter.RecordAdapter
@@ -19,8 +19,8 @@ class Records : Fragment() {
     }
     private lateinit var adapter: RecordAdapter
 
-    override fun onResume() {
-        super.onResume()
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
         observeData()
     }
 
@@ -34,7 +34,7 @@ class Records : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.recycle_view, container, false)
         val recyclerView: RecyclerView = view.findViewById(R.id.dashboardRecycleView)
-        recyclerView.layoutManager = GridLayoutManager(view.context,2)
+        recyclerView.layoutManager = GridLayoutManager(view.context, 2)
         observeData()
         recyclerView.adapter = adapter
         return view

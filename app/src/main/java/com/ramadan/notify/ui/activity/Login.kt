@@ -22,22 +22,22 @@ class Login : AppCompatActivity(), AuthListener, KodeinAware {
 
     override val kodein by kodein()
     private val factory: AuthViewModelFactory by instance()
-    private lateinit var viewModel: AuthViewModel
+    private val viewModel by lazy {
+        ViewModelProviders.of(this, factory).get(AuthViewModel::class.java)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding: LoginBinding = DataBindingUtil.setContentView(this, R.layout.login)
-        viewModel = ViewModelProviders.of(this, factory).get(AuthViewModel::class.java)
         binding.loginModel = viewModel
         binding.lifecycleOwner = this
         viewModel.authListener = this
         supportActionBar?.hide()
-
-
+        viewModel.user?.let { startHomeActivity() }
     }
 
-    override fun onResume() {
-        super.onResume()
+    override fun onStart() {
+        super.onStart()
         viewModel.user?.let { startHomeActivity() }
     }
 

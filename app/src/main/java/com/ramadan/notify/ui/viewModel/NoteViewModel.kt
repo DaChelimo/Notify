@@ -8,23 +8,21 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.ramadan.notify.data.model.WrittenNote
 import com.ramadan.notify.data.repository.NoteRepository
-import io.reactivex.disposables.CompositeDisposable
 import java.text.SimpleDateFormat
 import java.util.*
 
 
 class NoteViewModel(private val repository: NoteRepository) : ViewModel() {
     @SuppressLint("SimpleDateFormat")
-    private val currentDate: SimpleDateFormat = SimpleDateFormat("dd/MM/yyyy")
-    private val todayDate: Date = Date()
-    var ID: String? = System.currentTimeMillis().toString()
+    private val currentDate = SimpleDateFormat("dd/MM/yyyy")
+    private val todayDate = Date()
+    private var ID: String? = System.currentTimeMillis().toString()
     var date: String? = currentDate.format(todayDate)
     var name: String? = null
     var content: String? = null
     var noteColor: Int? = Color.parseColor("#ffffff")
 
     var noteListener: NoteListener? = null
-    private val disposables = CompositeDisposable()
 
 
     fun getNote(ID: String): MutableLiveData<WrittenNote> {
@@ -64,7 +62,7 @@ class NoteViewModel(private val repository: NoteRepository) : ViewModel() {
             name = ""
         val note = hashMapOf(
             "noteID" to ID,
-            "noteDate" to date,
+            "noteDate" to currentDate.format(todayDate),
             "noteName" to name,
             "noteContent" to content,
             "noteColor" to noteColor
@@ -84,8 +82,4 @@ class NoteViewModel(private val repository: NoteRepository) : ViewModel() {
         return
     }
 
-    override fun onCleared() {
-        super.onCleared()
-        disposables.dispose()
-    }
 }

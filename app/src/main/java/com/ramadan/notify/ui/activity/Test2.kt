@@ -24,7 +24,7 @@ class Test2 : AppIntro2() {
                 "Welcome!",
                 "This is a demo of the AppIntro library, using the second layout.",
                 imageDrawable = R.drawable.back,
-                backgroundColor = Color.parseColor("21bf73")
+                backgroundColor = Color.parseColor("#21bf73")
             )
         )
 
@@ -67,14 +67,14 @@ class Test2 : AppIntro2() {
         vibrateDuration = 50L
         setImmersiveMode()
         setTransformer(AppIntroPageTransformerType.Parallax())
-        askForPermissions(
-            permissions = arrayOf(
-                Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                Manifest.permission.READ_EXTERNAL_STORAGE
-            ),
-            slideNumber = 2,
-            required = true
-        )
+//        askForPermissions(
+//            permissions = arrayOf(
+//                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+//                Manifest.permission.READ_EXTERNAL_STORAGE
+//            ),
+//            slideNumber = 2,
+//            required = true
+//        )
 
     }
 

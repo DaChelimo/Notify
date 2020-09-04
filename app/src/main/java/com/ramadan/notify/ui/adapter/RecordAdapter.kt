@@ -9,10 +9,8 @@ import android.graphics.drawable.ColorDrawable
 import android.media.MediaMetadataRetriever
 import android.net.Uri
 import android.os.Environment
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.inflate
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.TextView
@@ -24,6 +22,7 @@ import com.ramadan.notify.R
 import com.ramadan.notify.ui.activity.PlayRecord
 import com.ramadan.notify.ui.activity.Records
 import com.ramadan.notify.utils.getRecordLength
+import com.ramadan.notify.utils.startHomeActivity
 import kotlinx.android.synthetic.main.record_item.view.*
 import java.io.File
 import java.text.SimpleDateFormat
@@ -34,7 +33,7 @@ class RecordAdapter(private val activity: Records, private val filepath: Array<S
     RecyclerView.Adapter<RecordAdapter.RecordViewHolder>() {
     @SuppressLint("SimpleDateFormat")
     private val currentDate: SimpleDateFormat = SimpleDateFormat("dd/MM/yyyy")
-
+    val dirPath = Environment.getExternalStorageDirectory().path + "/Notify/Records/"
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecordViewHolder {
         val view: View =
@@ -80,12 +79,12 @@ class RecordAdapter(private val activity: Records, private val filepath: Array<S
         }
 
         private fun showOption(file: File) {
-            val dialogBuilder: AlertDialog.Builder = AlertDialog.Builder(mContext)
-            val view: View = inflate(mContext, R.layout.option_dialog, null)
+            val dialogBuilder = AlertDialog.Builder(mContext)
+            val view = View.inflate(mContext, R.layout.option_dialog, null)
             dialogBuilder.setView(view)
             val alertDialog = dialogBuilder.create()
             alertDialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            dialogBuilder.show()
+            alertDialog.show()
             alertDialog.setCancelable(true)
             val share = view.findViewById<TextView>(R.id.share)
             val rename = view.findViewById<TextView>(R.id.rename)
@@ -102,6 +101,7 @@ class RecordAdapter(private val activity: Records, private val filepath: Array<S
                 file.delete()
                 Toast.makeText(mContext, "Deleted", Toast.LENGTH_SHORT).show()
                 alertDialog.cancel()
+                mContext.startHomeActivity()
             }
         }
 
@@ -116,14 +116,14 @@ class RecordAdapter(private val activity: Records, private val filepath: Array<S
 
         private fun renameRecord(file: File) {
             val dialogBuilder = AlertDialog.Builder(mContext)
-            val inflater = LayoutInflater.from(mContext)
-            val view: View = inflater.inflate(R.layout.rename_dialog, null)
-            val newName = view.findViewById<View>(R.id.new_name) as EditText
-            val dirPath = Environment.getExternalStorageDirectory().path + "/Notify/Records/"
-            dialogBuilder.setCancelable(true)
+            val view = View.inflate(mContext, R.layout.rename_dialog, null)
             dialogBuilder.setView(view)
-            val alert = dialogBuilder.create()
-            alert.show()
+            val alertDialog = dialogBuilder.create()
+            alertDialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            alertDialog.show()
+            val title = view.findViewById<TextView>(R.id.title)
+            title.text = "Whiteboard name"
+            val newName = view.findViewById<View>(R.id.new_name) as EditText
             val confirm = view.findViewById<TextView>(R.id.confirm)
             val cancel = view.findViewById<TextView>(R.id.cancel)
             confirm.setOnClickListener {
@@ -131,12 +131,13 @@ class RecordAdapter(private val activity: Records, private val filepath: Array<S
                     val value = newName.text.toString() + ".mp3"
                     file.renameTo(File(dirPath + value))
                     Toast.makeText(mContext, "Renamed", Toast.LENGTH_SHORT).show()
-                    alert.cancel()
+                    alertDialog.cancel()
+                    mContext.startHomeActivity()
                 } catch (e: java.lang.Exception) {
-                    Log.e("exception", e.message!!)
+                    mContext.startHomeActivity()
                 }
             }
-            cancel.setOnClickListener { alert.cancel() }
+            cancel.setOnClickListener { alertDialog.cancel() }
 
         }
 
@@ -148,8 +149,5 @@ class RecordAdapter(private val activity: Records, private val filepath: Array<S
             println(durationStr)
             return durationStr
         }
-
     }
-
-
 }

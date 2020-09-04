@@ -10,7 +10,6 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Environment
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,8 +20,8 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.ramadan.notify.R
 import com.ramadan.notify.ui.activity.Whiteboards
+import com.ramadan.notify.utils.startAppIntroActivity
 import com.ramadan.notify.utils.startHomeActivity
-import com.ramadan.notify.utils.startWhiteboardActivity
 import kotlinx.android.synthetic.main.whiteboard_item.view.*
 import java.io.File
 import java.text.SimpleDateFormat
@@ -33,6 +32,9 @@ class WhiteboardAdapter(private val activity: Whiteboards, private val filepath:
     RecyclerView.Adapter<WhiteboardAdapter.WhiteboardViewHolder>() {
     private var bitmap: Bitmap? = null
     private val mContext: Context = activity.context!!
+    val dirPath = Environment.getExternalStoragePublicDirectory(
+        Environment.DIRECTORY_PICTURES
+    ).path + "/Notify/"
 
     @SuppressLint("SimpleDateFormat")
     private val currentDate: SimpleDateFormat = SimpleDateFormat("dd/MM/yyyy")
@@ -69,9 +71,6 @@ class WhiteboardAdapter(private val activity: Whiteboards, private val filepath:
                 holder.showOption(file)
                 false
             }
-            holder.itemView.setOnClickListener {
-                holder.itemView.context.startWhiteboardActivity()
-            }
         } else {
             holder.itemView.context.startHomeActivity()
         }
@@ -80,14 +79,24 @@ class WhiteboardAdapter(private val activity: Whiteboards, private val filepath:
 
     inner class WhiteboardViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val mContext: Context = itemView.context
+        private val whiteboards = Whiteboards()
+
         fun customView(bitmap: Bitmap) {
             itemView.whiteboardImg.setImageBitmap(bitmap)
-            itemView.whiteboardImg.setAnimation(AnimationUtils.loadAnimation(mContext, R.anim.zoom_in))
+            itemView.whiteboardImg.animation = AnimationUtils.loadAnimation(
+                mContext,
+                R.anim.zoom_in
+            )
+            itemView.setOnClickListener {
+//                whiteboards.showWhiteboard(bitmap, mContext)
+                mContext.startAppIntroActivity()
+            }
         }
+
 
         fun showOption(file: File) {
             val dialogBuilder: AlertDialog.Builder = AlertDialog.Builder(mContext)
-            val view: View = View.inflate(mContext, R.layout.option_dialog, null)
+            val view = View.inflate(mContext, R.layout.option_dialog, null)
             dialogBuilder.setView(view)
             val alertDialog = dialogBuilder.create()
             alertDialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
@@ -97,11 +106,11 @@ class WhiteboardAdapter(private val activity: Whiteboards, private val filepath:
             val rename = view.findViewById<TextView>(R.id.rename)
             val delete = view.findViewById<TextView>(R.id.delete)
             share.setOnClickListener {
-                shareRecord(file)
+                shareWhiteboard(file)
                 alertDialog.dismiss()
             }
             rename.setOnClickListener {
-                renameRecord(file)
+                renameWhiteboard(file)
                 alertDialog.dismiss()
             }
             delete.setOnClickListener {
@@ -112,7 +121,7 @@ class WhiteboardAdapter(private val activity: Whiteboards, private val filepath:
             }
         }
 
-        private fun shareRecord(file: File) {
+        private fun shareWhiteboard(file: File) {
             val shareIntent = Intent()
             shareIntent.action = Intent.ACTION_SEND
             shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file))
@@ -120,19 +129,16 @@ class WhiteboardAdapter(private val activity: Whiteboards, private val filepath:
             mContext.startActivity(Intent.createChooser(shareIntent, "Send to"))
         }
 
-        private fun renameRecord(file: File) {
+        private fun renameWhiteboard(file: File) {
             val dialogBuilder = AlertDialog.Builder(mContext)
-            val inflater = LayoutInflater.from(mContext)
-            val view: View = inflater.inflate(R.layout.rename_dialog, null)
-            dialogBuilder.setCancelable(true)
+            val view = View.inflate(mContext, R.layout.rename_dialog, null)
             dialogBuilder.setView(view)
-            val newName = view.findViewById<View>(R.id.new_name) as EditText
-            val dirPath = Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_PICTURES
-            ).path.toString() + "/Notify/"
             val alertDialog = dialogBuilder.create()
             alertDialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             alertDialog.show()
+            val title = view.findViewById<TextView>(R.id.title)
+            title.text = "Whiteboard name"
+            val newName = view.findViewById<View>(R.id.new_name) as EditText
             val confirm = view.findViewById<TextView>(R.id.confirm)
             val cancel = view.findViewById<TextView>(R.id.cancel)
             confirm.setOnClickListener {
@@ -143,7 +149,7 @@ class WhiteboardAdapter(private val activity: Whiteboards, private val filepath:
                     alertDialog.cancel()
                     mContext.startHomeActivity()
                 } catch (e: java.lang.Exception) {
-                    Log.e("exception", e.message!!)
+                    mContext.startHomeActivity()
                 }
             }
             cancel.setOnClickListener { alertDialog.cancel() }

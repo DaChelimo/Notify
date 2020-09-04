@@ -25,8 +25,6 @@ import java.util.concurrent.TimeUnit
 
 class PlayRecord : DialogFragment(), MediaPlayer.OnErrorListener, MediaPlayer.OnPreparedListener {
 
-    private val LOG_TAG = "PlaybackFragment"
-    private val ARG_ITEM = "recording_item"
     private var file: File? = null
     private val mHandler = Handler()
     private var mMediaPlayer: MediaPlayer? = null
@@ -35,11 +33,7 @@ class PlayRecord : DialogFragment(), MediaPlayer.OnErrorListener, MediaPlayer.On
     private var recordName: TextView? = null
     private var recordDuration: TextView? = null
     private var currentProgress: TextView? = null
-
-    //stores whether or not the mediaplayer is currently playing audio
     private var isPlaying = false
-
-    //stores minutes and seconds of the length of the file.
     var minutes: Long = 0
     var seconds: Long = 0
 
@@ -92,7 +86,6 @@ class PlayRecord : DialogFragment(), MediaPlayer.OnErrorListener, MediaPlayer.On
 
             override fun onStartTrackingTouch(seekBar: SeekBar) {
                 if (mMediaPlayer != null) {
-                    // remove message Handler from updating progress bar
                     mHandler.removeCallbacks(mRunnable)
                 }
             }
@@ -118,9 +111,6 @@ class PlayRecord : DialogFragment(), MediaPlayer.OnErrorListener, MediaPlayer.On
                 }
             }
         })
-
-
-
         playPause?.setOnClickListener(View.OnClickListener {
             onPlay(isPlaying)
             isPlaying = !isPlaying
@@ -129,8 +119,6 @@ class PlayRecord : DialogFragment(), MediaPlayer.OnErrorListener, MediaPlayer.On
         recordName?.text = file!!.nameWithoutExtension
         recordDuration!!.text = String.format("%02d:%02d", minutes, seconds)
         builder.setView(view)
-
-        // request a window without the title
         dialog.window!!.requestFeature(Window.FEATURE_NO_TITLE)
         return builder.create()
     }
@@ -174,13 +162,11 @@ class PlayRecord : DialogFragment(), MediaPlayer.OnErrorListener, MediaPlayer.On
     private fun prepareMediaPlayerFromPoint(progress: Int) {
         mMediaPlayer = MediaPlayer.create(context, Uri.fromFile(file))
         try {
-            println(file?.absolutePath)
             mMediaPlayer?.setOnErrorListener(this)
             mMediaPlayer?.setOnPreparedListener(this)
             seekBar!!.max = mMediaPlayer!!.duration
             mMediaPlayer!!.seekTo(progress)
             mMediaPlayer!!.setOnCompletionListener { stopPlaying() }
-
         } catch (e: IllegalArgumentException) {
             e.printStackTrace()
         } catch (e: IllegalStateException) {
@@ -190,7 +176,6 @@ class PlayRecord : DialogFragment(), MediaPlayer.OnErrorListener, MediaPlayer.On
         }
         activity!!.window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
     }
-
 
     private fun onPlay(isPlaying: Boolean) {
         if (!isPlaying) {
