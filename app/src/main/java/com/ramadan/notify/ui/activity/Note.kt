@@ -10,6 +10,7 @@ import android.os.Handler
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -17,6 +18,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.ramadan.notify.R
 import com.ramadan.notify.data.model.WrittenNote
 import com.ramadan.notify.databinding.NoteBinding
+import com.ramadan.notify.ui.viewModel.NoteListener
 import com.ramadan.notify.ui.viewModel.NoteViewModel
 import com.ramadan.notify.ui.viewModel.NoteViewModelFactory
 import com.yalantis.contextmenu.lib.ContextMenuDialogFragment
@@ -28,7 +30,7 @@ import org.kodein.di.android.kodein
 import org.kodein.di.generic.instance
 
 
-class Note : AppCompatActivity(), KodeinAware {
+class Note : AppCompatActivity(), KodeinAware, NoteListener {
     private lateinit var loadingDialog: AlertDialog
     override val kodein by kodein()
     private val factory: NoteViewModelFactory by instance()
@@ -48,7 +50,7 @@ class Note : AppCompatActivity(), KodeinAware {
         binding = DataBindingUtil.setContentView(this, R.layout.note)
         binding.noteModel = viewModel
         binding.lifecycleOwner = this
-//        viewModel.noteListener = this
+        viewModel.noteListener = this
         noteColorPicker.setListener { position, color ->
             noteLayout.setBackgroundColor(color)
             viewModel.noteColor = color
@@ -174,18 +176,18 @@ class Note : AppCompatActivity(), KodeinAware {
         }
     }
 
-//    override fun onStarted() {
-//        loadingDialog.show()
-//    }
-//
-//    override fun onSuccess() {
-//        loadingDialog.hide()
-//        super.onBackPressed()
-//    }
-//
-//    override fun onFailure(message: String) {
-//        loadingDialog.hide()
-//        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
-//    }
+    override fun onStarted() {
+        loadingDialog.show()
+    }
+
+    override fun onSuccess() {
+        loadingDialog.hide()
+        super.onBackPressed()
+    }
+
+    override fun onFailure(message: String) {
+        loadingDialog.hide()
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
 
 }

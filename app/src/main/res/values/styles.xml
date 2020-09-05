@@ -20,10 +20,6 @@
 
     </style>
 
-    <style name="AppTheme.DrawerArrowToggle" parent="Widget.AppCompat.DrawerArrowToggle">
-        <item name="android:homeAsUpIndicator">@drawable/back</item>
-    </style>
-
     <style name="MyActionBar" parent="@style/Widget.AppCompat.ActionBar.Solid">
         <item name="android:background">@color/actionbar_background</item>
         <item name="background">@color/actionbar_background</item>
@@ -33,16 +29,8 @@
 
     </style>
 
-    <!-- ActionBar tabs text -->
-    <style name="MyActionBarTabText" parent="@style/Widget.AppCompat.ActionBar.TabText">
-        <item name="android:textColor">@color/actionbar_text</item>
-    </style>
-
     <style name="MyTheme.ActionBar.TitleTextStyle" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
         <item name="android:textColor">@color/actionbar_text</item>
     </style>
-
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
 
 </resources>

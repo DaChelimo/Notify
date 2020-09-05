@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.ramadan.notify.ui.activity
 
 import android.app.AlertDialog
@@ -58,7 +60,6 @@ class PlayRecord : DialogFragment(), MediaPlayer.OnErrorListener, MediaPlayer.On
         seconds = (TimeUnit.MILLISECONDS.toSeconds(itemDuration)
                 - TimeUnit.MINUTES.toSeconds(minutes))
     }
-
 
     @NonNull
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -123,7 +124,6 @@ class PlayRecord : DialogFragment(), MediaPlayer.OnErrorListener, MediaPlayer.On
         return builder.create()
     }
 
-
     override fun onStart() {
         super.onStart()
         val window = dialog!!.window
@@ -137,7 +137,7 @@ class PlayRecord : DialogFragment(), MediaPlayer.OnErrorListener, MediaPlayer.On
     override fun onPause() {
         super.onPause()
         if (mMediaPlayer != null)
-            mMediaPlayer!!.stop()
+            mMediaPlayer!!.pause()
     }
 
     override fun onResume() {
@@ -192,7 +192,7 @@ class PlayRecord : DialogFragment(), MediaPlayer.OnErrorListener, MediaPlayer.On
         playPause?.setImageResource(R.drawable.pause)
         mMediaPlayer = MediaPlayer.create(context, Uri.fromFile(file))
         try {
-            mMediaPlayer!!.setAudioStreamType(AudioManager.STREAM_MUSIC);
+            mMediaPlayer!!.setAudioStreamType(AudioManager.STREAM_MUSIC)
             mMediaPlayer!!.setOnPreparedListener(this)
             mMediaPlayer!!.setOnErrorListener(this)
             seekBar!!.max = mMediaPlayer!!.duration
@@ -228,7 +228,7 @@ class PlayRecord : DialogFragment(), MediaPlayer.OnErrorListener, MediaPlayer.On
         mMediaPlayer!!.stop()
         mMediaPlayer!!.reset()
         mMediaPlayer!!.release()
-        mMediaPlayer = null;
+        mMediaPlayer = null
 
         isPlaying = !isPlaying
         seekBar!!.progress = 0

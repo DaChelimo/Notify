@@ -44,6 +44,7 @@ class Record : AppCompatActivity(), NoteListener {
         supportActionBar?.title = "Voice note"
         supportActionBar?.setHomeButtonEnabled(true)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        viewModel.noteListener = this
 
         recordButton.isListenForRecord = true
         recordButton.setRecordView(recordView)

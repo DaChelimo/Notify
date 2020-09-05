@@ -48,6 +48,7 @@ class Whiteboard : AppCompatActivity(), NoteListener {
         supportActionBar?.title = "Whiteboard"
         supportActionBar?.setHomeButtonEnabled(true)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        viewModel.noteListener = this
         board = findViewById(R.id.whiteboard)
         board.setBackgroundColor(boardColor)
         board.requestFocus()
@@ -166,17 +167,15 @@ class Whiteboard : AppCompatActivity(), NoteListener {
                 when (position) {
                     0 -> {
                         if (boardColor == Color.WHITE) {
-                            println("Black")
                             board.setBackgroundColor(Color.BLACK)
                             boardColor = Color.BLACK
                         } else {
-                            println("White")
                             board.setBackgroundColor(Color.WHITE)
                             boardColor = Color.WHITE
                         }
                     }
                     1 -> {
-                        viewModel.clearDrawingNote(this@Whiteboard.board)
+                        board.clear()
                     }
                     2 -> {
                         setName()

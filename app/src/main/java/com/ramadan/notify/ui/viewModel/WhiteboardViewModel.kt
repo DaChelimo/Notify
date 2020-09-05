@@ -10,7 +10,6 @@ import android.os.Environment
 import android.util.Log
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.ViewModel
-import com.ramadan.notify.utils.DrawView
 import java.io.File
 import java.io.FileOutputStream
 import java.io.OutputStream
@@ -18,25 +17,14 @@ import java.io.OutputStream
 
 class WhiteboardViewModel : ViewModel() {
     private lateinit var filePath: String
-    private var FilePathStrings: Array<String?>? = null
+    private var filePathStrings: Array<String?>? = null
     private var listFile: Array<File>? = null
     var file: File? = null
     private val dirPath = Environment.getExternalStoragePublicDirectory(
         Environment.DIRECTORY_PICTURES
-    ).path.toString() + "/Notify"
+    ).path + "/Notify"
+    var noteListener: NoteListener? = null
 
-    val noteListener: NoteListener? = null
-
-    fun clearDrawingNote(whiteboard: DrawView) {
-        whiteboard.clear()
-    }
-//
-//    fun saveDrawingNote(fileName: String, context: Context, whiteboard: DrawView) {
-//        whiteboard.isDrawingCacheEnabled = true
-//        saveImageToExternalStorage(whiteboard.drawingCache, fileName)
-//        whiteboard.destroyDrawingCache()
-//    }
-//
     fun saveImageToExternalStorage(bitmap: Bitmap, fileName: String): Boolean {
         filePath = "$dirPath/$fileName.jpg"
         try {
@@ -49,7 +37,7 @@ class WhiteboardViewModel : ViewModel() {
             file.createNewFile()
             val outStream: OutputStream?
             outStream = FileOutputStream(file)
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outStream);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outStream)
             outStream.flush()
             outStream.close()
         } catch (e: Exception) {
@@ -72,12 +60,12 @@ class WhiteboardViewModel : ViewModel() {
         if (file!!.isDirectory) {
             listFile = file!!.listFiles()
             listFile!!.sortByDescending { it.lastModified() }
-            FilePathStrings = arrayOfNulls(listFile!!.size)
+            filePathStrings = arrayOfNulls(listFile!!.size)
             for (i in listFile!!.indices) {
-                FilePathStrings!![i] = listFile!![i].absolutePath
+                filePathStrings!![i] = listFile!![i].absolutePath
             }
         }
-        return FilePathStrings
+        return filePathStrings
     }
 
 

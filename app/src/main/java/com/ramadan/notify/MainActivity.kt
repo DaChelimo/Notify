@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.ramadan.notify
 
 import android.content.Intent
@@ -34,7 +36,7 @@ class MainActivity : AppCompatActivity(), KodeinAware {
     private lateinit var contextMenuDialogFragment: ContextMenuDialogFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        requestWindowFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
+        requestWindowFeature(Window.FEATURE_ACTION_BAR_OVERLAY)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main)
         val viewPager: ViewPager = findViewById(R.id.view_pager)

@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.ramadan.notify.ui.adapter
 
 import android.annotation.SuppressLint
@@ -28,10 +30,9 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-class WhiteboardAdapter(private val activity: Whiteboards, private val filepath: Array<String?>) :
+class WhiteboardAdapter(private val filepath: Array<String?>) :
     RecyclerView.Adapter<WhiteboardAdapter.WhiteboardViewHolder>() {
     private var bitmap: Bitmap? = null
-    private val mContext: Context = activity.context!!
     val dirPath = Environment.getExternalStoragePublicDirectory(
         Environment.DIRECTORY_PICTURES
     ).path + "/Notify/"

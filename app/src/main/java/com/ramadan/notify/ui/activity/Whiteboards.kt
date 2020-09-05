@@ -33,7 +33,7 @@ class Whiteboards : Fragment() {
     }
 
     private fun observeData() {
-        adapter = WhiteboardAdapter(this, viewModel.loadWhiteboards()!!)
+        adapter = WhiteboardAdapter(viewModel.loadWhiteboards()!!)
 
     }
 

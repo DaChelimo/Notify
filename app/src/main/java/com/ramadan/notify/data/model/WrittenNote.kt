@@ -1,6 +1,6 @@
 package com.ramadan.notify.data.model
 
-import  java.io.Serializable;
+import  java.io.Serializable
 
 class WrittenNote(
     var ID: String, var date: String,

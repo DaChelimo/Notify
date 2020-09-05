@@ -38,9 +38,9 @@ class AppIntro : AppIntro2() {
                 "Portable drawing board",
                 "White and Black Boards",
                 imageDrawable = R.drawable.drawing,
-                titleColor = Color.parseColor("#21bf73"),
-                descriptionColor = Color.parseColor("#21bf73"),
-                backgroundColor = Color.parseColor("#ffffff")
+                titleColor = getColor(R.color.colorAccent),
+                descriptionColor = getColor(R.color.colorAccent),
+                backgroundColor = getColor(R.color.white)
             )
         )
 
@@ -51,7 +51,7 @@ class AppIntro : AppIntro2() {
                     " ",
                     imageDrawable = R.drawable.recording,
                     descriptionColor = Color.parseColor("#eeeeee"),
-                    backgroundColor = Color.parseColor("#21bf73")
+                    backgroundColor = getColor(R.color.colorAccent)
 
                 )
             )
@@ -62,9 +62,9 @@ class AppIntro : AppIntro2() {
                 "Day and Night Theme",
                 " ",
                 imageDrawable = R.drawable.daynight,
-                titleColor = Color.parseColor("#21bf73"),
-                descriptionColor = Color.parseColor("#21bf73"),
-                backgroundColor = Color.parseColor("#313131")
+                titleColor = getColor(R.color.colorAccent),
+                descriptionColor = getColor(R.color.colorAccent),
+                backgroundColor = getColor(R.color.colorPrimary)
             )
         )
 

@@ -32,3 +32,17 @@ fun Context.startNoteActivity(writtenNote: WrittenNote) =
         startActivity(it)
     }
 
+fun Context.getRecordLength(milliseconds: Long): String {
+    return String.format(
+        "%02d:%02d",
+        java.util.concurrent.TimeUnit.MILLISECONDS.toMinutes(milliseconds),
+        java.util.concurrent.TimeUnit.MILLISECONDS.toSeconds(milliseconds) -
+                java.util.concurrent.TimeUnit.MINUTES.toSeconds(
+                    java.util.concurrent.TimeUnit.MILLISECONDS.toMinutes(
+                        milliseconds
+                    )
+                )
+    )
+}
+
+

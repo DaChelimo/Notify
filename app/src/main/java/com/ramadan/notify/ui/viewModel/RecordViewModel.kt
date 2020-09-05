@@ -15,6 +15,8 @@ class RecordViewModel : ViewModel(), MediaRecorder.OnErrorListener {
     private var filePathStrings: Array<String?>? = null
     private var listFile: Array<File>? = null
     var file: File? = null
+    var noteListener: NoteListener? = null
+
     private val dirPath = Environment.getExternalStorageDirectory().path + "/Notify/Records"
     private var filePath = dirPath + "/notify${System.currentTimeMillis()}.mp3"
     private var mRecorder = MediaRecorder()
@@ -39,7 +41,7 @@ class RecordViewModel : ViewModel(), MediaRecorder.OnErrorListener {
         mRecorder.release()
         if ((outputFile == null) || (boolean)) {
             Log.w("Record", "Deleted File ")
-            outputFile?.delete();
+            outputFile?.delete()
         }
     }
 
