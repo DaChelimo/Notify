@@ -22,7 +22,6 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.ramadan.notify.R
 import com.ramadan.notify.ui.activity.Whiteboards
-import com.ramadan.notify.utils.startAppIntroActivity
 import com.ramadan.notify.utils.startHomeActivity
 import kotlinx.android.synthetic.main.whiteboard_item.view.*
 import java.io.File
@@ -89,8 +88,8 @@ class WhiteboardAdapter(private val filepath: Array<String?>) :
                 R.anim.zoom_in
             )
             itemView.setOnClickListener {
-//                whiteboards.showWhiteboard(bitmap, mContext)
-                mContext.startAppIntroActivity()
+                whiteboards.showWhiteboard(bitmap, mContext)
+//                mContext.startAppIntroActivity()
             }
         }
 
@@ -132,14 +131,15 @@ class WhiteboardAdapter(private val filepath: Array<String?>) :
 
         private fun renameWhiteboard(file: File) {
             val dialogBuilder = AlertDialog.Builder(mContext)
-            val view = View.inflate(mContext, R.layout.rename_dialog, null)
+            val view = View.inflate(mContext, R.layout.edit_text_dialog, null)
             dialogBuilder.setView(view)
             val alertDialog = dialogBuilder.create()
             alertDialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            alertDialog.window!!.attributes.windowAnimations = R.style.SlideAnimation
             alertDialog.show()
             val title = view.findViewById<TextView>(R.id.title)
             title.text = "Whiteboard name"
-            val newName = view.findViewById<View>(R.id.new_name) as EditText
+            val newName = view.findViewById<View>(R.id.input) as EditText
             val confirm = view.findViewById<TextView>(R.id.confirm)
             val cancel = view.findViewById<TextView>(R.id.cancel)
             confirm.setOnClickListener {

@@ -2,7 +2,6 @@ package com.ramadan.notify.ui.activity
 
 
 import android.Manifest
-import android.graphics.Color
 import android.os.Bundle
 import android.view.WindowManager
 import android.widget.Toast
@@ -12,22 +11,24 @@ import com.github.appintro.AppIntroFragment
 import com.github.appintro.AppIntroPageTransformerType
 import com.github.appintro.model.SliderPage
 import com.ramadan.notify.R
+import com.ramadan.notify.utils.startLoginActivity
 
 class AppIntro : AppIntro2() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        supportActionBar?.hide()
+        window!!.navigationBarColor = getColor(R.color.transparent)
         window.setFlags(
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
 
-
         addSlide(
             AppIntroFragment.newInstance(
                 SliderPage(
                     "Colorful Notes",
-                    "Customization became much easier",
                     imageDrawable = R.drawable.notes,
+                    titleTypefaceFontRes = R.font.comfortaa,
                     backgroundColor = getColor(R.color.colorAccent)
 
                 )
@@ -37,10 +38,10 @@ class AppIntro : AppIntro2() {
             AppIntroFragment.newInstance(
                 "Portable drawing board",
                 "White and Black Boards",
+                titleTypefaceFontRes = R.font.comfortaa,
+
                 imageDrawable = R.drawable.drawing,
-                titleColor = getColor(R.color.colorAccent),
-                descriptionColor = getColor(R.color.colorAccent),
-                backgroundColor = getColor(R.color.white)
+                backgroundColor = getColor(R.color.colorAccent)
             )
         )
 
@@ -50,7 +51,8 @@ class AppIntro : AppIntro2() {
                     "Record and Listen",
                     " ",
                     imageDrawable = R.drawable.recording,
-                    descriptionColor = Color.parseColor("#eeeeee"),
+                    titleTypefaceFontRes = R.font.comfortaa,
+
                     backgroundColor = getColor(R.color.colorAccent)
 
                 )
@@ -62,8 +64,8 @@ class AppIntro : AppIntro2() {
                 "Day and Night Theme",
                 " ",
                 imageDrawable = R.drawable.daynight,
-                titleColor = getColor(R.color.colorAccent),
-                descriptionColor = getColor(R.color.colorAccent),
+                titleTypefaceFontRes = R.font.comfortaa,
+
                 backgroundColor = getColor(R.color.colorPrimary)
             )
         )
@@ -71,7 +73,7 @@ class AppIntro : AppIntro2() {
         isColorTransitionsEnabled = true
         setProgressIndicator()
         setIndicatorColor(
-            selectedIndicatorColor = getColor(R.color.colorPrimary),
+            selectedIndicatorColor = getColor(R.color.white),
             unselectedIndicatorColor = getColor(R.color.colorPrimaryDark)
         )
         isVibrate = true
@@ -84,25 +86,27 @@ class AppIntro : AppIntro2() {
                 Manifest.permission.WRITE_EXTERNAL_STORAGE,
                 Manifest.permission.READ_EXTERNAL_STORAGE
             ),
-            slideNumber = 1,
+            slideNumber = 2,
             required = true
         )
         askForPermissions(
             permissions = arrayOf(
                 Manifest.permission.RECORD_AUDIO
             ),
-            slideNumber = 2,
+
+            slideNumber = 3,
             required = true
         )
     }
 
     public override fun onSkipPressed(currentFragment: Fragment?) {
         super.onSkipPressed(currentFragment)
+
     }
 
     public override fun onDonePressed(currentFragment: Fragment?) {
         super.onDonePressed(currentFragment)
-//        startHomeActivity()
+        startLoginActivity()
     }
 
     override fun onUserDeniedPermission(permissionName: String) {
@@ -114,14 +118,6 @@ class AppIntro : AppIntro2() {
     override fun onUserDisabledPermission(permissionName: String) {
         println("Don't ask again")
         Toast.makeText(this, "MMMMM", Toast.LENGTH_LONG).show()
-
         // User pressed "Deny" + "Don't ask again" on the permission dialog
     }
-//
-//    override val isPolicyRespected: Boolean
-//        get() = false
-//
-//    override fun onUserIllegallyRequestedNextPage() {
-//        Toast.makeText(this, "MESSAGE", Toast.LENGTH_LONG).show()
-//    }
 }

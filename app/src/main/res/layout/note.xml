@@ -10,30 +10,29 @@
     </data>
 
 
-    <RelativeLayout
+    <LinearLayout
             android:id="@+id/noteLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingHorizontal="6dp"
-            android:background="@{noteModel.noteColor}">
+            android:background="@{noteModel.noteColor}"
+            android:orientation="vertical"
+            android:paddingHorizontal="6dp">
 
         <TextView
                 android:id="@+id/date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="4dp"
                 android:text="@={noteModel.date}"
                 android:textColor="@color/colorPrimary"
                 android:textStyle="bold" />
 
         <com.ramadan.notify.utils.LinedEditText
                 android:id="@+id/noteName"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/date"
-                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
                 android:layout_marginVertical="10dp"
-                android:gravity="center"
                 android:textColor="@color/colorPrimary"
                 android:hint="Note name"
                 android:text="@={noteModel.name}"
@@ -42,8 +41,8 @@
         <com.ramadan.notify.utils.LinedEditText
                 android:id="@+id/noteContent"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@id/noteName"
+                android:layout_height="0dp"
+                android:layout_weight="1"
                 android:background="@null"
                 android:gravity="start"
                 android:hint="Aa"
@@ -60,11 +59,10 @@
                 android:id="@+id/noteColorPicker"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:layout_alignParentBottom="true"
                 android:layout_marginBottom="4dp"
                 app:cs_colors="@array/noteColors"
                 app:cs_steps="00" />
 
-    </RelativeLayout>
+    </LinearLayout>
 
 </layout>

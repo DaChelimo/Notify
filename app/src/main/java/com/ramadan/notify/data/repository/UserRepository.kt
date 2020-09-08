@@ -7,6 +7,7 @@ class UserRepository(private val repository: Repository) {
     fun login(email: String, password: String) = repository.login(email, password)
 
     fun register(email: String, password: String) = repository.register(email, password)
+    fun resetPassword(email: String) = repository.resetPassword(email)
 
     fun currentUser() = repository.currentUser()
 

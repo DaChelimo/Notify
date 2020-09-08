@@ -6,7 +6,7 @@ import android.app.AlertDialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.os.Handler
+import android.transition.TransitionInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.TextView
@@ -42,15 +42,20 @@ class Note : AppCompatActivity(), KodeinAware, NoteListener {
     private var flag: Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        supportActionBar?.title = "Text Note"
-        supportActionBar?.setHomeButtonEnabled(true)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setBackgroundDrawable(ColorDrawable(viewModel.noteColor!!))
-        loadingDialog()
         binding = DataBindingUtil.setContentView(this, R.layout.note)
         binding.noteModel = viewModel
         binding.lifecycleOwner = this
         viewModel.noteListener = this
+//        window.sharedElementEnterTransition =
+//            TransitionInflater.from(this).inflateTransition(R.transition.explode)
+//        noteContent.transitionName = "explode"
+//        startActivityFromFragment(fragment, intent, req_code, options.toBundle());
+        supportActionBar?.title = "Text Note"
+        titleColor = getColor(R.color.colorPrimary)
+        supportActionBar?.setHomeButtonEnabled(true)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setBackgroundDrawable(ColorDrawable(viewModel.noteColor!!))
+//        loadingDialog()
         noteColorPicker.setListener { position, color ->
             noteLayout.setBackgroundColor(color)
             viewModel.noteColor = color
@@ -62,19 +67,21 @@ class Note : AppCompatActivity(), KodeinAware, NoteListener {
     override fun onResume() {
         super.onResume()
         if (intent.hasExtra("note")) {
-            loadingDialog.show()
+//            loadingDialog.show()
             val writtenNote: WrittenNote = intent.getSerializableExtra("note") as WrittenNote
             if (writtenNote.content.isNotEmpty())
                 observeDate(writtenNote.ID)
         }
-        Handler().postDelayed({
-            loadingDialog.dismiss()
-        }, 2000)
+//        Handler().postDelayed({
+//            loadingDialog.dismiss()
+//        }, 2000)
     }
 
     override fun onBackPressed() {
+        super.onBackPressed()
+
         if (!noteContent.text.isNullOrEmpty()) {
-            showAlertDialog()
+//            showAlertDialog()
         } else {
             super.onBackPressed()
         }
@@ -111,7 +118,7 @@ class Note : AppCompatActivity(), KodeinAware, NoteListener {
             noteColorPicker.selectColor(it.noteColor)
             binding.noteModel = viewModel
             binding.lifecycleOwner = this
-//            viewModel.noteListener = this
+            viewModel.noteListener = this
         })
     }
 
@@ -126,8 +133,8 @@ class Note : AppCompatActivity(), KodeinAware, NoteListener {
         return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        item?.let {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        item.let {
             when (it.itemId) {
                 R.id.context_menu -> {
                     showContextMenuDialogFragment()
@@ -177,16 +184,13 @@ class Note : AppCompatActivity(), KodeinAware, NoteListener {
     }
 
     override fun onStarted() {
-        loadingDialog.show()
     }
 
     override fun onSuccess() {
-        loadingDialog.hide()
         super.onBackPressed()
     }
 
     override fun onFailure(message: String) {
-        loadingDialog.hide()
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 

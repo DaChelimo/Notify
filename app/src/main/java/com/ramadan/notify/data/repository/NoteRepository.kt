@@ -6,7 +6,6 @@ import com.ramadan.notify.data.model.WrittenNote
 
 class NoteRepository(private val repository: Repository) {
 
-
     fun insertNote(note: HashMap<String, Any?>) = repository.insertNote(note)
     fun updateNote(note: HashMap<String, Any?>) = repository.updateNote(note)
     fun deleteNote(ID: String) = repository.deleteNote(ID)

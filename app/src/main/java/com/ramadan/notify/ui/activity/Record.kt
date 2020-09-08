@@ -95,15 +95,16 @@ class Record : AppCompatActivity(), NoteListener {
     private fun setName() {
         val dialogBuilder = AlertDialog.Builder(this)
         val inflater = LayoutInflater.from(this)
-        val view: View = inflater.inflate(R.layout.rename_dialog, null)
+        val view: View = inflater.inflate(R.layout.edit_text_dialog, null)
         dialogBuilder.setView(view)
         dialogBuilder.setCancelable(false)
         val alertDialog = dialogBuilder.create()
         alertDialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        alertDialog.window!!.attributes.windowAnimations = R.style.SlideAnimation
         alertDialog.show()
         val title = view.findViewById<TextView>(R.id.title)
         title.text = "Voice note"
-        val fileName = view.findViewById<View>(R.id.new_name) as EditText
+        val fileName = view.findViewById<View>(R.id.input) as EditText
         val confirm = view.findViewById<TextView>(R.id.confirm)
         val cancel = view.findViewById<TextView>(R.id.cancel)
         confirm.setOnClickListener {

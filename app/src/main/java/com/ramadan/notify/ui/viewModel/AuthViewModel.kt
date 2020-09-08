@@ -50,6 +50,15 @@ class AuthViewModel(private val repository: UserRepository) : ViewModel() {
         disposables.add(disposable)
     }
 
+    fun resetPassword(email: String) {
+        authListener?.onStarted()
+        val disposable = repository.resetPassword(email)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe()
+        disposables.add(disposable)
+    }
+
     fun goToSignUp(view: View) {
         Intent(view.context, SignUp::class.java).also {
             view.context.startActivity(it)

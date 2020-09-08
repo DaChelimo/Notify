@@ -118,14 +118,15 @@ class RecordAdapter(private val activity: Records, private val filepath: Array<S
 
         private fun renameRecord(file: File) {
             val dialogBuilder = AlertDialog.Builder(mContext)
-            val view = View.inflate(mContext, R.layout.rename_dialog, null)
+            val view = View.inflate(mContext, R.layout.edit_text_dialog, null)
             dialogBuilder.setView(view)
             val alertDialog = dialogBuilder.create()
             alertDialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            alertDialog.window!!.attributes.windowAnimations = R.style.SlideAnimation
             alertDialog.show()
             val title = view.findViewById<TextView>(R.id.title)
             title.text = "Whiteboard name"
-            val newName = view.findViewById<View>(R.id.new_name) as EditText
+            val newName = view.findViewById<View>(R.id.input) as EditText
             val confirm = view.findViewById<TextView>(R.id.confirm)
             val cancel = view.findViewById<TextView>(R.id.cancel)
             confirm.setOnClickListener {

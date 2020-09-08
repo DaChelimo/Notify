@@ -6,7 +6,6 @@ import android.media.MediaRecorder
 import android.os.Environment
 import android.util.Log
 import androidx.lifecycle.ViewModel
-import io.reactivex.Completable
 import java.io.File
 
 
@@ -20,7 +19,7 @@ class RecordViewModel : ViewModel(), MediaRecorder.OnErrorListener {
     private val dirPath = Environment.getExternalStorageDirectory().path + "/Notify/Records"
     private var filePath = dirPath + "/notify${System.currentTimeMillis()}.mp3"
     private var mRecorder = MediaRecorder()
-    private var outputFile: File? = null
+    private var outputFile = File(filePath)
 
     fun startRecording() {
         mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC)
@@ -28,7 +27,7 @@ class RecordViewModel : ViewModel(), MediaRecorder.OnErrorListener {
         mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.HE_AAC)
         mRecorder.setAudioEncodingBitRate(48000)
         mRecorder.setAudioSamplingRate(16000)
-        mRecorder.setOutputFile(outputFile!!.path)
+        mRecorder.setOutputFile(outputFile.path)
         mRecorder.setOnErrorListener(this)
         mRecorder.prepare()
         mRecorder.start()
@@ -39,16 +38,16 @@ class RecordViewModel : ViewModel(), MediaRecorder.OnErrorListener {
         mRecorder.setOnErrorListener(this)
         mRecorder.stop()
         mRecorder.release()
-        if ((outputFile == null) || (boolean)) {
+        if (boolean) {
             Log.w("Record", "Deleted File ")
-            outputFile?.delete()
+            outputFile.delete()
         }
     }
 
     fun saveRecordToExternalStorage(fileName: String): Boolean {
         filePath = "$dirPath/$fileName.mp3"
         outputFile = File(filePath)
-        if (outputFile!!.exists()) {
+        if (outputFile.exists()) {
             return false
         }
         return true

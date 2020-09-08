@@ -25,15 +25,17 @@ class WhiteboardViewModel : ViewModel() {
     ).path + "/Notify"
     var noteListener: NoteListener? = null
 
-    fun saveImageToExternalStorage(bitmap: Bitmap, fileName: String): Boolean {
+    fun saveImageToExternalStorage(bitmap: Bitmap, fileName: String) {
         filePath = "$dirPath/$fileName.jpg"
         try {
             val dir = File(dirPath)
             if (!dir.exists())
                 dir.mkdirs()
             val file = File(filePath)
-            if (file.exists())
-                return false
+            if (file.exists()) {
+                noteListener?.onFailure("this name is already exist")
+                return
+            }
             file.createNewFile()
             val outStream: OutputStream?
             outStream = FileOutputStream(file)
@@ -42,9 +44,9 @@ class WhiteboardViewModel : ViewModel() {
             outStream.close()
         } catch (e: Exception) {
             Log.e("saveToExternalStorage()", e.message!!)
-            return false
+            noteListener?.onFailure(e.message!!)
+            return
         }
-        return true
     }
 
     fun loadWhiteboards(): Array<String?>? {

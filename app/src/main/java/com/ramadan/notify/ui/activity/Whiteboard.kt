@@ -83,7 +83,6 @@ class Whiteboard : AppCompatActivity(), NoteListener {
         val dialogBuilder = AlertDialog.Builder(this)
         val view = layoutInflater.inflate(R.layout.alert_dialog, null)
         dialogBuilder.setView(view)
-        dialogBuilder.setCancelable(true)
         val alertDialog = dialogBuilder.create()
         alertDialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         alertDialog.show()
@@ -99,26 +98,24 @@ class Whiteboard : AppCompatActivity(), NoteListener {
     private fun setName() {
         val dialogBuilder = AlertDialog.Builder(this)
         val inflater = LayoutInflater.from(this)
-        val view: View = inflater.inflate(R.layout.rename_dialog, null)
+        val view: View = inflater.inflate(R.layout.edit_text_dialog, null)
         dialogBuilder.setView(view)
         dialogBuilder.setCancelable(false)
         val alertDialog = dialogBuilder.create()
         alertDialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        alertDialog.window!!.attributes.windowAnimations = R.style.SlideAnimation
         alertDialog.show()
         val title = view.findViewById<TextView>(R.id.title)
         title.text = "Board"
-        val fileName = view.findViewById<View>(R.id.new_name) as EditText
+        val fileName = view.findViewById<View>(R.id.input) as EditText
         val confirm = view.findViewById<TextView>(R.id.confirm)
         val cancel = view.findViewById<TextView>(R.id.cancel)
         confirm.setOnClickListener {
             board.isDrawingCacheEnabled = true
             whiteboardName = fileName.text.toString()
-            if (!viewModel.saveImageToExternalStorage(board.drawingCache, whiteboardName)) {
-                onFailure("Whiteboard name is already exist")
-            } else {
-                onSuccess()
-                board.destroyDrawingCache()
-            }
+            viewModel.saveImageToExternalStorage(board.drawingCache, whiteboardName)
+            board.destroyDrawingCache()
+            onSuccess()
         }
         cancel.setOnClickListener { alertDialog.cancel() }
     }
@@ -144,8 +141,8 @@ class Whiteboard : AppCompatActivity(), NoteListener {
         return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        item?.let {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        item.let {
             when (it.itemId) {
                 R.id.context_menu -> {
                     showContextMenuDialogFragment()

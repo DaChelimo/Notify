@@ -24,7 +24,6 @@ class NoteViewModel(private val repository: NoteRepository) : ViewModel() {
 
     var noteListener: NoteListener? = null
 
-
     fun getNote(ID: String): MutableLiveData<WrittenNote> {
         val mutableData = MutableLiveData<WrittenNote>()
         repository.fetchNote(ID).observeForever {

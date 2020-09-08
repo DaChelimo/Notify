@@ -1,7 +1,10 @@
 package com.ramadan.notify.utils
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.view.View
+import androidx.core.app.ActivityOptionsCompat
 import com.ramadan.notify.MainActivity
 import com.ramadan.notify.data.model.WrittenNote
 import com.ramadan.notify.ui.activity.AppIntro
@@ -23,6 +26,7 @@ fun Context.startLoginActivity() =
 
 fun Context.startAppIntroActivity() =
     Intent(this, AppIntro::class.java).also {
+        it.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(it)
     }
 

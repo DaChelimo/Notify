@@ -7,7 +7,7 @@
         android:padding="64dp">
 
     <ImageView
-            android:id="@+id/note"
+            android:id="@+id/notifyLogo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"

@@ -11,6 +11,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
@@ -58,6 +59,11 @@ class Whiteboards : Fragment() {
         dialogBuilder.setView(view)
         val alertDialog = dialogBuilder.create()
         alertDialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        alertDialog.window!!.setLayout(
+            WindowManager.LayoutParams.MATCH_PARENT,
+            WindowManager.LayoutParams.MATCH_PARENT
+        )
+        alertDialog.window!!.attributes.windowAnimations = R.style.ShrinkAnimation
         alertDialog.setCancelable(true)
         val imageView = view.findViewById<ImageView>(R.id.img)
         imageView.setImageBitmap(bitmap)

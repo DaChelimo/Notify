@@ -5,14 +5,24 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'com.google.gms.google-services'
 
 android {
-    compileSdkVersion 29
+    signingConfigs {
+        ramadan {
+            storeFile file('C:\\Users\\mhmdr\\Documents\\keyStore.jks')
+            storePassword '99141000dx'
+            keyPassword '123Mhmd123'
+            keyAlias 'Mhmd'
+        }
+    }
+    compileSdkVersion 30
+
     defaultConfig {
         applicationId "com.ramadan.notify"
         minSdkVersion 23
-        targetSdkVersion 29
+        targetSdkVersion 30
         versionCode 1
         versionName "1.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        signingConfig signingConfigs.ramadan
     }
     buildTypes {
         release {
@@ -51,6 +61,7 @@ dependencies {
     implementation 'com.github.mohammadatif:Animatoo:master'
     implementation 'com.github.naz013:ColorSlider:2.0.6'
     implementation 'com.github.AppIntro:AppIntro:6.0.0'
+
 
     //MediaPlayer
     implementation 'com.devlomi.record-view:record-view:2.0.1'

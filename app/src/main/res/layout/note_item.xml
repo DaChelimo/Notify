@@ -17,11 +17,11 @@
             android:layout_gravity="center"
             android:minHeight="120dp"
             card_view:cardCornerRadius="10dp"
-            card_view:cardElevation="8dp"
             card_view:cardPreventCornerOverlap="false"
             card_view:cardUseCompatPadding="true">
 
         <LinearLayout
+                android:id="@+id/noteLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -46,12 +46,9 @@
                     android:text="@{noteItem.content}"
                     android:textAlignment="inherit"
                     android:textColor="@color/colorPrimary"
+                    android:fontFamily="@font/comfortaa"
                     android:textDirection="inherit"
                     android:textSize="14sp" />
-
-
         </LinearLayout>
-
-
     </androidx.cardview.widget.CardView>
 </layout>

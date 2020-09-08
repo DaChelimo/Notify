@@ -4,6 +4,8 @@ package com.ramadan.notify.ui.activity
 
 import android.app.AlertDialog
 import android.app.Dialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.media.AudioManager
 import android.media.MediaPlayer
 import android.net.Uri
@@ -63,14 +65,19 @@ class PlayRecord : DialogFragment(), MediaPlayer.OnErrorListener, MediaPlayer.On
 
     @NonNull
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val dialog = super.onCreateDialog(savedInstanceState)
-        val builder = AlertDialog.Builder(activity)
+        val dialogBuilder = AlertDialog.Builder(activity)
         val view: View = activity!!.layoutInflater.inflate(R.layout.playback, null)
+        dialogBuilder.setView(view)
+        val alertDialog = dialogBuilder.create()
+        alertDialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        alertDialog.window!!.attributes.windowAnimations = R.style.ShrinkAnimation
         seekBar = view.findViewById<View>(R.id.seek_bar) as SeekBar
         recordName = view.findViewById<View>(R.id.recordName) as TextView
         recordDuration = view.findViewById<View>(R.id.fileDuration) as TextView
         currentProgress = view.findViewById<View>(R.id.currentProgress) as TextView
         playPause = view.findViewById(R.id.action_button) as FloatingActionButton
+        recordName?.text = file!!.nameWithoutExtension
+        recordDuration!!.text = String.format("%02d:%02d", minutes, seconds)
         seekBar!!.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
                 if (mMediaPlayer != null && fromUser) {
@@ -112,26 +119,11 @@ class PlayRecord : DialogFragment(), MediaPlayer.OnErrorListener, MediaPlayer.On
                 }
             }
         })
-        playPause?.setOnClickListener(View.OnClickListener {
+        playPause?.setOnClickListener {
             onPlay(isPlaying)
             isPlaying = !isPlaying
-
-        })
-        recordName?.text = file!!.nameWithoutExtension
-        recordDuration!!.text = String.format("%02d:%02d", minutes, seconds)
-        builder.setView(view)
-        dialog.window!!.requestFeature(Window.FEATURE_NO_TITLE)
-        return builder.create()
-    }
-
-    override fun onStart() {
-        super.onStart()
-        val window = dialog!!.window
-        window!!.setBackgroundDrawableResource(R.color.transparent)
-        val alertDialog = dialog as AlertDialog?
-        alertDialog!!.getButton(Dialog.BUTTON_POSITIVE).isEnabled = false
-        alertDialog.getButton(Dialog.BUTTON_NEGATIVE).isEnabled = false
-        alertDialog.getButton(Dialog.BUTTON_NEUTRAL).isEnabled = false
+        }
+        return alertDialog
     }
 
     override fun onPause() {
@@ -143,8 +135,9 @@ class PlayRecord : DialogFragment(), MediaPlayer.OnErrorListener, MediaPlayer.On
     override fun onResume() {
         super.onResume()
         if (mMediaPlayer != null)
-            resumePlaying()
+            startPlaying()
     }
+
 
     override fun onDestroy() {
         super.onDestroy()
@@ -189,6 +182,7 @@ class PlayRecord : DialogFragment(), MediaPlayer.OnErrorListener, MediaPlayer.On
     }
 
     private fun startPlaying() {
+        activity!!.window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         playPause?.setImageResource(R.drawable.pause)
         mMediaPlayer = MediaPlayer.create(context, Uri.fromFile(file))
         try {
@@ -205,7 +199,6 @@ class PlayRecord : DialogFragment(), MediaPlayer.OnErrorListener, MediaPlayer.On
         }
         mMediaPlayer!!.setOnCompletionListener { stopPlaying() }
         updateSeekBar()
-        activity!!.window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
     }
 
 

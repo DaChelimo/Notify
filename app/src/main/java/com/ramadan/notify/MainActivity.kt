@@ -64,8 +64,8 @@ class MainActivity : AppCompatActivity(), KodeinAware {
         return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        item?.let {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        item.let {
             when (it.itemId) {
                 R.id.context_menu -> {
                     showContextMenuDialogFragment()

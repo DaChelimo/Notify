@@ -21,6 +21,8 @@ import com.ramadan.notify.databinding.NoteItemBinding
 import com.ramadan.notify.ui.activity.Notes
 import com.ramadan.notify.utils.startHomeActivity
 import com.ramadan.notify.utils.startNoteActivity
+import kotlinx.android.synthetic.main.note.view.*
+import kotlinx.android.synthetic.main.note_item.view.*
 
 
 class NoteAdapter(val context: Notes) :
@@ -51,8 +53,6 @@ class NoteAdapter(val context: Notes) :
     override fun onBindViewHolder(holder: NoteViewHolder, position: Int) {
         val writtenNote: WrittenNote = dataList[position]
         holder.bind(writtenNote)
-        //        holder.img.setAnimation(AnimationUtils.loadAnimation(mContext, R.anim.zoom_in));
-
     }
 
     inner class NoteViewHolder(private var binding: NoteItemBinding) :
@@ -66,6 +66,7 @@ class NoteAdapter(val context: Notes) :
             itemView.setOnClickListener {
                 it.context.startNoteActivity(writtenNote)
             }
+
             itemView.setOnLongClickListener {
                 showOption(writtenNote)
                 false

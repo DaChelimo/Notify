@@ -1,6 +1,5 @@
 package com.ramadan.notify.ui.activity
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +10,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import androidx.transition.Explode
 import com.ramadan.notify.R
 import com.ramadan.notify.ui.adapter.NoteAdapter
 import com.ramadan.notify.ui.viewModel.HomeViewModel
@@ -28,8 +28,8 @@ class Notes : Fragment(), KodeinAware {
     }
     private lateinit var adapter: NoteAdapter
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
+    override fun onStart() {
+        super.onStart()
         observeData()
     }
 

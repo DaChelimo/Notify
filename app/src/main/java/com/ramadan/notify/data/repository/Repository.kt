@@ -48,6 +48,18 @@ class Repository {
         }
     }
 
+    fun resetPassword(email: String) = Completable.create { emitter ->
+        auth.sendPasswordResetEmail(email).addOnCompleteListener {
+            if (!emitter.isDisposed) {
+                if (it.isSuccessful) {
+                    emitter.onComplete()
+                } else
+                    emitter.onError(it.exception!!)
+            }
+        }
+    }
+
+
     fun insertNote(data: HashMap<String, Any?>) {
         FirebaseFirestore.getInstance().collection("user").document(auth.currentUser!!.uid)
             .collection("note").document(data["noteID"].toString()).set(data, SetOptions.merge())
@@ -85,7 +97,8 @@ class Repository {
     fun fetchNotes(): MutableLiveData<MutableList<WrittenNote>> {
         val mutableData = MutableLiveData<MutableList<WrittenNote>>()
         FirebaseFirestore.getInstance().collection("user").document(auth.currentUser!!.uid)
-            .collection("note").orderBy("noteID", Query.Direction.DESCENDING).get()
+            .collection("note").orderBy("noteData", Query.Direction.DESCENDING)
+            .orderBy("noteID", Query.Direction.DESCENDING).get()
             .addOnSuccessListener { result ->
                 val dataList: MutableList<WrittenNote> = mutableListOf<WrittenNote>()
                 for (document: QueryDocumentSnapshot in result) {
