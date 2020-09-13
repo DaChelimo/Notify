@@ -1,9 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: com.github.Yalantis:Context-Menu.Android:1.1.4@aar">
     <CLASSES>
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/33826326402ee4499144d63306e9c064/AndroidManifest.xml" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/33826326402ee4499144d63306e9c064/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/33826326402ee4499144d63306e9c064/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/4063176deaf2ddac82711b67e8529369/jetified-Context-Menu.Android-1.1.4/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/4063176deaf2ddac82711b67e8529369/jetified-Context-Menu.Android-1.1.4/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/4063176deaf2ddac82711b67e8529369/jetified-Context-Menu.Android-1.1.4/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

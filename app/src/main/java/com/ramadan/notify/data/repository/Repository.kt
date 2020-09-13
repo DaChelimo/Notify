@@ -1,13 +1,18 @@
 package com.ramadan.notify.data.repository
 
 import androidx.lifecycle.MutableLiveData
+import com.google.firebase.FirebaseException
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthException
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.QueryDocumentSnapshot
 import com.google.firebase.firestore.SetOptions
 import com.ramadan.notify.data.model.WrittenNote
 import io.reactivex.Completable
+import kotlin.coroutines.resume
+import kotlin.coroutines.suspendCoroutine
+
 
 class Repository {
 
@@ -17,7 +22,6 @@ class Repository {
     private val db: FirebaseFirestore by lazy {
         FirebaseFirestore.getInstance()
     }
-    var status = "null"
 
     fun logout() = auth.signOut()
 
@@ -28,11 +32,24 @@ class Repository {
             if (!emitter.isDisposed) {
                 if (it.isSuccessful)
                     emitter.onComplete()
-                else
+                else {
                     emitter.onError(it.exception!!)
+                }
             }
         }
     }
+
+    suspend fun facebookLogin(email: String, password: String): Boolean {
+        return suspendCoroutine { continuation ->
+            auth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
+                if (task.isSuccessful)
+                    continuation.resume(true)
+                else
+                    continuation.resumeWith(Result.failure(task.exception!!))
+            }
+        }
+    }
+
 
     fun register(email: String, password: String) = Completable.create { emitter ->
         val data = hashMapOf("email" to email, "password" to password)
@@ -62,12 +79,12 @@ class Repository {
 
     fun insertNote(data: HashMap<String, Any?>) {
         FirebaseFirestore.getInstance().collection("user").document(auth.currentUser!!.uid)
-            .collection("note").document(data["noteID"].toString()).set(data, SetOptions.merge())
+            .collection("note").document(data["noteID"].toString())
+            .set(data, SetOptions.merge())
             .addOnCompleteListener {
                 if (it.isSuccessful) {
                 }
             }.addOnFailureListener {
-                status = it.message.toString()
                 println(it.toString())
             }
     }
@@ -79,7 +96,9 @@ class Repository {
             .addOnCompleteListener {
                 if (it.isSuccessful) {
                 }
-            }.addOnFailureListener { status = it.message.toString() }
+            }.addOnFailureListener {
+                println(it.toString())
+            }
     }
 
 
@@ -89,7 +108,9 @@ class Repository {
             .addOnCompleteListener {
                 if (it.isSuccessful) {
                 }
-            }.addOnFailureListener { status = it.message.toString() }
+            }.addOnFailureListener {
+                println(it.toString())
+            }
 
     }
 
@@ -97,8 +118,7 @@ class Repository {
     fun fetchNotes(): MutableLiveData<MutableList<WrittenNote>> {
         val mutableData = MutableLiveData<MutableList<WrittenNote>>()
         FirebaseFirestore.getInstance().collection("user").document(auth.currentUser!!.uid)
-            .collection("note").orderBy("noteData", Query.Direction.DESCENDING)
-            .orderBy("noteID", Query.Direction.DESCENDING).get()
+            .collection("note").orderBy("noteDate", Query.Direction.DESCENDING).get()
             .addOnSuccessListener { result ->
                 val dataList: MutableList<WrittenNote> = mutableListOf<WrittenNote>()
                 for (document: QueryDocumentSnapshot in result) {

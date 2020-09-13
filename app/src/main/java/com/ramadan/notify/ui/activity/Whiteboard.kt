@@ -115,7 +115,7 @@ class Whiteboard : AppCompatActivity(), NoteListener {
             whiteboardName = fileName.text.toString()
             viewModel.saveImageToExternalStorage(board.drawingCache, whiteboardName)
             board.destroyDrawingCache()
-            onSuccess()
+            alertDialog.cancel()
         }
         cancel.setOnClickListener { alertDialog.cancel() }
     }

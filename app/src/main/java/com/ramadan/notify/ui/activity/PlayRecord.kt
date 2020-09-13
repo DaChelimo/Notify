@@ -84,7 +84,7 @@ class PlayRecord : DialogFragment(), MediaPlayer.OnErrorListener, MediaPlayer.On
                     mMediaPlayer!!.seekTo(progress)
                     mHandler.removeCallbacks(mRunnable)
                     currentProgress!!.text =
-                        view.context.getRecordLength(mMediaPlayer!!.currentPosition.toLong())
+                        getRecordLength(mMediaPlayer!!.currentPosition.toLong())
                     updateSeekBar()
                 } else if (mMediaPlayer == null && fromUser) {
                     prepareMediaPlayerFromPoint(progress)

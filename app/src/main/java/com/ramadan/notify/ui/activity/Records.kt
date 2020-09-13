@@ -1,6 +1,7 @@
+@file:Suppress("DEPRECATION")
+
 package com.ramadan.notify.ui.activity
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -19,13 +20,13 @@ class Records : Fragment() {
     }
     private lateinit var adapter: RecordAdapter
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
+    override fun onStart() {
+        super.onStart()
         observeData()
     }
 
     private fun observeData() {
-        adapter = RecordAdapter(this, viewModel.loadRecords()!!)
+        adapter = RecordAdapter( viewModel.loadRecords()!!)
     }
 
     override fun onCreateView(
@@ -34,8 +35,8 @@ class Records : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.recycle_view, container, false)
         val recyclerView: RecyclerView = view.findViewById(R.id.dashboardRecycleView)
-        recyclerView.layoutManager = GridLayoutManager(view.context, 2)
         observeData()
+        recyclerView.layoutManager = GridLayoutManager(view.context, 2)
         recyclerView.adapter = adapter
         return view
     }

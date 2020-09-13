@@ -44,7 +44,7 @@ class NoteViewModel(private val repository: NoteRepository) : ViewModel() {
         }
         if (name.isNullOrEmpty())
             name = ""
-        val note = hashMapOf(
+        val note: HashMap<String, Any?> = hashMapOf(
             "noteID" to ID,
             "noteDate" to date,
             "noteName" to name,
@@ -59,7 +59,7 @@ class NoteViewModel(private val repository: NoteRepository) : ViewModel() {
     fun updateNote() {
         if (name.isNullOrEmpty())
             name = ""
-        val note = hashMapOf(
+        val note: HashMap<String, Any?> = hashMapOf(
             "noteID" to ID,
             "noteDate" to currentDate.format(todayDate),
             "noteName" to name,

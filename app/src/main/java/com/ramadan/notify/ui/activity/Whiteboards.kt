@@ -15,9 +15,8 @@ import android.view.WindowManager
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.ramadan.notify.R
 import com.ramadan.notify.ui.adapter.WhiteboardAdapter
 import com.ramadan.notify.ui.viewModel.WhiteboardViewModel
@@ -28,8 +27,8 @@ class Whiteboards : Fragment() {
     }
     private lateinit var adapter: WhiteboardAdapter
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
+    override fun onStart() {
+        super.onStart()
         observeData()
     }
 
@@ -45,9 +44,9 @@ class Whiteboards : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.recycle_view, container, false)
         val recyclerView: RecyclerView = view.findViewById(R.id.dashboardRecycleView)
-        val staggeredGridLayoutManager =
-            StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL)
-        recyclerView.layoutManager = staggeredGridLayoutManager
+        val gridLayoutManager =
+            GridLayoutManager(view.context, 2)
+        recyclerView.layoutManager = gridLayoutManager
         observeData()
         recyclerView.adapter = adapter
         return view

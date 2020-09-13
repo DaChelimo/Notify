@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.ramadan.notify.ui.activity
 
 import android.os.Bundle
@@ -12,6 +14,7 @@ import com.ramadan.notify.databinding.SignUpBinding
 import com.ramadan.notify.ui.viewModel.AuthListener
 import com.ramadan.notify.ui.viewModel.AuthViewModel
 import com.ramadan.notify.ui.viewModel.AuthViewModelFactory
+import com.ramadan.notify.utils.startAppIntroActivity
 import com.ramadan.notify.utils.startHomeActivity
 import kotlinx.android.synthetic.main.sign_up.*
 import org.kodein.di.KodeinAware
@@ -32,12 +35,9 @@ class SignUp : AppCompatActivity(), AuthListener, KodeinAware {
         binding = DataBindingUtil.setContentView(this, R.layout.sign_up)
         binding.signUpModel = viewModel
         binding.lifecycleOwner = this
-        viewModel.authListener = this
+        viewModel?.authListener = this
         supportActionBar?.hide()
-    }
-
-    fun back(view: View) {
-        super.onBackPressed()
+        btn_back.setOnClickListener { super.onBackPressed() }
     }
 
     override fun onStarted() {
@@ -46,7 +46,7 @@ class SignUp : AppCompatActivity(), AuthListener, KodeinAware {
 
     override fun onSuccess() {
         progressBar.visibility = View.GONE
-        startHomeActivity()
+        startAppIntroActivity()
     }
 
     override fun onFailure(message: String) {

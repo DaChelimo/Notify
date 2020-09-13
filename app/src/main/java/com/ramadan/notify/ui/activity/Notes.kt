@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.ramadan.notify.ui.activity
 
 import android.os.Bundle
@@ -10,7 +12,6 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import androidx.transition.Explode
 import com.ramadan.notify.R
 import com.ramadan.notify.ui.adapter.NoteAdapter
 import com.ramadan.notify.ui.viewModel.HomeViewModel
@@ -28,20 +29,20 @@ class Notes : Fragment(), KodeinAware {
     }
     private lateinit var adapter: NoteAdapter
 
-    override fun onStart() {
-        super.onStart()
-        observeData()
+    override fun onDetach() {
+        super.onDetach()
+//        observeData()
     }
 
     private fun observeData() {
-        viewModel.getNotes().observe(viewLifecycleOwner, Observer {
+        viewModel!!.getNotes().observe(viewLifecycleOwner, Observer {
             adapter.setDataList(it)
         })
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         val view = inflater.inflate(R.layout.recycle_view, container, false)
         adapter = NoteAdapter(this)

@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
@@ -18,44 +19,63 @@ import com.ramadan.notify.data.model.WrittenNote
 import com.ramadan.notify.data.repository.NoteRepository
 import com.ramadan.notify.data.repository.Repository
 import com.ramadan.notify.databinding.NoteItemBinding
+import com.ramadan.notify.ui.activity.Note
 import com.ramadan.notify.ui.activity.Notes
 import com.ramadan.notify.utils.startHomeActivity
 import com.ramadan.notify.utils.startNoteActivity
-import kotlinx.android.synthetic.main.note.view.*
-import kotlinx.android.synthetic.main.note_item.view.*
 
 
 class NoteAdapter(val context: Notes) :
-    RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var dataList = mutableListOf<WrittenNote>()
+    private val viewNote = 0
+    private val addNote = 1
 
     fun setDataList(data: MutableList<WrittenNote>) {
         dataList = data
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
-        val binding: NoteItemBinding = DataBindingUtil.inflate(
-            LayoutInflater.from(parent.context),
-            R.layout.note_item, parent, false
-        )
-        return NoteViewHolder(binding)
+    override fun getItemViewType(position: Int): Int {
+        return if (position == 0) addNote else viewNote
     }
 
-    override fun getItemCount(): Int {
-        return if (dataList.size > 0) {
-            dataList.size
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        return if (viewType == viewNote) {
+            val binding: NoteItemBinding = DataBindingUtil.inflate(
+                LayoutInflater.from(parent.context),
+                R.layout.note_item, parent, false
+            )
+            ViewNoteViewHolder(binding)
         } else {
-            0
+            val view: View = LayoutInflater.from(parent.context)
+                .inflate(R.layout.add_item, parent, false)
+            AddNoteViewHolder(view)
+
         }
     }
 
-    override fun onBindViewHolder(holder: NoteViewHolder, position: Int) {
-        val writtenNote: WrittenNote = dataList[position]
-        holder.bind(writtenNote)
+
+    override fun getItemCount(): Int {
+        return if (dataList.size > 0) {
+            dataList.size + 1
+        } else {
+            1
+        }
     }
 
-    inner class NoteViewHolder(private var binding: NoteItemBinding) :
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        if (getItemViewType(position) == viewNote) {
+            val writtenNote: WrittenNote = dataList[position - 1]
+            (holder as ViewNoteViewHolder).bind(writtenNote)
+        } else {
+            (holder as AddNoteViewHolder).addNote!!.setOnClickListener {
+                holder.mContext.startActivity(Intent(holder.mContext, Note::class.java))
+            }
+        }
+    }
+
+    class ViewNoteViewHolder(private var binding: NoteItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         private val mContext: Context = itemView.context
         fun bind(writtenNote: WrittenNote) {
@@ -97,7 +117,6 @@ class NoteAdapter(val context: Notes) :
             }
         }
 
-
         private fun shareNote(noteContent: String) {
             val shareIntent = Intent()
             shareIntent.action = Intent.ACTION_SEND
@@ -105,5 +124,10 @@ class NoteAdapter(val context: Notes) :
             shareIntent.type = "text/plain"
             mContext.startActivity(Intent.createChooser(shareIntent, "Send to"))
         }
+    }
+
+    class AddNoteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val mContext: Context = itemView.context
+        val addNote: ImageButton? = itemView.findViewById(R.id.addItem)
     }
 }

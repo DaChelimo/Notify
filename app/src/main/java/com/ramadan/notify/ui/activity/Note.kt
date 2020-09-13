@@ -6,7 +6,7 @@ import android.app.AlertDialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.transition.TransitionInflater
+import android.os.Handler
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.TextView
@@ -20,42 +20,34 @@ import com.ramadan.notify.data.model.WrittenNote
 import com.ramadan.notify.databinding.NoteBinding
 import com.ramadan.notify.ui.viewModel.NoteListener
 import com.ramadan.notify.ui.viewModel.NoteViewModel
-import com.ramadan.notify.ui.viewModel.NoteViewModelFactory
+import com.ramadan.notify.utils.isInternetAvailable
 import com.yalantis.contextmenu.lib.ContextMenuDialogFragment
 import com.yalantis.contextmenu.lib.MenuObject
 import com.yalantis.contextmenu.lib.MenuParams
 import kotlinx.android.synthetic.main.note.*
-import org.kodein.di.KodeinAware
-import org.kodein.di.android.kodein
-import org.kodein.di.generic.instance
 
 
-class Note : AppCompatActivity(), KodeinAware, NoteListener {
+
+class Note : AppCompatActivity(), NoteListener {
     private lateinit var loadingDialog: AlertDialog
-    override val kodein by kodein()
-    private val factory: NoteViewModelFactory by instance()
     private val viewModel by lazy {
-        ViewModelProviders.of(this, factory).get(NoteViewModel::class.java)
+        ViewModelProviders.of(this).get(NoteViewModel::class.java)
     }
     private lateinit var binding: NoteBinding
     private lateinit var contextMenuDialogFragment: ContextMenuDialogFragment
-    private var flag: Int = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.note)
         binding.noteModel = viewModel
         binding.lifecycleOwner = this
         viewModel.noteListener = this
-//        window.sharedElementEnterTransition =
-//            TransitionInflater.from(this).inflateTransition(R.transition.explode)
-//        noteContent.transitionName = "explode"
-//        startActivityFromFragment(fragment, intent, req_code, options.toBundle());
         supportActionBar?.title = "Text Note"
         titleColor = getColor(R.color.colorPrimary)
         supportActionBar?.setHomeButtonEnabled(true)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setBackgroundDrawable(ColorDrawable(viewModel.noteColor!!))
-//        loadingDialog()
+        loadingDialog()
         noteColorPicker.setListener { position, color ->
             noteLayout.setBackgroundColor(color)
             viewModel.noteColor = color
@@ -67,21 +59,21 @@ class Note : AppCompatActivity(), KodeinAware, NoteListener {
     override fun onResume() {
         super.onResume()
         if (intent.hasExtra("note")) {
-//            loadingDialog.show()
+            if (!isInternetAvailable(this))
+                loadingDialog.show()
             val writtenNote: WrittenNote = intent.getSerializableExtra("note") as WrittenNote
-            if (writtenNote.content.isNotEmpty())
-                observeDate(writtenNote.ID)
+            observeDate(writtenNote.ID)
         }
-//        Handler().postDelayed({
-//            loadingDialog.dismiss()
-//        }, 2000)
+        if (!isInternetAvailable(this))
+            Handler().postDelayed({
+                loadingDialog.dismiss()
+            }, 2000)
+
     }
 
     override fun onBackPressed() {
-        super.onBackPressed()
-
         if (!noteContent.text.isNullOrEmpty()) {
-//            showAlertDialog()
+            showAlertDialog()
         } else {
             super.onBackPressed()
         }
@@ -100,8 +92,12 @@ class Note : AppCompatActivity(), KodeinAware, NoteListener {
             if (intent.hasExtra("note"))
                 viewModel.updateNote()
             viewModel.insertNote()
+            alertDialog.dismiss()
         }
-        dismiss.setOnClickListener { super.onBackPressed() }
+        dismiss.setOnClickListener {
+            alertDialog.dismiss()
+            super.onBackPressed()
+        }
     }
 
     private fun loadingDialog() {

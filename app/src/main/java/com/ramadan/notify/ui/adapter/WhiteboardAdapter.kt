@@ -17,10 +17,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.ramadan.notify.R
+import com.ramadan.notify.ui.activity.Whiteboard
 import com.ramadan.notify.ui.activity.Whiteboards
 import com.ramadan.notify.utils.startHomeActivity
 import kotlinx.android.synthetic.main.whiteboard_item.view.*
@@ -30,56 +32,76 @@ import java.util.*
 
 
 class WhiteboardAdapter(private val filepath: Array<String?>) :
-    RecyclerView.Adapter<WhiteboardAdapter.WhiteboardViewHolder>() {
-    private var bitmap: Bitmap? = null
-    val dirPath = Environment.getExternalStoragePublicDirectory(
-        Environment.DIRECTORY_PICTURES
-    ).path + "/Notify/"
-
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     @SuppressLint("SimpleDateFormat")
     private val currentDate: SimpleDateFormat = SimpleDateFormat("dd/MM/yyyy")
+    private var bitmap: Bitmap? = null
+    private val viewNote = 0
+    private val addNote = 1
 
+    override fun getItemViewType(position: Int): Int {
+        return if (position == 0) addNote else viewNote
+    }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WhiteboardViewHolder {
-        val view: View =
-            LayoutInflater.from(parent.context).inflate(R.layout.whiteboard_item, parent, false)
-        return WhiteboardViewHolder(view)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        return if (viewType == viewNote) {
+            val view: View = LayoutInflater.from(parent.context)
+                .inflate(R.layout.whiteboard_item, parent, false)
+            return ViewWhiteboardViewHolder(view)
+
+        } else {
+            val view: View = LayoutInflater.from(parent.context)
+                .inflate(R.layout.add_item, parent, false)
+            AddWhiteboardViewHolder(view)
+
+        }
     }
 
     override fun getItemCount(): Int {
         return if (filepath.isNotEmpty()) {
-            filepath.size
+            filepath.size + 1
         } else {
             0
         }
     }
 
-    override fun onBindViewHolder(holder: WhiteboardViewHolder, position: Int) {
-        val file = File(filepath[position]!!)
-        val date = Date(file.lastModified())
-        val bmpOptions = BitmapFactory.Options()
-        bmpOptions.inJustDecodeBounds = true
-        BitmapFactory.decodeFile(file.path, bmpOptions)
-        bmpOptions.inSampleSize = 2
-        bmpOptions.inJustDecodeBounds = false
-        bitmap = BitmapFactory.decodeFile(file.path, bmpOptions)
-        if (bitmap != null) {
-            holder.customView(bitmap!!)
-            holder.itemView.whiteboardTitle.text = file.nameWithoutExtension
-            holder.itemView.whiteboardDate.text = currentDate.format(date)
-            holder.itemView.setOnLongClickListener {
-                holder.showOption(file)
-                false
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        if (getItemViewType(position) == viewNote) {
+            val file = File(filepath[position - 1]!!)
+            val date = Date(file.lastModified())
+            val bmpOptions = BitmapFactory.Options()
+            bmpOptions.inJustDecodeBounds = true
+            BitmapFactory.decodeFile(file.path, bmpOptions)
+            bmpOptions.inSampleSize = 2
+            bmpOptions.inJustDecodeBounds = false
+            bitmap = BitmapFactory.decodeFile(file.path, bmpOptions)
+            (holder as ViewWhiteboardViewHolder)
+            if (bitmap != null) {
+                holder.customView(bitmap!!)
+                holder.itemView.whiteboardTitle.text = file.nameWithoutExtension
+                holder.itemView.whiteboardDate.text = currentDate.format(date)
+                holder.itemView.setOnLongClickListener {
+                    holder.showOption(file)
+                    false
+                }
+            } else {
+                holder.itemView.context.startHomeActivity()
             }
+
         } else {
-            holder.itemView.context.startHomeActivity()
+            (holder as AddWhiteboardViewHolder).addNote!!.setOnClickListener {
+                holder.mContext.startActivity(Intent(holder.mContext, Whiteboard::class.java))
+            }
         }
     }
 
 
-    inner class WhiteboardViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class ViewWhiteboardViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val mContext: Context = itemView.context
         private val whiteboards = Whiteboards()
+        private val dirPath = Environment.getExternalStoragePublicDirectory(
+            Environment.DIRECTORY_PICTURES
+        ).path + "/Notify/"
 
         fun customView(bitmap: Bitmap) {
             itemView.whiteboardImg.setImageBitmap(bitmap)
@@ -155,5 +177,11 @@ class WhiteboardAdapter(private val filepath: Array<String?>) :
             }
             cancel.setOnClickListener { alertDialog.cancel() }
         }
+    }
+
+    class AddWhiteboardViewHolder(itemView: View) :
+        RecyclerView.ViewHolder(itemView) {
+        val mContext: Context = itemView.context
+        val addNote: ImageButton? = itemView.findViewById(R.id.addItem)
     }
 }

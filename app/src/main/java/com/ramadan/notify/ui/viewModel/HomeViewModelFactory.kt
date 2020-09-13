@@ -5,9 +5,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.ramadan.notify.data.repository.NoteRepository
 
 @Suppress("UNCHECKED_CAST")
-class HomeViewModelFactory(
-    private val repository: NoteRepository
-) : ViewModelProvider.NewInstanceFactory() {
+class HomeViewModelFactory(private val repository: NoteRepository) :
+    ViewModelProvider.NewInstanceFactory() {
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         return HomeViewModel(repository) as T

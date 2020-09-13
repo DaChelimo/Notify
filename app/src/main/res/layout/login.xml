@@ -10,7 +10,7 @@
                 type="com.ramadan.notify.ui.viewModel.AuthViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:context=".ui.activity.Login">
@@ -20,36 +20,40 @@
                 android:layout_width="match_parent"
                 android:layout_height="280dp"
                 android:background="@drawable/background"
-                android:gravity="top"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="140dp"
+                    android:layout_height="140dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="32dp"
+                    android:src="@drawable/notify_loggo" />
 
         </RelativeLayout>
 
-
-        <ScrollView
-                android:id="@+id/gridLayout"
-                android:layout_width="0dp"
+        <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="200dp"
+                android:isScrollContainer="true"
+                app:cardCornerRadius="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-            <androidx.cardview.widget.CardView
+            <ScrollView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:isScrollContainer="true"
-                    app:cardCornerRadius="25dp">
+                    android:layout_height="wrap_content">
 
                 <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:paddingHorizontal="8dp"
-                        android:paddingVertical="16dp">
+                        android:padding="8dp">
 
                     <com.google.android.material.textfield.TextInputLayout
                             android:layout_width="match_parent"
@@ -88,7 +92,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="right"
-                            android:text="Forgot?"/>
+                            android:text="Forgot?"
+                            android:textStyle="bold" />
 
                     <ProgressBar
                             android:id="@+id/progressBar"
@@ -96,6 +101,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
+                            android:layout_marginVertical="4dp"
                             android:visibility="gone" />
 
                     <Button
@@ -103,66 +109,57 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:layout_marginVertical="10dp"
+                            android:layout_marginTop="4dp"
                             android:background="@drawable/button"
                             android:onClick="@{() -> loginModel.login()}"
-                            android:paddingHorizontal="36dp"
+                            android:paddingHorizontal="32dp"
                             android:text="Login"
                             android:textAllCaps="false"
                             android:textColor="@color/white"
-                            android:textSize="18sp"
                             android:textStyle="bold" />
 
-                    <LinearLayout
+                    <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:layout_marginVertical="16dp"
-                            android:orientation="horizontal"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent">
+                            android:layout_marginVertical="4dp"
+                            android:text="OR" />
 
-                        <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Don't have an account yet?" />
-
-                        <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:onClick="@{(v) -> loginModel.goToSignUp(v)}"
-                                android:paddingHorizontal="4dp"
-                                android:text="Sign Up"
-                                android:textColor="@color/colorAccent"
-                                android:textStyle="bold" />
-
-                    </LinearLayout>
+                    <com.google.android.gms.common.SignInButton
+                            android:id="@+id/google_button"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center" />
 
                 </LinearLayout>
-            </androidx.cardview.widget.CardView>
+            </ScrollView>
 
-        </ScrollView>
+        </androidx.cardview.widget.CardView>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+
+        <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/relativeLayout"
-                app:layout_constraintTop_toTopOf="parent">
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginVertical="16dp"
+                android:orientation="horizontal">
 
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Don't have an account yet?" />
 
-            <ImageView
-                    android:id="@+id/imageView"
-                    android:layout_width="140dp"
-                    android:layout_height="140dp"
-                    android:layout_marginTop="32dp"
-                    android:src="@drawable/notify_loggo"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{(v) -> loginModel.goToSignUp(v)}"
+                    android:paddingHorizontal="8dp"
+                    android:text="Sign Up"
+                    android:textColor="@color/colorAccent"
+                    android:textStyle="bold" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
+    </RelativeLayout>
 </layout>

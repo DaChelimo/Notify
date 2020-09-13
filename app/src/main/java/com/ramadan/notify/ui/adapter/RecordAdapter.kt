@@ -15,6 +15,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
@@ -22,7 +23,7 @@ import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.RecyclerView
 import com.ramadan.notify.R
 import com.ramadan.notify.ui.activity.PlayRecord
-import com.ramadan.notify.ui.activity.Records
+import com.ramadan.notify.ui.activity.Record
 import com.ramadan.notify.utils.getRecordLength
 import com.ramadan.notify.utils.startHomeActivity
 import kotlinx.android.synthetic.main.record_item.view.*
@@ -31,37 +32,63 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-class RecordAdapter(private val activity: Records, private val filepath: Array<String?>) :
-    RecyclerView.Adapter<RecordAdapter.RecordViewHolder>() {
-    @SuppressLint("SimpleDateFormat")
-    private val currentDate: SimpleDateFormat = SimpleDateFormat("dd/MM/yyyy")
-    val dirPath = Environment.getExternalStorageDirectory().path + "/Notify/Records/"
+class RecordAdapter(private val filepath: Array<String?>) :
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    private val viewRecord = 0
+    private val addRecord = 1
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecordViewHolder {
-        val view: View =
-            LayoutInflater.from(parent.context).inflate(R.layout.record_item, parent, false)
-        return RecordViewHolder(view)
+    override fun getItemViewType(position: Int): Int {
+        return if (position == 0) addRecord else viewRecord
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        return if (viewType == viewRecord) {
+            val view: View =
+                LayoutInflater.from(parent.context).inflate(R.layout.record_item, parent, false)
+            return ViewRecordViewHolder(view)
+
+        } else {
+            val view: View = LayoutInflater.from(parent.context)
+                .inflate(R.layout.add_item, parent, false)
+            NoteAdapter.AddNoteViewHolder(view)
+
+        }
     }
 
     override fun getItemCount(): Int {
         return if (filepath.isNotEmpty()) {
-            filepath.size
+            filepath.size + 1
         } else {
             0
         }
     }
 
-    override fun onBindViewHolder(holder: RecordViewHolder, position: Int) {
-        val file = File(filepath[position]!!)
-        holder.customView(file)
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        if (getItemViewType(position) == viewRecord) {
+            val file = File(filepath[position - 1]!!)
+            (holder as ViewRecordViewHolder).customView(file)
+        } else {
+            val addRecordViewHolder = AddRecordViewHolder(holder.itemView)
+            addRecordViewHolder.addNote!!.setOnClickListener {
+                addRecordViewHolder.mContext.startActivity(
+                    Intent(
+                        addRecordViewHolder.mContext,
+                        Record::class.java
+                    )
+                )
+            }
+        }
     }
 
-    inner class RecordViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class ViewRecordViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        @SuppressLint("SimpleDateFormat")
+        private val currentDate: SimpleDateFormat = SimpleDateFormat("dd/MM/yyyy")
+        private val dirPath = Environment.getExternalStorageDirectory().path + "/Notify/Records/"
         private val mContext: Context = itemView.context
         fun customView(file: File) {
             val date = Date(file.lastModified())
             itemView.recordTitle.text = file.nameWithoutExtension
-            itemView.recordLength.text = mContext.getRecordLength(getDuration(file)!!.toLong())
+            itemView.recordLength.text = getRecordLength(getDuration(file)!!.toLong())
             itemView.recordDate.text = currentDate.format(date)
             itemView.setOnClickListener {
                 try {
@@ -152,5 +179,10 @@ class RecordAdapter(private val activity: Records, private val filepath: Array<S
             println(durationStr)
             return durationStr
         }
+    }
+
+    class AddRecordViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val mContext: Context = itemView.context
+        val addNote: ImageButton? = itemView.findViewById(R.id.addItem)
     }
 }

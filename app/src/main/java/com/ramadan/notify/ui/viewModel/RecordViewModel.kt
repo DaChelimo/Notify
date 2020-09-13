@@ -11,15 +11,15 @@ import java.io.File
 
 class RecordViewModel : ViewModel(), MediaRecorder.OnErrorListener {
 
-    private var filePathStrings: Array<String?>? = null
+    private lateinit var filePathStrings: Array<String?>
     private var listFile: Array<File>? = null
-    var file: File? = null
     var noteListener: NoteListener? = null
 
     private val dirPath = Environment.getExternalStorageDirectory().path + "/Notify/Records"
     private var filePath = dirPath + "/notify${System.currentTimeMillis()}.mp3"
     private var mRecorder = MediaRecorder()
     private var outputFile = File(filePath)
+    var file = File(dirPath)
 
     fun startRecording() {
         mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC)
@@ -31,7 +31,7 @@ class RecordViewModel : ViewModel(), MediaRecorder.OnErrorListener {
         mRecorder.setOnErrorListener(this)
         mRecorder.prepare()
         mRecorder.start()
-        Log.w("Record", "started recording to " + outputFile)
+        Log.w("Record", "started recording to $outputFile")
     }
 
     fun stopRecording(boolean: Boolean) {
@@ -44,13 +44,14 @@ class RecordViewModel : ViewModel(), MediaRecorder.OnErrorListener {
         }
     }
 
-    fun saveRecordToExternalStorage(fileName: String): Boolean {
+    fun saveRecordToExternalStorage(fileName: String) {
         filePath = "$dirPath/$fileName.mp3"
         outputFile = File(filePath)
         if (outputFile.exists()) {
-            return false
-        }
-        return true
+            noteListener?.onFailure("this name is already exist")
+            return
+        } else
+            noteListener?.onSuccess()
     }
 
 
@@ -61,25 +62,23 @@ class RecordViewModel : ViewModel(), MediaRecorder.OnErrorListener {
             val dir = File(dirPath)
             if (!dir.exists())
                 dir.mkdirs()
-            file = File(dirPath)
         }
-        if (file!!.isDirectory) {
-            listFile = file!!.listFiles()
+        if (file.isDirectory) {
+            listFile = file.listFiles()
             listFile!!.sortByDescending { it.lastModified() }
             filePathStrings = arrayOfNulls(listFile!!.size)
             for (i in listFile!!.indices) {
-                filePathStrings!![i] = listFile!![i].absolutePath
+                filePathStrings[i] = listFile!![i].path
             }
         } else {
-            Log.e("Records", "Error in load records2")
+            noteListener?.onFailure("Error in load records2")
         }
         return filePathStrings
     }
 
-
     override fun onError(mr: MediaRecorder?, what: Int, extra: Int) {
         Log.e("Record", mr.toString())
-//        recordListener!!.onFailure("sorry, try again")
+        noteListener?.onFailure("sorry, try again")
     }
 
 }

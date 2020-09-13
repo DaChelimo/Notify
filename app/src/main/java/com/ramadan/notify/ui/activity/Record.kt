@@ -33,9 +33,9 @@ class Record : AppCompatActivity(), NoteListener {
     }
     var recordName = "notify${System.currentTimeMillis()}.mp3"
 
-    override fun onResume() {
-        super.onResume()
-        Handler().postDelayed(Runnable { setName() }, 1500)
+    override fun onStart() {
+        super.onStart()
+        setName()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,7 +45,6 @@ class Record : AppCompatActivity(), NoteListener {
         supportActionBar?.setHomeButtonEnabled(true)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         viewModel.noteListener = this
-
         recordButton.isListenForRecord = true
         recordButton.setRecordView(recordView)
         recordView.setSoundEnabled(false)
@@ -109,12 +108,12 @@ class Record : AppCompatActivity(), NoteListener {
         val cancel = view.findViewById<TextView>(R.id.cancel)
         confirm.setOnClickListener {
             this.recordName = fileName.text.toString()
-            if (!viewModel.saveRecordToExternalStorage(recordName))
-                onFailure("Sorry, record name is already exist")
-            else
-                alertDialog.cancel()
+            viewModel.saveRecordToExternalStorage(recordName)
+            alertDialog.cancel()
         }
-        cancel.setOnClickListener { startHomeActivity() }
+        cancel.setOnClickListener {
+            alertDialog.cancel()
+        }
     }
 
 
@@ -149,6 +148,7 @@ class Record : AppCompatActivity(), NoteListener {
                 return
             }
             else -> {
+                super.onBackPressed()
             }
         }
     }
