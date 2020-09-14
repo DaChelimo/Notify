@@ -2,8 +2,10 @@
 
 package com.ramadan.notify.ui.activity
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.app.AlertDialog
+import android.content.pm.PackageManager
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -17,6 +19,8 @@ import android.widget.SeekBar.OnSeekBarChangeListener
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProviders
 import com.ramadan.notify.R
 import com.ramadan.notify.ui.viewModel.NoteListener
@@ -49,6 +53,7 @@ class Whiteboard : AppCompatActivity(), NoteListener {
         supportActionBar?.setHomeButtonEnabled(true)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         viewModel.noteListener = this
+        checkPermission()
         board = findViewById(R.id.whiteboard)
         board.setBackgroundColor(boardColor)
         board.requestFocus()
@@ -73,9 +78,6 @@ class Whiteboard : AppCompatActivity(), NoteListener {
     }
 
     override fun onBackPressed() {
-        if (board.isDirty) {
-            println("Dirty")
-        }
         showAlertDialog()
     }
 
@@ -113,9 +115,13 @@ class Whiteboard : AppCompatActivity(), NoteListener {
         confirm.setOnClickListener {
             board.isDrawingCacheEnabled = true
             whiteboardName = fileName.text.toString()
-            viewModel.saveImageToExternalStorage(board.drawingCache, whiteboardName)
-            board.destroyDrawingCache()
-            alertDialog.cancel()
+            if (fileName.text.isNullOrEmpty())
+                onFailure("Please, Enter the board name")
+            else {
+                viewModel.saveImageToExternalStorage(board.drawingCache, whiteboardName)
+                board.destroyDrawingCache()
+                alertDialog.cancel()
+            }
         }
         cancel.setOnClickListener { alertDialog.cancel() }
     }
@@ -163,12 +169,12 @@ class Whiteboard : AppCompatActivity(), NoteListener {
             menuItemClickListener = { view, position ->
                 when (position) {
                     0 -> {
-                        if (boardColor == Color.WHITE) {
+                        boardColor = if (boardColor == Color.WHITE) {
                             board.setBackgroundColor(Color.BLACK)
-                            boardColor = Color.BLACK
+                            Color.BLACK
                         } else {
                             board.setBackgroundColor(Color.WHITE)
-                            boardColor = Color.WHITE
+                            Color.WHITE
                         }
                     }
                     1 -> {
@@ -200,6 +206,39 @@ class Whiteboard : AppCompatActivity(), NoteListener {
     private fun showContextMenuDialogFragment() {
         if (supportFragmentManager.findFragmentByTag(ContextMenuDialogFragment.TAG) == null) {
             contextMenuDialogFragment.show(supportFragmentManager, ContextMenuDialogFragment.TAG)
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>, grantResults: IntArray,
+    ) {
+        when (requestCode) {
+            101 -> {
+                if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                    Toast.makeText(this, "Storage Permission Granted",
+                        Toast.LENGTH_SHORT).show();
+                }
+                return
+            }
+            else -> {
+                super.onBackPressed()
+            }
+        }
+    }
+
+    private fun checkPermission() {
+        val permissions = arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        if (ContextCompat.checkSelfPermission(
+                this,
+                permissions.toString()
+            )
+            != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                this, permissions, 101
+            )
         }
     }
 

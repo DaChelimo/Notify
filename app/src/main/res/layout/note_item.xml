@@ -45,6 +45,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/comfortaa"
+                    android:minHeight="140dp"
                     android:text="@{noteItem.content}"
                     android:textAlignment="inherit"
                     android:textColor="@color/colorPrimary"

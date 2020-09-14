@@ -1,20 +1,24 @@
 package com.ramadan.notify.data.repository
 
 import androidx.lifecycle.MutableLiveData
-import com.google.firebase.FirebaseException
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseAuthException
+import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.QueryDocumentSnapshot
 import com.google.firebase.firestore.SetOptions
 import com.ramadan.notify.data.model.WrittenNote
 import io.reactivex.Completable
-import kotlin.coroutines.resume
-import kotlin.coroutines.suspendCoroutine
 
 
 class Repository {
+
+    val RC_SIGN_IN: Int = 1
+    lateinit var mGoogleSignInClient: GoogleSignInClient
+    lateinit var mGoogleSignInOptions: GoogleSignInOptions
 
     private val auth: FirebaseAuth by lazy {
         FirebaseAuth.getInstance()
@@ -39,17 +43,18 @@ class Repository {
         }
     }
 
-    suspend fun facebookLogin(email: String, password: String): Boolean {
-        return suspendCoroutine { continuation ->
-            auth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
-                if (task.isSuccessful)
-                    continuation.resume(true)
-                else
-                    continuation.resumeWith(Result.failure(task.exception!!))
+    fun loginWithGoogle(acct: GoogleSignInAccount) = Completable.create { emitter ->
+        val credential = GoogleAuthProvider.getCredential(acct.idToken, null)
+        auth.signInWithCredential(credential).addOnCompleteListener {
+            if (!emitter.isDisposed) {
+                if (it.isSuccessful)
+                    emitter.onComplete()
+                else {
+                    emitter.onError(it.exception!!)
+                }
             }
         }
     }
-
 
     fun register(email: String, password: String) = Completable.create { emitter ->
         val data = hashMapOf("email" to email, "password" to password)

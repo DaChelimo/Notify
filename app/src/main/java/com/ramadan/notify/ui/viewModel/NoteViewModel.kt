@@ -4,10 +4,13 @@ package com.ramadan.notify.ui.viewModel
 
 import android.annotation.SuppressLint
 import android.graphics.Color
+import android.view.View
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.ramadan.notify.data.model.WrittenNote
 import com.ramadan.notify.data.repository.NoteRepository
+import com.ramadan.notify.utils.startLoginActivity
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -21,8 +24,13 @@ class NoteViewModel(private val repository: NoteRepository) : ViewModel() {
     var name: String? = null
     var content: String? = null
     var noteColor: Int? = Color.parseColor("#ffffff")
-
     var noteListener: NoteListener? = null
+
+    fun retrieveNotes(): LiveData<MutableList<WrittenNote>> {
+        val mutableData = MutableLiveData<MutableList<WrittenNote>>()
+        repository.fetchNotes().observeForever { mutableData.value = it }
+        return mutableData
+    }
 
     fun getNote(ID: String): MutableLiveData<WrittenNote> {
         val mutableData = MutableLiveData<WrittenNote>()
@@ -80,5 +88,7 @@ class NoteViewModel(private val repository: NoteRepository) : ViewModel() {
         noteListener?.onSuccess()
         return
     }
+
+
 
 }

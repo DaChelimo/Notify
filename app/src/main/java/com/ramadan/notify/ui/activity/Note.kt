@@ -18,21 +18,27 @@ import androidx.lifecycle.ViewModelProviders
 import com.ramadan.notify.R
 import com.ramadan.notify.data.model.WrittenNote
 import com.ramadan.notify.databinding.NoteBinding
+import com.ramadan.notify.ui.viewModel.AuthViewModelFactory
 import com.ramadan.notify.ui.viewModel.NoteListener
 import com.ramadan.notify.ui.viewModel.NoteViewModel
+import com.ramadan.notify.ui.viewModel.NoteViewModelFactory
 import com.ramadan.notify.utils.isInternetAvailable
 import com.yalantis.contextmenu.lib.ContextMenuDialogFragment
 import com.yalantis.contextmenu.lib.MenuObject
 import com.yalantis.contextmenu.lib.MenuParams
 import kotlinx.android.synthetic.main.note.*
+import org.kodein.di.KodeinAware
+import org.kodein.di.android.kodein
+import org.kodein.di.generic.instance
 
 
-
-class Note : AppCompatActivity(), NoteListener {
-    private lateinit var loadingDialog: AlertDialog
+class Note : AppCompatActivity(), NoteListener, KodeinAware {
+    override val kodein by kodein()
+    private val factory: NoteViewModelFactory by instance()
     private val viewModel by lazy {
-        ViewModelProviders.of(this).get(NoteViewModel::class.java)
+        ViewModelProviders.of(this, factory).get(NoteViewModel::class.java)
     }
+    private lateinit var loadingDialog: AlertDialog
     private lateinit var binding: NoteBinding
     private lateinit var contextMenuDialogFragment: ContextMenuDialogFragment
 
@@ -47,7 +53,7 @@ class Note : AppCompatActivity(), NoteListener {
         supportActionBar?.setHomeButtonEnabled(true)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setBackgroundDrawable(ColorDrawable(viewModel.noteColor!!))
-        loadingDialog()
+        initLoadingDialog()
         noteColorPicker.setListener { position, color ->
             noteLayout.setBackgroundColor(color)
             viewModel.noteColor = color
@@ -100,7 +106,7 @@ class Note : AppCompatActivity(), NoteListener {
         }
     }
 
-    private fun loadingDialog() {
+    private fun initLoadingDialog() {
         val dialogBuilder = AlertDialog.Builder(this)
         val layoutView = layoutInflater.inflate(R.layout.loading_dialog, null)
         dialogBuilder.setView(layoutView)

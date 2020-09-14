@@ -32,7 +32,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-class RecordAdapter(private val filepath: Array<String?>) :
+class RecordAdapter(private val filepath: Array<String?>?) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val viewRecord = 0
     private val addRecord = 1
@@ -56,16 +56,16 @@ class RecordAdapter(private val filepath: Array<String?>) :
     }
 
     override fun getItemCount(): Int {
-        return if (filepath.isNotEmpty()) {
-            filepath.size + 1
-        } else {
-            0
-        }
+        if (filepath == null)
+            return 1
+        if (filepath.size > 1)
+            return filepath.size + 1
+        return 1
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (getItemViewType(position) == viewRecord) {
-            val file = File(filepath[position - 1]!!)
+            val file = File(filepath!![position - 1]!!)
             (holder as ViewRecordViewHolder).customView(file)
         } else {
             val addRecordViewHolder = AddRecordViewHolder(holder.itemView)
@@ -83,7 +83,8 @@ class RecordAdapter(private val filepath: Array<String?>) :
     class ViewRecordViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         @SuppressLint("SimpleDateFormat")
         private val currentDate: SimpleDateFormat = SimpleDateFormat("dd/MM/yyyy")
-        private val dirPath = Environment.getExternalStorageDirectory().path + "/Notify/Records/"
+        private val dirPath =
+            Environment.getExternalStorageDirectory().path + "/Notify/Records/"
         private val mContext: Context = itemView.context
         fun customView(file: File) {
             val date = Date(file.lastModified())

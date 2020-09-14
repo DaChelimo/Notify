@@ -14,8 +14,7 @@ import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import com.ramadan.notify.ui.activity.*
 import com.ramadan.notify.ui.adapter.ViewPagerAdapter
-import com.ramadan.notify.ui.viewModel.HomeViewModel
-import com.ramadan.notify.ui.viewModel.HomeViewModelFactory
+import com.ramadan.notify.ui.viewModel.*
 import com.yalantis.contextmenu.lib.ContextMenuDialogFragment
 import com.yalantis.contextmenu.lib.MenuObject
 import com.yalantis.contextmenu.lib.MenuParams
@@ -26,9 +25,9 @@ import org.kodein.di.generic.instance
 
 class MainActivity : AppCompatActivity(), KodeinAware {
     override val kodein by kodein()
-    private val factory: HomeViewModelFactory by instance()
+    private val factory: AuthViewModelFactory by instance()
     private val viewModel by lazy {
-        ViewModelProviders.of(this, factory).get(HomeViewModel::class.java)
+        ViewModelProviders.of(this, factory).get(AuthViewModel::class.java)
     }
     private val notes: Notes = Notes()
     private val records: Records = Records()
@@ -47,10 +46,9 @@ class MainActivity : AppCompatActivity(), KodeinAware {
         viewPagerAdapter.addFragment(whiteboards)
         viewPager.adapter = viewPagerAdapter
         tabLayout.setupWithViewPager(viewPager)
-        tabLayout.getTabAt(0)!!.setIcon(R.drawable.note)
-        tabLayout.getTabAt(1)!!.setIcon(R.drawable.record)
-        tabLayout.getTabAt(2)!!.setIcon(R.drawable.whiteboard)
-//        supportActionBar?.isHideOnContentScrollEnabled = true
+        tabLayout.getTabAt(0)!!.setIcon(R.drawable.note).contentDescription = "Text notes"
+        tabLayout.getTabAt(1)!!.setIcon(R.drawable.record).contentDescription = "Voice notes"
+        tabLayout.getTabAt(2)!!.setIcon(R.drawable.whiteboard).contentDescription = "Drawing notes"
         initMenuFragment()
     }
 

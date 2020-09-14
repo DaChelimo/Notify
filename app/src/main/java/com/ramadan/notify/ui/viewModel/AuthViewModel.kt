@@ -1,16 +1,18 @@
 package com.ramadan.notify.ui.viewModel
 
 import android.view.View
+import android.widget.Toast
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.firebase.auth.GoogleAuthProvider
+import com.ramadan.notify.R
 import com.ramadan.notify.data.repository.UserRepository
-import com.ramadan.notify.utils.emailValidation
-import com.ramadan.notify.utils.passwordValidation
-import com.ramadan.notify.utils.startSignUpActivity
+import com.ramadan.notify.utils.*
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import kotlinx.coroutines.launch
 import java.util.regex.Pattern
 
 class AuthViewModel(private val repository: UserRepository) : ViewModel() {
@@ -22,7 +24,9 @@ class AuthViewModel(private val repository: UserRepository) : ViewModel() {
     private val passwordPattern = Pattern.compile(passwordValidation)
     var authListener: AuthListener? = null
     private val disposables = CompositeDisposable()
+
     val user by lazy { repository.currentUser() }
+
 
     fun login() {
         authListener?.onStarted()
@@ -37,7 +41,25 @@ class AuthViewModel(private val repository: UserRepository) : ViewModel() {
                 { authListener?.onSuccess() },
                 {
                     var error = it.localizedMessage
-                    println(error)
+                    when (error) {
+                        "We have blocked all requests from this device due to unusual activity. Try again later. [ Too many unsuccessful login attempts. Please try again later. ]" -> error =
+                            "Please, try again later"
+                        "A network error (such as timeout, interrupted connection or unreachable host) has occurred." -> error == "Please, Check your network connection"
+                        else -> error == "Sorry, Login failed"
+                    }
+                    authListener?.onFailure(error!!)
+                })
+        disposables.add(disposable)
+    }
+
+    fun loginWithGoogle(acct: GoogleSignInAccount) {
+        val disposable = repository.loginWithGoogle(acct)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                { authListener?.onSuccess() },
+                {
+                    var error = it.localizedMessage
                     when (error) {
                         "We have blocked all requests from this device due to unusual activity. Try again later. [ Too many unsuccessful login attempts. Please try again later. ]" -> error =
                             "Please, try again later"
@@ -107,6 +129,12 @@ class AuthViewModel(private val repository: UserRepository) : ViewModel() {
 
     fun goToSignUp(view: View) {
         view.context.startSignUpActivity()
+    }
+
+
+    fun logout(view: View) {
+        repository.logout()
+        view.context.startLoginActivity()
     }
 
 

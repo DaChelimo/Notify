@@ -8,7 +8,6 @@ import android.content.pm.PackageManager
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.os.Handler
 import android.os.SystemClock
 import android.view.LayoutInflater
 import android.view.View
@@ -25,7 +24,6 @@ import com.ramadan.notify.ui.viewModel.NoteListener
 import com.ramadan.notify.ui.viewModel.RecordViewModel
 import com.ramadan.notify.utils.startHomeActivity
 import kotlinx.android.synthetic.main.record.*
-
 
 class Record : AppCompatActivity(), NoteListener {
     private val viewModel by lazy {
@@ -45,6 +43,7 @@ class Record : AppCompatActivity(), NoteListener {
         supportActionBar?.setHomeButtonEnabled(true)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         viewModel.noteListener = this
+        checkPermission()
         recordButton.isListenForRecord = true
         recordButton.setRecordView(recordView)
         recordView.setSoundEnabled(false)
@@ -54,16 +53,6 @@ class Record : AppCompatActivity(), NoteListener {
         recordView.setSlideToCancelArrowColor(Color.parseColor("#313131"))
         recordView.setOnRecordListener(object : OnRecordListener {
             override fun onStart() {
-                if (ContextCompat.checkSelfPermission(
-                        this@Record,
-                        Manifest.permission.RECORD_AUDIO
-                    )
-                    != PackageManager.PERMISSION_GRANTED
-                ) {
-                    ActivityCompat.requestPermissions(
-                        this@Record, arrayOf(Manifest.permission.RECORD_AUDIO), 77
-                    )
-                }
                 viewModel.startRecording()
                 startTimer()
             }
@@ -138,13 +127,14 @@ class Record : AppCompatActivity(), NoteListener {
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
-        permissions: Array<String>, grantResults: IntArray
+        permissions: Array<String>, grantResults: IntArray,
     ) {
         when (requestCode) {
             77 -> {
                 if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-                    viewModel.startRecording()
-                }
+                    Toast.makeText(this, "Record Permission Granted",
+                        Toast.LENGTH_SHORT)
+                        .show(); }
                 return
             }
             else -> {
@@ -152,6 +142,22 @@ class Record : AppCompatActivity(), NoteListener {
             }
         }
     }
+
+
+    private fun checkPermission() {
+        val permissions = arrayOf(Manifest.permission.RECORD_AUDIO)
+        if (ContextCompat.checkSelfPermission(
+                this,
+                permissions.toString()
+            )
+            != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                this, permissions, 77
+            )
+        }
+    }
+
 
     override fun onStarted() {
     }
@@ -165,26 +171,4 @@ class Record : AppCompatActivity(), NoteListener {
     override fun onFailure(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show()
     }
-
-//    @RequiresApi(Build.VERSION_CODES.N)
-//    private fun createNotification(): Notification? {
-//        val mBuilder: NotificationCompat.Builder = GestureDescription.Builder(applicationContext)
-//            .setSmallIcon(R.drawable.note)
-//            .setContentTitle(getString(R.string.pause_recording_button))
-//            .setContentText("mTimerFormat.format(mElapsedSeconds * 1000)")
-//            .setOngoing(true)
-//        mBuilder.setContentIntent(
-//            PendingIntent.getActivities(
-//                applicationContext, 0, arrayOf(
-//                    Intent(
-//                        applicationContext,
-//                        MainActivity::class.java
-//                    )
-//                ), 0
-//            )
-//        )
-//        return mBuilder.build()
-//    }
-
-
 }

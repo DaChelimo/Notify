@@ -31,7 +31,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-class WhiteboardAdapter(private val filepath: Array<String?>) :
+class WhiteboardAdapter(private val filepath: Array<String?>?) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     @SuppressLint("SimpleDateFormat")
     private val currentDate: SimpleDateFormat = SimpleDateFormat("dd/MM/yyyy")
@@ -58,16 +58,16 @@ class WhiteboardAdapter(private val filepath: Array<String?>) :
     }
 
     override fun getItemCount(): Int {
-        return if (filepath.isNotEmpty()) {
-            filepath.size + 1
-        } else {
-            0
-        }
+        if (filepath == null)
+            return 1
+        if (filepath.size > 1)
+            return filepath.size + 1
+        return 1
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (getItemViewType(position) == viewNote) {
-            val file = File(filepath[position - 1]!!)
+            val file = File(filepath!![position - 1]!!)
             val date = Date(file.lastModified())
             val bmpOptions = BitmapFactory.Options()
             bmpOptions.inJustDecodeBounds = true
@@ -111,10 +111,8 @@ class WhiteboardAdapter(private val filepath: Array<String?>) :
             )
             itemView.setOnClickListener {
                 whiteboards.showWhiteboard(bitmap, mContext)
-//                mContext.startAppIntroActivity()
             }
         }
-
 
         fun showOption(file: File) {
             val dialogBuilder: AlertDialog.Builder = AlertDialog.Builder(mContext)

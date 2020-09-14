@@ -5,7 +5,6 @@ import com.ramadan.notify.data.repository.NoteRepository
 import com.ramadan.notify.data.repository.Repository
 import com.ramadan.notify.data.repository.UserRepository
 import com.ramadan.notify.ui.viewModel.AuthViewModelFactory
-import com.ramadan.notify.ui.viewModel.HomeViewModelFactory
 import com.ramadan.notify.ui.viewModel.NoteViewModelFactory
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
@@ -23,7 +22,6 @@ class NotifyApplication : Application(), KodeinAware {
         bind() from singleton { UserRepository(instance()) }
         bind() from singleton { NoteRepository(instance()) }
         bind() from provider { AuthViewModelFactory(instance()) }
-        bind() from provider { HomeViewModelFactory(instance()) }
         bind() from provider { NoteViewModelFactory(instance()) }
 
     }

@@ -24,12 +24,12 @@ import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.GoogleAuthProvider
 import com.ramadan.notify.R
 import com.ramadan.notify.databinding.LoginBinding
 import com.ramadan.notify.ui.viewModel.AuthListener
 import com.ramadan.notify.ui.viewModel.AuthViewModel
 import com.ramadan.notify.ui.viewModel.AuthViewModelFactory
+import com.ramadan.notify.utils.startAppIntroActivity
 import com.ramadan.notify.utils.startHomeActivity
 import kotlinx.android.synthetic.main.login.*
 import org.kodein.di.KodeinAware
@@ -38,7 +38,6 @@ import org.kodein.di.generic.instance
 
 
 class Login : AppCompatActivity(), AuthListener, KodeinAware {
-
     override val kodein by kodein()
     private val factory: AuthViewModelFactory by instance()
     private val viewModel by lazy {
@@ -59,11 +58,16 @@ class Login : AppCompatActivity(), AuthListener, KodeinAware {
         viewModel.authListener = this
         supportActionBar?.hide()
         viewModel.user?.let { startHomeActivity() }
+        configureGoogleSignIn()
+
         forgot.setOnClickListener {
             emailDialog()
         }
-        configureGoogleSignIn()
-        setupUI()
+
+        google_button.setOnClickListener {
+            val signInIntent: Intent = mGoogleSignInClient.signInIntent
+            startActivityForResult(signInIntent, RC_SIGN_IN)
+        }
 
     }
 
@@ -75,24 +79,13 @@ class Login : AppCompatActivity(), AuthListener, KodeinAware {
         mGoogleSignInClient = GoogleSignIn.getClient(this, mGoogleSignInOptions)
     }
 
-    private fun setupUI() {
-        google_button.setOnClickListener {
-            signIn()
-        }
-    }
-
-    private fun signIn() {
-        val signInIntent: Intent = mGoogleSignInClient.signInIntent
-        startActivityForResult(signInIntent, RC_SIGN_IN)
-    }
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == RC_SIGN_IN) {
             val task: Task<GoogleSignInAccount> = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
                 val account = task.getResult(ApiException::class.java)
-                firebaseAuthWithGoogle(account!!)
+                viewModel.loginWithGoogle(account!!)
             } catch (e: ApiException) {
                 println(e)
                 Log.e("Google", e.statusCode.toString())
@@ -101,16 +94,6 @@ class Login : AppCompatActivity(), AuthListener, KodeinAware {
         }
     }
 
-    private fun firebaseAuthWithGoogle(acct: GoogleSignInAccount) {
-        val credential = GoogleAuthProvider.getCredential(acct.idToken, null)
-        firebaseAuth.signInWithCredential(credential).addOnCompleteListener {
-            if (it.isSuccessful) {
-                startHomeActivity()
-            } else {
-                Toast.makeText(this, "Google sign in failed:(", Toast.LENGTH_LONG).show()
-            }
-        }
-    }
 
     private fun emailDialog() {
         val dialogBuilder = AlertDialog.Builder(this)
@@ -148,7 +131,7 @@ class Login : AppCompatActivity(), AuthListener, KodeinAware {
 
     override fun onSuccess() {
         progressBar.visibility = View.GONE
-        startHomeActivity()
+        startAppIntroActivity()
     }
 
     override fun onFailure(message: String) {

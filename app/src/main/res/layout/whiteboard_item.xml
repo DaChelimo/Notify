@@ -37,6 +37,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Whiteboard name"
+                android:textAlignment="viewStart"
                 android:textColor="@color/white"
                 android:textSize="12sp"
                 android:textStyle="bold" />
@@ -46,6 +47,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="dd:mm:yyyy"
+                android:textAlignment="viewEnd"
                 android:textColor="@color/white"
                 android:textSize="12sp" />
 

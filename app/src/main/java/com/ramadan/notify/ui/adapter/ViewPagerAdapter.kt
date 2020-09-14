@@ -1,4 +1,5 @@
 package com.ramadan.notify.ui.adapter
+
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
@@ -19,6 +20,11 @@ class ViewPagerAdapter(fm: FragmentManager, behavior: Int) : FragmentPagerAdapte
 
     override fun getCount(): Int {
         return fragments.size
+    }
+
+    override fun notifyDataSetChanged() {
+        super.notifyDataSetChanged()
+        println("notifyDataSetChanged")
     }
 
 }
