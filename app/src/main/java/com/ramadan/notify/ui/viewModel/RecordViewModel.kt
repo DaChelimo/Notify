@@ -40,6 +40,9 @@ class RecordViewModel : ViewModel(), MediaRecorder.OnErrorListener {
     }
 
     fun saveRecordToExternalStorage(fileName: String) {
+        val dir = File(dirPath)
+        if (!dir.exists())
+            dir.mkdirs()
         filePath = "$dirPath/$fileName.mp3"
         outputFile = File(filePath)
         if (outputFile.exists()) {

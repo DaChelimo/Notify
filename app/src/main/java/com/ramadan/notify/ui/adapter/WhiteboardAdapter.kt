@@ -60,7 +60,7 @@ class WhiteboardAdapter(private val filepath: Array<String?>?) :
     override fun getItemCount(): Int {
         if (filepath == null)
             return 1
-        if (filepath.size > 1)
+        if (filepath.isNotEmpty())
             return filepath.size + 1
         return 1
     }
@@ -158,7 +158,7 @@ class WhiteboardAdapter(private val filepath: Array<String?>?) :
             alertDialog.window!!.attributes.windowAnimations = R.style.SlideAnimation
             alertDialog.show()
             val title = view.findViewById<TextView>(R.id.title)
-            title.text = "Whiteboard name"
+            title.text = "board name"
             val newName = view.findViewById<View>(R.id.input) as EditText
             val confirm = view.findViewById<TextView>(R.id.confirm)
             val cancel = view.findViewById<TextView>(R.id.cancel)

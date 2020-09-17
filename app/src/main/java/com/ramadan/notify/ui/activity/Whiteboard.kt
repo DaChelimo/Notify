@@ -215,11 +215,9 @@ class Whiteboard : AppCompatActivity(), NoteListener {
     ) {
         when (requestCode) {
             101 -> {
-                if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-                    Toast.makeText(this, "Storage Permission Granted",
-                        Toast.LENGTH_SHORT).show();
+                if (!(grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                    return
                 }
-                return
             }
             else -> {
                 super.onBackPressed()

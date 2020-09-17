@@ -131,11 +131,9 @@ class Record : AppCompatActivity(), NoteListener {
     ) {
         when (requestCode) {
             77 -> {
-                if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-                    Toast.makeText(this, "Record Permission Granted",
-                        Toast.LENGTH_SHORT)
-                        .show(); }
-                return
+                if (!(grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                    return
+                }
             }
             else -> {
                 super.onBackPressed()

@@ -43,8 +43,9 @@ class Notes : Fragment(), KodeinAware {
         recyclerView.adapter = adapter
         return view
     }
-    override fun onDetach() {
-        super.onDetach()
+
+    override fun onResume() {
+        super.onResume()
         observeData()
     }
 

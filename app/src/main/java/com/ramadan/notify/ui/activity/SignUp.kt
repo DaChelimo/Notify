@@ -35,7 +35,7 @@ class SignUp : AppCompatActivity(), AuthListener, KodeinAware {
         binding = DataBindingUtil.setContentView(this, R.layout.sign_up)
         binding.signUpModel = viewModel
         binding.lifecycleOwner = this
-        viewModel?.authListener = this
+        viewModel.authListener = this
         supportActionBar?.hide()
         btn_back.setOnClickListener { super.onBackPressed() }
     }

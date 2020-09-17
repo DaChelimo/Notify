@@ -59,7 +59,6 @@ dependencies {
 
     //MediaPlayer
     implementation 'com.devlomi.record-view:record-view:2.0.1'
-    implementation 'androidx.media2:media2:1.0.0-alpha04'
 
 
     //Dependency Injection

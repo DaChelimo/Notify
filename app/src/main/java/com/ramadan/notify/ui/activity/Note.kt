@@ -73,7 +73,7 @@ class Note : AppCompatActivity(), NoteListener, KodeinAware {
         if (!isInternetAvailable(this))
             Handler().postDelayed({
                 loadingDialog.dismiss()
-            }, 2000)
+            }, 4000)
 
     }
 

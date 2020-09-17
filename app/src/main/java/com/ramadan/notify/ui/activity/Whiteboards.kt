@@ -59,8 +59,8 @@ class Whiteboards : Fragment(), NoteListener {
         alertDialog.show()
     }
 
-    override fun onStart() {
-        super.onStart()
+    override fun onResume() {
+        super.onResume()
         observeData()
     }
 

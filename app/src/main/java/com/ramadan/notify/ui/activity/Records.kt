@@ -36,9 +36,8 @@ class Records : Fragment(), NoteListener {
         return view
     }
 
-    override fun onDetach() {
-        super.onDetach()
-        Log.w("Records", "onDetach")
+    override fun onResume() {
+        super.onResume()
         observeData()
     }
 
