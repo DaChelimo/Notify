@@ -3,11 +3,18 @@ Android App for making written, audio recorded and drawing notes.
 
 ## Built With
 
-Kotline-Firebase Auth-Firestore-RxJava-MVVM-Dependcy Injection-Material Designs
+1. Kotlin
+2. Firebase 
+3. Auth
+4. Firestore
+5. RxJava
+6. MVVM-Dependcy Injection
+7. Material Designs
 
 ## Authors
 
 * [Muhammad Ramadan](https://www.linkedin.com/in/m7mdramadandx/)
+* [Andrew Chelimo](https://www.linkedin.com/in/andrew-chelimo-63ba441b6/)
 
 ## Screenshots for the App
 
