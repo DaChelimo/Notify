@@ -13,8 +13,8 @@ Android App for making written, audio recorded and drawing notes.
 
 ## Authors
 
-* [Muhammad Ramadan](https://www.linkedin.com/in/m7mdramadandx/)
 * [Andrew Chelimo](https://www.linkedin.com/in/andrew-chelimo-63ba441b6/)
+* [Muhammad Ramadan](https://www.linkedin.com/in/m7mdramadandx/)
 
 ## Screenshots for the App
 
